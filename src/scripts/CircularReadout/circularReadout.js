@@ -2,7 +2,7 @@ import './circular-readout.css';
 
 export default function circularReadout() {
 	const maxProgress = 12;
-	const progress = 100;
+	const progress = 10;
 	const adjustedConicProgress = (progress / maxProgress) * 100;
 
 	const progressCircles = document.querySelectorAll('[role=progressbar]');

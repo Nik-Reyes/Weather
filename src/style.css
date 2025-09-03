@@ -24,10 +24,12 @@
 		sans-serif;
 
 	--dark-1: #028aa8;
-	--light-1: rgb(222, 233, 230);
+	--light-1: #c2eeff;
+	--light-title-1: rgb(239, 257, 244);
 	--light-glow:
 		inset 0px 0px 50px 0px rgb(186, 228, 232), 0px 0px 0.5px 0.25px rgb(167, 216, 220),
 		0px 0px 0.5px 0.5px rgb(107, 163, 194), 1px 0px 10px 0.75px rgb(42, 128, 149);
+	--title-text-glow: 0px 0px 2px #07758a;
 }
 
 body {
@@ -53,17 +55,21 @@ header > div {
 	column-gap: 8px;
 }
 
+img {
+	color: transparent;
+}
+
 .page-wrapper {
 	min-height: 100dvh;
 	display: grid;
 	grid-auto-rows: min-content;
-	grid-auto-columns: 1fr auto;
+	grid-auto-columns: 1fr min-content;
 	grid-template-areas:
 		'header header'
 		'current-forecast circular-readings'
 		'hourly-forecast hourly-forecast'
 		'10day-forecast 10day-forecast';
-	gap: 20px;
+	gap: 40px 20px;
 	padding: 20px;
 }
 

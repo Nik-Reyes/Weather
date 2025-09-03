@@ -30,65 +30,87 @@
 			</header>
 			<div class="temp-display">
 				<div class="current-forecast-header">
-					<span class="current-date">TODAY - 12/22</span><span class="current-time">20:18</span>
+					<span class="current-date">Today</span><span class="current-time">20:18</span>
 				</div>
 				<div class="weather-condition-blocks">
 					<div class="current-forecast-temps">
 						<div class="tempurature-wrapper">
-							<span class="current-forecast-title">Current</span><span class="current-forecast-temp">76°F</span>
+							<span class="current-forecast-title title">Current</span><span class="current-forecast-temp">76°F</span>
 						</div>
-						<div class="min-max-temp">
-							<div class="high-temp"><span class="high-title">Hi</span><span class="high-temp-reading">92°F</span></div>
-							<div class="low-temp"><span class="Low-title">Lo</span><span class="low-temp-reading">70°F</span></div>
+						<div class="secondary-weather-data">
+							<div class="min-max-temps">
+								<div class="high-temp">
+									<span class="high-title title">Hi:<span class="high-temp-reading">92°F</span></span>
+								</div>
+								<div class="low-temp">
+									<span class="title">Lo:<span class="low-temp-reading">70°F</span></span>
+								</div>
+							</div>
+							<div class="feels-like-wrapper">
+								<span class="feels-like title">Feels like:<span class="feels-like-temp">77°F</span></span>
+							</div>
 						</div>
 					</div>
 					<div class="current-forecast-description">
 						<div><img src="./assets/svgs/partly-cloudy.svg" alt="partly cloudy icon" width="64" height="52" /></div>
-						<div>
-							<span class="weather-state">Partially Cloudy</span
+						<div class="weather-description-wrapper">
+							<span class="weather-state title">Partially Cloudy</span
 							><span class="weather-description">Similar temperatures continuing with no rain expected</span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="circular-readings-wrapper">
-				<div class="container"><div class="child"></div></div>
-				<div
-					class="progressbar"
-					role="progressbar"
-					aria-valuenow="0"
-					aria-live="polite"
-					aria-valuemax="12"
-					aria-valuemin="0"
-				>
-					<span class="reference-marker"></span>
+				<div class="circular-reading-wrapper">
+					<div
+						class="progressbar"
+						role="progressbar"
+						aria-valuenow="0"
+						aria-live="polite"
+						aria-valuemax="12"
+						aria-valuemin="0"
+					>
+						<span class="reference-marker"></span>
+					</div>
+					<span class="humidity circular-reading-description">Humidity</span>
 				</div>
-				<div class="container"><div class="child"></div></div>
-				<div
-					class="progressbar"
-					role="progressbar"
-					aria-valuenow="0"
-					aria-live="polite"
-					aria-valuemax="12"
-					aria-valuemin="0"
-				>
-					<span class="reference-marker"></span>
+
+				<div class="circular-reading-wrapper">
+					<div
+						class="progressbar"
+						role="progressbar"
+						aria-valuenow="0"
+						aria-live="polite"
+						aria-valuemax="12"
+						aria-valuemin="0"
+					>
+						<span class="reference-marker"></span>
+					</div>
+					<span class="humidity circular-reading-description">UV Index</span>
 				</div>
-				<div class="container"><div class="child"></div></div>
-				<div
-					class="progressbar"
-					role="progressbar"
-					aria-valuenow="0"
-					aria-live="polite"
-					aria-valuemax="12"
-					aria-valuemin="0"
-				>
-					<span class="reference-marker"></span>
+				<div class="circular-reading-wrapper">
+					<div
+						class="progressbar"
+						role="progressbar"
+						aria-valuenow="0"
+						aria-live="polite"
+						aria-valuemax="12"
+						aria-valuemin="0"
+					>
+						<span class="reference-marker"></span>
+					</div>
+					<span class="humidity circular-reading-description">Precip. Chance</span>
 				</div>
 			</div>
 			<div class="carousel-wrapper">
 				<button class="carousel-btn backward">
-					<img class="arrow-svg" src="./assets/svgs/triangle-right-svgrepo-com.svg" alt="next-arrow" />
+					<img
+						class="arrow-svg"
+						src="./assets/svgs/triangle-right-svgrepo-com.svg"
+						alt="next-arrow"
+						width="24"
+						height="24"
+					/>
 				</button>
 				<div class="carousel">
 					<div class="hour-card">
@@ -453,8 +475,29 @@
 					</div>
 				</div>
 				<button class="carousel-btn forward">
-					<img class="arrow-svg" src="./assets/svgs/triangle-right-svgrepo-com.svg" alt="next-arrow" />
+					<img
+						class="arrow-svg"
+						src="./assets/svgs/triangle-right-svgrepo-com.svg"
+						alt="shift hour forward"
+						width="24"
+						height="24"
+					/>
 				</button>
+			</div>
+			<div class="ten-day-forecast">
+				<div class="ten-day-forecast-header"><span class="ten-day-forecast title"></span></div>
+				<div class="ten-day-forecast-cards">
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+					<div class="day-card"></div>
+				</div>
 			</div>
 		</div>
 	</body>

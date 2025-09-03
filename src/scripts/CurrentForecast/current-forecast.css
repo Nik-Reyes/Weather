@@ -12,16 +12,14 @@
 .current-forecast-header {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	background-color: var(--light-1);
+	background-color: var(--light-title-1);
 	box-shadow: var(--light-glow);
 	vertical-align: middle;
 	padding: 5px 10px;
 	text-wrap: nowrap;
 }
 
-.tempurature-wrapper,
-.hight-temp,
-.low-temp {
+.tempurature-wrapper {
 	display: grid;
 }
 
@@ -34,7 +32,7 @@
 .current-forecast-temps,
 .current-forecast-description {
 	background-color: var(--dark-1);
-	padding: 10px;
+	padding: 10px 15px;
 	color: var(--light-1);
 }
 
@@ -42,29 +40,41 @@
 	font-size: 3rem;
 }
 
-.min-max-temp {
-	display: flex;
-	column-gap: 20px;
+.secondary-weather-data {
+	display: grid;
+	row-gap: 8px;
 	font-size: 1.1rem;
 }
 
-.high-temp-reading,
-.low-temp-reading {
-	font-weight: 200;
+.min-max-temps {
+	display: flex;
+	column-gap: 0.5em;
 }
 
-.min-max-temp div {
-	display: grid;
+.current-forecast-header span {
+	text-shadow: var(--title-text-glow);
+	color: rgba(3, 54, 62, 0.8);
 }
 
 .current-time {
 	justify-self: end;
 }
 
-.current-forecast-description {
-	display: flex;
+.weather-description-wrapper {
+	display: grid;
 }
 
-.current-forecast-title {
-	font-size: 1.25rem;
+.current-forecast-description {
+	display: flex;
+	align-items: center;
+	column-gap: 15px;
+}
+
+.title {
+	font-weight: 700;
+}
+
+.current-forecast-temps span > span {
+	padding-left: 0.2em;
+	font-weight: 200;
 }

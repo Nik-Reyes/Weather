@@ -1,12 +1,24 @@
 .circular-readings-wrapper {
 	grid-area: circular-readings;
 	display: grid;
+	gap: 15px;
+	place-content: center;
+}
+
+.circular-reading-wrapper {
+	display: grid;
+	gap: 5px;
+	place-items: center;
+}
+
+.circular-reading-wrapper {
+	margin: 0 auto;
 }
 
 [role='progressbar'] {
-	--fs: 16px;
-	--diameter: 4.545em;
-	--bar-width-ratio: 0.2;
+	--fs: 1rem;
+	--diameter: 3.75em;
+	--bar-width-ratio: 0.18;
 	--bar-width: calc(100% - calc(var(--diameter) * var(--bar-width-ratio)));
 	--progress: 0;
 	width: var(--diameter);
@@ -17,7 +29,6 @@
 	display: grid;
 	place-items: center;
 	position: relative;
-	isolation: isolate;
 	z-index: 0;
 }
 
@@ -50,4 +61,10 @@
 
 .full-meter {
 	box-shadow: 0px 0px 10px 0px #e0eff1;
+}
+
+.circular-reading-description {
+	color: var(--light-1);
+	font-size: 14px;
+	text-align: center;
 }
