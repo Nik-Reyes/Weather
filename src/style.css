@@ -68,7 +68,7 @@ img {
 		'header header'
 		'current-forecast circular-readings'
 		'hourly-forecast hourly-forecast'
-		'10day-forecast 10day-forecast';
+		'ten-day-forecast ten-day-forecast';
 	gap: 40px 20px;
 	padding: 20px;
 }
@@ -91,7 +91,7 @@ input[type='search'] {
 	border-radius: 0px;
 	border: 1px solid var(--dark-1);
 	background-color: #0d1713;
-	color: #c2eeff;
+	color: var(--light-1);
 	width: 100%;
 	font-size: 1rem;
 	padding: 0.35em 0.5em;
@@ -102,6 +102,20 @@ input[type='search']::placeholder {
 }
 
 :where(input[type='search'], button):focus-visible {
-	outline: 1px solid #c2eeff;
+	outline: 1px solid var(--light-1);
 	border-color: var(--dark-1);
+}
+
+.component-header {
+	background-color: var(--light-title-1);
+	box-shadow: var(--light-glow);
+	padding: 5px 10px;
+	text-wrap: nowrap;
+	text-shadow: var(--title-text-glow);
+	color: rgba(3, 54, 62, 0.8);
+}
+
+.card {
+	color: var(--light-1);
+	background-color: var(--dark-1);
 }

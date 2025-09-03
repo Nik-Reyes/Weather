@@ -1,0 +1,68 @@
+.ten-day-forecast {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	grid-area: ten-day-forecast;
+}
+
+.ten-day-card {
+	display: flex;
+}
+
+:where(.ten-day-card-title-wrapper, .ten-day-conditions) {
+	background-color: var(--dark-1);
+	--line-seperator-size: 2px;
+	margin-bottom: var(--line-seperator-size);
+	position: relative;
+	padding: 5px 10px;
+}
+
+:where(.ten-day-card-title-wrapper, .ten-day-conditions)::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: calc(var(--line-seperator-size) * -1);
+	height: var(--line-seperator-size);
+	width: 100%;
+	background-color: var(--light-1);
+	z-index: 1;
+}
+
+:where(.ten-day-card-title-wrapper, .ten-day-high) {
+	font-size: 20px;
+}
+
+.ten-day-card-title-wrapper {
+	display: grid;
+	place-content: center;
+}
+
+.ten-day-forecast-cards .card {
+	background-color: transparent;
+}
+
+.ten-day-forecast-cards {
+	display: flex;
+	flex-direction: column;
+}
+
+.ten-day-card {
+	display: flex;
+}
+
+.ten-day-icon-wrapper {
+	margin-left: auto;
+}
+
+.ten-day-conditions {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding-right: 60px;
+}
+
+.ten-day-temps {
+	display: flex;
+	gap: 10px;
+	align-items: flex-end;
+}

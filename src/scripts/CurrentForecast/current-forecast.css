@@ -12,11 +12,6 @@
 .current-forecast-header {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	background-color: var(--light-title-1);
-	box-shadow: var(--light-glow);
-	vertical-align: middle;
-	padding: 5px 10px;
-	text-wrap: nowrap;
 }
 
 .tempurature-wrapper {
@@ -31,9 +26,7 @@
 
 .current-forecast-temps,
 .current-forecast-description {
-	background-color: var(--dark-1);
 	padding: 10px 15px;
-	color: var(--light-1);
 }
 
 .current-forecast-temp {
@@ -49,11 +42,6 @@
 .min-max-temps {
 	display: flex;
 	column-gap: 0.5em;
-}
-
-.current-forecast-header span {
-	text-shadow: var(--title-text-glow);
-	color: rgba(3, 54, 62, 0.8);
 }
 
 .current-time {
