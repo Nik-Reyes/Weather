@@ -1,0 +1,53 @@
+.circular-readings-wrapper {
+	grid-area: circular-readings;
+	display: grid;
+}
+
+[role='progressbar'] {
+	--fs: 16px;
+	--diameter: 4.545em;
+	--bar-width-ratio: 0.2;
+	--bar-width: calc(100% - calc(var(--diameter) * var(--bar-width-ratio)));
+	--progress: 0;
+	width: var(--diameter);
+	aspect-ratio: 1;
+	background: conic-gradient(var(--color-progress-indicator) var(--progress), var(--color-progress-bg) 0%);
+	border-radius: 50%;
+	font-size: var(--fs);
+	display: grid;
+	place-items: center;
+	position: relative;
+	isolation: isolate;
+	z-index: 0;
+}
+
+[role='progressbar']::before {
+	content: attr(aria-valuenow) '%';
+	position: absolute;
+	padding-top: calc(var(--diameter) * 0.05);
+	color: var(--color-progress-indicator);
+	z-index: 2;
+}
+
+[role='progressbar']::after {
+	content: '';
+	background-color: var(--color-page-bg);
+	border-radius: inherit;
+	width: var(--bar-width);
+	aspect-ratio: 1;
+	z-index: 1;
+}
+
+[role='progressbar'] .reference-marker {
+	--reference-marker-bg: #e0eff1;
+	position: absolute;
+	--width: calc(var(--diameter) * 0.025);
+	width: var(--width);
+	height: calc(var(--bar-width) + (var(--width)));
+	background-color: var(--reference-marker-bg);
+	top: calc(var(--width) * -1);
+}
+
+.full-meter {
+	box-shadow: 0px 0px 10px 0px #e0eff1;
+}

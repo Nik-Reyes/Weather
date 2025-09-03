@@ -1,0 +1,82 @@
+.carousel-wrapper img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.carousel-wrapper {
+	display: grid;
+	grid-area: hourly-forecast;
+	grid-template-columns: auto 1fr auto;
+}
+
+.carousel {
+	--card-width: 60px;
+	--card-spacing: 10px;
+	--card-height: 150px;
+	flex: 1;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc(var(--card-width));
+	column-gap: var(--card-spacing);
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scroll-behavior: smooth;
+	min-height: var(--card-height);
+}
+
+.carousel::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+.carousel-btn {
+	width: 25px;
+	background-color: var(--light-1);
+	display: grid;
+	place-items: center;
+	margin-top: calc(1lh + 5px);
+	border: none;
+	border-radius: 0px;
+	cursor: pointer;
+
+	box-shadow: var(--light-glow);
+}
+
+.carousel-btn.backward img {
+	transform: rotate(180deg);
+}
+
+.hour-card {
+	display: grid;
+	text-align: center;
+	grid-template-rows: auto 1fr;
+	row-gap: 5px;
+	color: rgb(227, 240, 236);
+}
+
+.hour .time {
+	font-size: 1rem;
+}
+
+.hour-data-card {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	background-color: var(--dark-1);
+	padding: 0px 5px 5px 5px;
+}
+
+.hour-precip-data {
+	display: grid;
+}
+
+.hour-precip-icon img {
+	display: grid;
+	place-content: center;
+}
+
+.hour-condition-icon {
+	padding-top: 25px;
+}

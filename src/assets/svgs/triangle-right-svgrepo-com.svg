@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="7 6 24 24" xml:space="preserve">
+	 <defs>
+	 	<filter id='inset-shadow'>
+  <!-- Shadow offset -->
+  <feOffset
+    dx='0'
+    dy='0'
+  />
+
+  <!-- Shadow blur -->
+  <feGaussianBlur
+    stdDeviation='1.2'
+    result='offset-blur'
+  />
+
+  <!-- Invert drop shadow to make an inset shadow -->
+  <feComposite
+    operator='out'
+    in='SourceGraphic'
+    in2='offset-blur'
+    result='inverse'
+  />
+  
+  <!-- Cut color inside shadow -->
+  <feFlood
+    flood-color='rgb(167, 216, 220)'
+    flood-opacity='0.7'
+    result='color'
+  />
+  <feComposite
+    operator='in'
+    in='color'
+    in2='inverse'
+    result='shadow'
+  />
+
+  <!-- Placing shadow over element -->
+  <feComposite
+    operator='over'
+    in='shadow'
+    in2='SourceGraphic'
+  />
+</filter>
+	 </defs>
+
+	<path d="M9,18l7-6L9,6V18z" transform="scale(1.5)" filter="url(#inset-shadow)"/>
+</svg>

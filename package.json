@@ -21,6 +21,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "install": "0.13.0",
+    "mini-css-extract-plugin": "^2.9.4",
     "npm": "11.5.2",
     "prettier": "3.6.2",
     "style-loader": "^4.0.0",
