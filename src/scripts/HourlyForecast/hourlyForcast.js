@@ -3,30 +3,44 @@ import { format, parse } from 'date-fns';
 
 //see description of { block: 'nearest' } here: https://stackoverflow.com/a/48635751/628418
 
-export default function makeHours(time, rawHourlyData) {
+export default function makeHours(nextFortyEightHours) {
+	if (nextFortyEightHours.length !== 48) return;
+
 	const currentHour = parseInt(format(new Date(), 'h'));
 	let meridiem = format(new Date(), 'bbb');
+	const TWELVE_HOURS = 12;
+	const TWENTY_FOUR_HOURS = 24;
+
+	const meridiemAdjustedStartHour = meridiem === 'am' ? currentHour : currentHour + TWELVE_HOURS;
+	const nextTwentyFourHours = nextFortyEightHours.slice(
+		meridiemAdjustedStartHour,
+		meridiemAdjustedStartHour + TWENTY_FOUR_HOURS,
+	);
+
+	const carousel = document.querySelector('.carousel');
+	const times = carousel.querySelectorAll('.time');
+	const hourlyTemps = carousel.querySelectorAll('.hourly-temp');
+	console.log(hourlyTemps);
+
+	for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
+		let hour = (currentHour + i) % TWELVE_HOURS;
+		if (hour === 0) {
+			hour = TWELVE_HOURS;
+			meridiem = meridiem === 'am' ? 'pm' : 'am';
+		}
+		times[i].textContent = `${hour}${meridiem}`;
+		hourlyTemps[i].textContent = `${nextTwentyFourHours[i].temp}°F`;
+	}
 
 	const hourCards = document.querySelectorAll('.hour-card');
 	const hourCardsArr = Array.from(hourCards);
-	const carousel = document.querySelector('.carousel');
 	const carouselWrapper = document.querySelector('.carousel-wrapper');
-
-	const times = carousel.querySelectorAll('.time');
-	times.forEach((time, i) => {
-		let hour = (currentHour + i) % 12;
-		if (hour === 0) {
-			hour = 12;
-			meridiem = meridiem === 'am' ? 'pm' : 'am';
-		}
-		time.textContent = `${hour}${meridiem}`;
-	});
 
 	function shiftCarouselBackward(cardWidth) {
 		const numberOfCards = Math.round(carousel.scrollLeft / cardWidth);
 
 		if (numberOfCards - 2 <= 0) {
-			hourCardsArrArr[0].scrollIntoView({ block: 'nearest' });
+			hourCardsArr[0].scrollIntoView({ block: 'nearest' });
 			return;
 		}
 
