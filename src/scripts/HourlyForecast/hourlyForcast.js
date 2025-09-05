@@ -20,7 +20,6 @@ export default function makeHours(nextFortyEightHours) {
 	const carousel = document.querySelector('.carousel');
 	const times = carousel.querySelectorAll('.time');
 	const hourlyTemps = carousel.querySelectorAll('.hourly-temp');
-	console.log(hourlyTemps);
 
 	for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
 		let hour = (currentHour + i) % TWELVE_HOURS;
@@ -29,7 +28,7 @@ export default function makeHours(nextFortyEightHours) {
 			meridiem = meridiem === 'am' ? 'pm' : 'am';
 		}
 		times[i].textContent = `${hour}${meridiem}`;
-		hourlyTemps[i].textContent = `${nextTwentyFourHours[i].temp}°F`;
+		hourlyTemps[i].textContent = `${nextTwentyFourHours[i].temp}°`;
 	}
 
 	const hourCards = document.querySelectorAll('.hour-card');

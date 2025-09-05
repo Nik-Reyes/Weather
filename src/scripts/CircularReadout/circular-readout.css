@@ -23,7 +23,7 @@
 	--progress: 0;
 	width: var(--diameter);
 	aspect-ratio: 1;
-	background: conic-gradient(var(--color-progress-indicator) var(--progress), var(--color-progress-bg) 0%);
+	background: conic-gradient(var(--color-progress-indicator) var(--progress, 0), var(--color-progress-bg) 0%);
 	border-radius: 50%;
 	font-size: var(--fs);
 	display: grid;
@@ -32,8 +32,12 @@
 	z-index: 0;
 }
 
-[role='progressbar']::before {
+[role='progressbar'][aria-valuemax='100']::before {
 	content: attr(aria-valuenow) '%';
+}
+
+[role='progressbar']::before {
+	content: attr(aria-valuenow);
 	position: absolute;
 	padding-top: calc(var(--diameter) * 0.05);
 	color: var(--color-progress-indicator);

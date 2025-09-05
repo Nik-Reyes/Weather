@@ -12,15 +12,11 @@ export default class WeatherData {
 	}
 
 	get url() {
-		return `${this._baseURL}${this._location}?unitGroup=us&key=${this._apiKey}&contentType=json`;
+		return `${this._baseURL}${this._location}?unitGroup=us&key=${this._apiKey}&contentType=json&iconSet=icons2`;
 	}
 
 	get rawData() {
 		return this._rawData;
-	}
-
-	get hour() {
-		return parseInt(this.rawData.currentConditions.datetime);
 	}
 
 	get todaysWeatherData() {
@@ -31,12 +27,20 @@ export default class WeatherData {
 		return this.todaysWeatherData.hours;
 	}
 
+	get currentConditions() {
+		return this._rawData.currentConditions;
+	}
+
+	get conditionDescription() {
+		return this._rawData.description;
+	}
+
 	set rawData(data) {
 		this._rawData = data;
 	}
 
 	// accepts integer as number of days including today
-	getDays(numOfDays) {
+	getHours(numOfDays) {
 		if (numOfDays <= 0) {
 			console.log('Must specify amount of days greater than 0');
 			return;
@@ -47,6 +51,18 @@ export default class WeatherData {
 		}
 		const cumulativeHours = this._rawData.days.slice(0, numOfDays).flatMap(day => day.hours);
 		return cumulativeHours;
+	}
+
+	getDays(numOfDays) {
+		if (numOfDays <= 0) {
+			console.log('Must specify amount of days greater than 0');
+			return;
+		}
+		if (numOfDays >= 15) {
+			console.log('Must specify amount of days less than 15');
+			return;
+		}
+		return this._rawData.days.slice(0, numOfDays);
 	}
 
 	async fetchWeatherData() {

@@ -1,18 +1,14 @@
 import './circular-readout.css';
 
-export default function circularReadout() {
-	const maxProgress = 12;
-	const progress = 10;
-	const adjustedConicProgress = (progress / maxProgress) * 100;
+export default function circularReadout(circle, max, value) {
+	const adjustedConicProgress = (value / max) * 100;
 
-	const progressCircles = document.querySelectorAll('[role=progressbar]');
-	progressCircles.forEach(circle => {
-		circle.setAttribute('aria-valuenow', progress);
-		circle.style.setProperty('--progress', adjustedConicProgress + '%');
-		if (progress >= maxProgress) {
-			circle.classList.add('full-meter');
-		} else {
-			circle.classList.remove('full-meter');
-		}
-	});
+	circle.setAttribute('aria-valuenow', value);
+	circle.style.setProperty('--progress', adjustedConicProgress + '%'); // for the conic gradient progress
+
+	if (value >= max) {
+		circle.classList.add('full-meter');
+	} else {
+		circle.classList.remove('full-meter');
+	}
 }
