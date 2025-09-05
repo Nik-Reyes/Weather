@@ -1,7 +1,7 @@
 import './current-forecast.css';
 import circularReadout from '../CircularReadout/circularReadout.js';
 
-export default function loadCurrentForcast(currentConditions, conditionDescription) {
+export default function loadCurrentForcast(currentConditions, conditionDescription, minTemp, maxTemp, unit) {
 	const currentCondtionDict = {
 		conditions: condition => {
 			const weatherState = document.querySelector('.weather-state.title');
@@ -9,7 +9,7 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 		},
 		feelslike: feelsLikeTemp => {
 			const feelsLike = document.querySelector('.feels-like-temp');
-			feelsLike.textContent = feelsLikeTemp;
+			feelsLike.textContent = `${feelsLikeTemp}°`;
 		},
 		humidity: currHumidity => {
 			const circularElement = document.querySelector('.progressbar.humidity');
@@ -23,8 +23,9 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 			circularReadout(circularElement, maxPrecipProb, precipProb);
 		},
 		temp: currTemp => {
+			console.log(unit);
 			const currentTemp = document.querySelector('.current-forecast-temp');
-			currentTemp.textContent = `${currTemp}°F`;
+			currentTemp.textContent = `${currTemp}°${unit === 'us' ? 'F' : 'C'}`;
 		},
 		uvindex: UVIndex => {
 			const circularElement = document.querySelector('.progressbar.uv-index');
@@ -41,5 +42,10 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 	}
 
 	const description = document.querySelector('.weather-condition-blocks .weather-description');
+	const minTempEl = document.querySelector('.low-temp-reading');
+	const maxTempEl = document.querySelector('.high-temp-reading');
+
+	minTempEl.textContent = `${minTemp}°`;
+	maxTempEl.textContent = `${maxTemp}°`;
 	description.textContent = conditionDescription;
 }

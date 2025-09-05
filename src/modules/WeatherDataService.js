@@ -1,9 +1,13 @@
 export default class WeatherData {
-	constructor(location = 'los angeles') {
+	constructor(location = 'lake forest, ca') {
 		this._rawData = null;
 		this._location = location;
 		this._baseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
 		this._apiKey = 'D99Y9FUTYS77HVAMWTVJV9TV4';
+		this._units = {
+			metric: false,
+			us: true,
+		};
 	}
 
 	setLocation(newLocation) {
@@ -11,16 +15,24 @@ export default class WeatherData {
 		this._rawData = null;
 	}
 
-	get url() {
-		return `${this._baseURL}${this._location}?unitGroup=us&key=${this._apiKey}&contentType=json&iconSet=icons2`;
+	get unit() {
+		const bools = Object.values(this._units);
+		if (new Set(bools).size !== bools.length) {
+			throw Error('Error: duplicate measurement unit detected');
+		}
+		for (let [unit, bool] of Object.entries(this._units)) {
+			if (bool) {
+				return unit;
+			}
+		}
 	}
 
-	get rawData() {
-		return this._rawData;
+	get url() {
+		return `${this._baseURL}${this._location}?unitGroup=${this.unit}&key=${this._apiKey}&contentType=json&iconSet=icons2`;
 	}
 
 	get todaysWeatherData() {
-		return this.rawData.days[0];
+		return this._rawData.days[0];
 	}
 
 	get hourlyData() {
@@ -33,6 +45,15 @@ export default class WeatherData {
 
 	get conditionDescription() {
 		return this._rawData.description;
+	}
+
+	get minTemp() {
+		return parseInt(this.todaysWeatherData.tempmin);
+	}
+
+	get maxTemp() {
+		console.log(parseInt(this.todaysWeatherData.tempmax));
+		return parseInt(this.todaysWeatherData.tempmax);
 	}
 
 	set rawData(data) {

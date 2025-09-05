@@ -12,7 +12,15 @@ const weatherData = new WeatherData();
 new Promise(resolve => {
 	resolve(weatherData.fetchWeatherData());
 }).then(() => {
-	loadCurrentForcast(weatherData.currentConditions, weatherData.conditionDescription);
+	console.log(weatherData);
+
+	loadCurrentForcast(
+		weatherData.currentConditions,
+		weatherData.conditionDescription,
+		weatherData.minTemp,
+		weatherData.maxTemp,
+		weatherData.unit,
+	);
 	makeHours(weatherData.getHours(2)); // accepts days as param
 	tenDayForecast(weatherData.getDays(10));
 	pageWrapper.removeAttribute('style');
