@@ -6,7 +6,7 @@
 .weather-condition-blocks {
 	display: grid;
 	grid-template-rows: 1fr 1fr;
-	gap: 10px;
+	gap: var(--card-spacing);
 }
 
 .current-forecast-header {

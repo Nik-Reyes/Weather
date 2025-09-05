@@ -8,7 +8,7 @@ export default function tenDayForecast(tenDayForecast) {
 
 	for (let i = 0; i < highs.length; i++) {
 		dates[i].textContent = format(parseISO(tenDayForecast[i].datetime), 'ccc do');
-		highs[i].textContent = `${tenDayForecast[i].tempmax}°`;
-		lows[i].textContent = `${tenDayForecast[i].tempmin}°`;
+		highs[i].textContent = `${parseInt(tenDayForecast[i].tempmax)}°`;
+		lows[i].textContent = `${parseInt(tenDayForecast[i].tempmin)}°`;
 	}
 }

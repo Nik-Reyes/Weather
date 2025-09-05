@@ -26,10 +26,13 @@
 	--dark-1: #028aa8;
 	--light-1: #c2eeff;
 	--light-title-1: rgb(239, 257, 244);
+	--card-spacing: 5px;
+	--bxsh-spread: 0.5px;
 	--light-glow:
 		inset 0px 0px 50px 0px rgb(186, 228, 232), 0px 0px 0.5px 0.25px rgb(167, 216, 220),
-		0px 0px 0.5px 0.5px rgb(107, 163, 194), 1px 0px 10px 0.75px rgb(42, 128, 149);
+		0px 0px 2px var(--bxsh-spread) rgb(107, 163, 194), 1px 0px 10px 0.75px rgb(42, 128, 149);
 	--title-text-glow: 0px 0px 2px #07758a;
+	--box-shadow-adjustment: var(--bxsh-spread);
 }
 
 body {
@@ -113,6 +116,7 @@ input[type='search']::placeholder {
 	text-wrap: nowrap;
 	text-shadow: var(--title-text-glow);
 	color: rgba(3, 54, 62, 0.8);
+	margin: 0px calc(var(--box-shadow-adjustment) / 2);
 }
 
 .card {

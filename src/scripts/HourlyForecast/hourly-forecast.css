@@ -11,10 +11,8 @@
 }
 
 .carousel {
-	--card-width: 60px;
-	--card-spacing: 10px;
+	--card-width: 65px;
 	--card-height: 150px;
-	flex: 1;
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: calc(var(--card-width));
@@ -32,16 +30,22 @@
 	height: 0;
 }
 
+.hour .time {
+	--time-tile-fs: 1rem;
+	font-size: var(--time-tile-fs);
+}
+
 .carousel-btn {
+	font-size: var(--time-tile-fs);
 	width: 25px;
 	background-color: var(--light-1);
 	display: grid;
 	place-items: center;
-	margin-top: calc(1lh + 5px);
+	margin-top: calc(1lh + 5px + (var(--box-shadow-adjustment) / 2));
+	margin-bottom: calc(var(--box-shadow-adjustment) / 2);
 	border: none;
 	border-radius: 0px;
 	cursor: pointer;
-
 	box-shadow: var(--light-glow);
 }
 
@@ -55,10 +59,6 @@
 	grid-template-rows: auto 1fr;
 	row-gap: 5px;
 	color: rgb(227, 240, 236);
-}
-
-.hour .time {
-	font-size: 1rem;
 }
 
 .hour-data-card {

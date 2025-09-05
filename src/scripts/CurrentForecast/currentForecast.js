@@ -35,6 +35,7 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 
 	for (let [weatherElement, value] of Object.entries(currentConditions)) {
 		if (Object.hasOwn(currentCondtionDict, weatherElement)) {
+			if (!isNaN(value)) value = parseInt(value);
 			currentCondtionDict[weatherElement](value);
 		}
 	}

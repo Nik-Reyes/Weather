@@ -28,7 +28,7 @@ export default function makeHours(nextFortyEightHours) {
 			meridiem = meridiem === 'am' ? 'pm' : 'am';
 		}
 		times[i].textContent = `${hour}${meridiem}`;
-		hourlyTemps[i].textContent = `${nextTwentyFourHours[i].temp}°`;
+		hourlyTemps[i].textContent = `${parseInt(nextTwentyFourHours[i].temp)}°`;
 	}
 
 	const hourCards = document.querySelectorAll('.hour-card');
@@ -38,15 +38,11 @@ export default function makeHours(nextFortyEightHours) {
 	function shiftCarouselBackward(cardWidth) {
 		const numberOfCards = Math.round(carousel.scrollLeft / cardWidth);
 
-		if (numberOfCards - 2 <= 0) {
+		if (numberOfCards - 1 <= 0) {
 			hourCardsArr[0].scrollIntoView({ block: 'nearest' });
 			return;
 		}
-
-		const decimalPortion = parseFloat('0.' + (carousel.scrollLeft / cardWidth + '').split(/\D/)[1]);
-		decimalPortion >= 0.6
-			? hourCardsArr[numberOfCards - 2].scrollIntoView({ block: 'nearest' })
-			: hourCardsArr[numberOfCards - 1].scrollIntoView({ block: 'nearest' });
+		hourCardsArr[numberOfCards - 1].scrollIntoView({ block: 'nearest' });
 	}
 
 	function shiftCarouselForward(cardWidth) {
@@ -58,6 +54,7 @@ export default function makeHours(nextFortyEightHours) {
 			hourCardsArr[hourCardsArr.length - 1].scrollIntoView({ block: 'nearest' });
 			return;
 		} else {
+			console.log(wholeNumber);
 			hourCardsArr.at(wholeNumber + 1).scrollIntoView({ block: 'nearest' });
 		}
 	}
@@ -68,7 +65,7 @@ export default function makeHours(nextFortyEightHours) {
 		if (target === null) return;
 
 		const targetClasses = target.classList;
-		const carouselColGap = 10; //px
+		const carouselColGap = parseInt(window.getComputedStyle(carousel).getPropertyValue('column-gap')); //px
 		const cardWidth = hourCardsArr[0].offsetWidth + carouselColGap;
 
 		const directionMapping = {
