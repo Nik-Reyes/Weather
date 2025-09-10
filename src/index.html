@@ -30,7 +30,7 @@
 			</header>
 			<div class="temp-display">
 				<div class="current-forecast-header component-header">
-					<span class="current-date">Today</span><span class="current-time">20:18</span>
+					<span class="current-date component-title">Today</span><span class="current-time">20:18</span>
 				</div>
 				<div class="weather-condition-blocks">
 					<div class="current-forecast-temps card">
@@ -63,19 +63,20 @@
 			</div>
 			<div class="circular-readings-wrapper">
 				<div class="circular-reading-wrapper">
-					<div
-						class="progressbar humidity"
-						role="progressbar"
-						aria-valuenow="0"
-						aria-live="polite"
-						aria-valuemax="100"
-						aria-valuemin="0"
-					>
-						<span class="reference-marker"></span>
+					<div class="humidty-reading-wrapper">
+						<div
+							class="progressbar humidity"
+							role="progressbar"
+							aria-valuenow="0"
+							aria-live="polite"
+							aria-valuemax="100"
+							aria-valuemin="0"
+						>
+							<span class="reference-marker"></span>
+						</div>
+						<span class="circular-reading-description">Humidity</span>
 					</div>
-					<span class="humidity circular-reading-description">Humidity</span>
 				</div>
-
 				<div class="circular-reading-wrapper">
 					<div
 						class="progressbar uv-index"
@@ -87,8 +88,9 @@
 					>
 						<span class="reference-marker"></span>
 					</div>
-					<span class="humidity circular-reading-description">UV Index</span>
+					<span class="circular-reading-description">UV Index</span>
 				</div>
+
 				<div class="circular-reading-wrapper">
 					<div
 						class="progressbar precipitation"
@@ -100,7 +102,7 @@
 					>
 						<span class="reference-marker"></span>
 					</div>
-					<span class="humidity circular-reading-description">Precip. Chance</span>
+					<span class="circular-reading-description">Precip. Chance</span>
 				</div>
 			</div>
 			<div class="carousel-wrapper">
@@ -486,7 +488,7 @@
 				</button>
 			</div>
 			<div class="ten-day-forecast">
-				<div class="component-header"><span class="ten-day-forecast-header">10 Day Forecast</span></div>
+				<div class="component-header"><span class="ten-day-forecast-header component-title">10 Day Forecast</span></div>
 				<div class="ten-day-forecast-cards">
 					<div class="ten-day-card card">
 						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>

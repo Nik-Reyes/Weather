@@ -1,3 +1,47 @@
+@font-face {
+	font-family: 'Rajdhani Light';
+	src:
+		url('./assets/fonts/Rajdhani-Light.woff2') format('woff2'),
+		url('./assets/fonts/Rajdhani-Light.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani';
+	src:
+		url('./assets/fonts/Rajdhani-Regular.woff2') format('woff2'),
+		url('./assets/fonts/Rajdhani-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani Medium';
+	src:
+		url('./assets/fonts/Rajdhani-Medium.woff2') format('woff2'),
+		url('./assets/fonts/Rajdhani-Medium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani Bold';
+	src:
+		url('./assets/fonts/Rajdhani-Bold.woff2') format('woff2'),
+		url('./assets/fonts/Rajdhani-Bold.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
 *,
 *::before,
 *::after {
@@ -37,6 +81,7 @@
 
 body {
 	background-color: #011111;
+	background: linear-gradient(180deg, hsl(196, 100%, 9%) 10%, #011515 100%) fixed;
 }
 
 header {
@@ -62,18 +107,32 @@ img {
 	color: transparent;
 }
 
+header img {
+	width: 100%;
+	height: auto;
+}
+
+span {
+	line-height: 1;
+	font-size: 1.25rem;
+}
+
+span:not(.component-title, .current-time) {
+	color: var(--light-1);
+}
+
 .page-wrapper {
 	min-height: 100dvh;
 	display: grid;
 	grid-auto-rows: min-content;
 	grid-auto-columns: 1fr min-content;
+	gap: 30px;
+	padding: 30px;
 	grid-template-areas:
 		'header header'
 		'current-forecast circular-readings'
 		'hourly-forecast hourly-forecast'
 		'ten-day-forecast ten-day-forecast';
-	gap: 40px 20px;
-	padding: 20px;
 }
 
 .header-right {
@@ -83,6 +142,9 @@ img {
 .logo-wrapper {
 	display: grid;
 	align-items: center;
+	aspect-ratio: 1;
+	place-items: center;
+	max-width: 30px;
 }
 
 .search-form {
@@ -117,9 +179,46 @@ input[type='search']::placeholder {
 	text-shadow: var(--title-text-glow);
 	color: rgba(3, 54, 62, 0.8);
 	margin: 0px calc(var(--box-shadow-adjustment) / 2);
+	font-family: 'Rajdhani';
 }
 
 .card {
 	color: var(--light-1);
 	background-color: var(--dark-1);
+}
+
+@media only screen and (min-width: 30.875rem) {
+	.page-wrapper {
+		grid-template-areas:
+			'header header'
+			'current-forecast current-forecast'
+			'hourly-forecast circular-readings '
+			'hourly-forecast circular-readings '
+			'hourly-forecast circular-readings '
+			'ten-day-forecast ten-day-forecast';
+	}
+
+	.temp-display .weather-condition-blocks {
+		grid-auto-flow: column;
+	}
+
+	.current-forecast-temps.card div:has(.temperature):not(.tempurature-wrapper) {
+		font-size: clamp(0.85rem, 0.1509rem + 2.2642vw, 1rem);
+	}
+
+	.tempurature-wrapper .current-forecast-temp {
+		font-size: clamp(2.5rem, -5.4677rem + 25.8065vw, 3rem);
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.page-wrapper {
+		grid-template-areas:
+			'header header'
+			'current-forecast ten-day-forecast'
+			'circular-readings hourly-forecast';
+		grid-template-columns: auto 1fr;
+		column-gap: 5px;
+		row-gap: 50px;
+	}
 }

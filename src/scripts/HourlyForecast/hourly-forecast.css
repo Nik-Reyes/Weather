@@ -8,11 +8,14 @@
 	display: grid;
 	grid-area: hourly-forecast;
 	grid-template-columns: auto 1fr auto;
+	font-family: 'Rajdhani';
+	--time-tile-fs: 1.25rem;
+	--card-row-gap: 5px;
 }
 
 .carousel {
 	--card-width: 65px;
-	--card-height: 150px;
+	--card-height: 200px;
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: calc(var(--card-width));
@@ -29,10 +32,12 @@
 	width: 0;
 	height: 0;
 }
-
+.hour {
+	height: var(--time-tile-fs);
+}
 .hour .time {
-	--time-tile-fs: 1rem;
-	font-size: var(--time-tile-fs);
+	display: inline-block;
+	height: 100%;
 }
 
 .carousel-btn {
@@ -41,8 +46,7 @@
 	background-color: var(--light-1);
 	display: grid;
 	place-items: center;
-	margin-top: calc(1lh + 5px + (var(--box-shadow-adjustment) / 2));
-	margin-bottom: calc(var(--box-shadow-adjustment) / 2);
+	margin-top: calc(var(--time-tile-fs) + var(--card-row-gap));
 	border: none;
 	border-radius: 0px;
 	cursor: pointer;
@@ -57,15 +61,14 @@
 	display: grid;
 	text-align: center;
 	grid-template-rows: auto 1fr;
-	row-gap: 5px;
-	color: rgb(227, 240, 236);
+	gap: var(--card-row-gap);
 }
 
 .hour-data-card {
 	display: grid;
 	grid-template-rows: auto 1fr;
 	background-color: var(--dark-1);
-	padding: 0px 5px 5px 5px;
+	padding: 5px;
 }
 
 .hour-precip-data {
@@ -75,8 +78,4 @@
 .hour-precip-icon img {
 	display: grid;
 	place-content: center;
-}
-
-.hour-condition-icon {
-	padding-top: 25px;
 }

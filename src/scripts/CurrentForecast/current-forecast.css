@@ -1,11 +1,13 @@
 .temp-display {
 	display: grid;
+	grid-area: current-forecast;
 	grid-template-rows: auto 1fr;
 }
 
 .weather-condition-blocks {
 	display: grid;
-	grid-template-rows: 1fr 1fr;
+	grid-auto-rows: 1fr;
+	grid-auto-columns: 1fr;
 	gap: var(--card-spacing);
 }
 
@@ -22,6 +24,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 20px;
 }
 
 .current-forecast-temps,
@@ -30,13 +33,14 @@
 }
 
 .current-forecast-temp {
-	font-size: 3rem;
+	font-size: 3.5rem;
+	font-family: 'Rajdhani Medium';
+	letter-spacing: -2px;
 }
 
 .secondary-weather-data {
 	display: grid;
 	row-gap: 8px;
-	font-size: 1.1rem;
 }
 
 .min-max-temps {
@@ -52,6 +56,10 @@
 	display: grid;
 }
 
+.weather-description {
+	font-family: 'Rajdhani Light';
+}
+
 .current-forecast-description {
 	display: flex;
 	align-items: center;
@@ -59,10 +67,23 @@
 }
 
 .title {
-	font-weight: 700;
+	font-family: 'Rajdhani Bold';
 }
 
 .current-forecast-temps span > span {
 	padding-left: 0.2em;
-	font-weight: 200;
+	font-family: 'Rajdhani Light';
+}
+
+@media only screen and (min-width: 55rem) {
+	.current-forecast-description img {
+		display: none;
+	}
+	.weather-condition-blocks {
+		grid-auto-columns: 1fr auto;
+	}
+
+	.weather-description {
+		max-width: 20ch;
+	}
 }

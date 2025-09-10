@@ -3,29 +3,43 @@
 	display: grid;
 	gap: 15px;
 	place-content: center;
+	font-family: 'Rajdhani';
 }
 
-.circular-reading-wrapper {
+:is(.circular-reading-wrapper, .circular-reading-wrapper > div) {
 	display: grid;
 	gap: 5px;
 	place-items: center;
+	margin: 0 auto;
+	text-align: center;
 }
 
-.circular-reading-wrapper {
-	margin: 0 auto;
+.circular-reading-wrapper.hidden {
+	display: none;
 }
 
 [role='progressbar'] {
-	--fs: 1rem;
-	--diameter: 3.75em;
-	--bar-width-ratio: 0.18;
-	--bar-width: calc(100% - calc(var(--diameter) * var(--bar-width-ratio)));
+	--fs-default: 1.125rem;
+	--bar-width-ratio-default: 0.18;
+	--diameter-default: 3.75em;
+	--bar-width-default: calc(100% - calc(var(--diameter-default) * var(--bar-width-ratio-default)));
+
+	--bar-width-ratio-m: 0.2;
+	--fs-m: calc(var(--fs-default) * 1.5);
+	--diameter-m: 4.25em;
+	--bar-width-m: calc(100% - calc(var(--diameter-m) * var(--bar-width-ratio-m)));
+
+	--fs-l: calc(var(--fs-default) * 2.25);
+	--diameter-l: 4.25em;
+	--bar-width-l: calc(100% - calc(var(--diameter-l) * var(--bar-width-ratio-m)));
+
 	--progress: 0;
-	width: var(--diameter);
+
+	width: var(--diameter-default);
 	aspect-ratio: 1;
 	background: conic-gradient(var(--color-progress-indicator) var(--progress, 0), var(--color-progress-bg) 0%);
 	border-radius: 50%;
-	font-size: var(--fs);
+	font-size: var(--fs-default);
 	display: grid;
 	place-items: center;
 	position: relative;
@@ -39,7 +53,7 @@
 [role='progressbar']::before {
 	content: attr(aria-valuenow);
 	position: absolute;
-	padding-top: calc(var(--diameter) * 0.05);
+	padding-top: calc(var(--diameter-default) * 0.05);
 	color: var(--color-progress-indicator);
 	z-index: 2;
 }
@@ -48,7 +62,7 @@
 	content: '';
 	background-color: var(--color-page-bg);
 	border-radius: inherit;
-	width: var(--bar-width);
+	width: var(--bar-width-default);
 	aspect-ratio: 1;
 	z-index: 1;
 }
@@ -56,9 +70,9 @@
 [role='progressbar'] .reference-marker {
 	--reference-marker-bg: #e0eff1;
 	position: absolute;
-	--width: calc(var(--diameter) * 0.025);
+	--width: calc(var(--diameter-default) * 0.025);
 	width: var(--width);
-	height: calc(var(--bar-width) + (var(--width)));
+	height: calc(var(--bar-width-default) + (var(--width)));
 	background-color: var(--reference-marker-bg);
 	top: calc(var(--width) * -1);
 }
@@ -68,7 +82,91 @@
 }
 
 .circular-reading-description {
-	color: var(--light-1);
-	font-size: 14px;
+	font-size: 1rem;
 	text-align: center;
+}
+
+@media only screen and (min-width: 30.875rem) {
+	.circular-readings-wrapper .circular-reading-wrapper {
+		margin: 0;
+	}
+
+	.progressbar[role='progressbar'] {
+		font-size: var(--fs-m);
+		width: var(--diameter-m);
+	}
+
+	.circular-reading-wrapper [role='progressbar'] .reference-marker {
+		height: calc(var(--bar-width-m) + (var(--width)));
+	}
+
+	.circular-reading-wrapper [role='progressbar']::after {
+		width: var(--bar-width-m);
+	}
+
+	.circular-reading-wrapper [role='progressbar']::before {
+		padding-top: calc(var(--diameter-m) * 0.05);
+	}
+
+	.circular-reading-wrapper .circular-reading-description {
+		font-size: 1.125rem;
+	}
+}
+
+@media only screen and (min-width: 32.8125rem) {
+	.circular-reading-wrapper.hidden {
+		display: grid;
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.circular-reading-wrapper.hidden {
+		display: none;
+	}
+
+	.circular-readings-wrapper {
+		display: grid;
+		grid-template-areas:
+			'. humidity .'
+			'uv-index . precip-chance';
+		gap: 0px;
+		grid-template-rows: 177px auto;
+		grid-template-columns: 1fr 0px 1fr;
+	}
+
+	.circular-reading-wrapper:has(.humidity) {
+		grid-area: humidity;
+		position: relative;
+	}
+
+	.humidty-reading-wrapper {
+		position: absolute;
+		display: grid;
+		gap: 5px;
+	}
+
+	.circular-reading-wrapper:has(.precipitation) {
+		grid-area: precip-chance;
+	}
+
+	.circular-reading-wrapper:has(.uv-index) {
+		grid-area: uv-index;
+	}
+
+	.progressbar[role='progressbar'] {
+		font-size: var(--fs-l);
+		width: var(--diameter-l);
+	}
+
+	.circular-reading-wrapper [role='progressbar'] .reference-marker {
+		height: calc(var(--bar-width-l) + (var(--width)));
+	}
+
+	.circular-reading-wrapper [role='progressbar']::after {
+		width: var(--bar-width-l);
+	}
+
+	.circular-reading-wrapper [role='progressbar']::before {
+		padding-top: calc(var(--diameter-l) * 0.05);
+	}
 }
