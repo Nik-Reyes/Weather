@@ -6,66 +6,102 @@
 		<title>Weather</title>
 	</head>
 	<body>
-		<div class="page-wrapper" style="opacity: 0">
-			<header>
-				<div class="header-left">
-					<div class="logo-wrapper">
-						<img src="./assets/svgs/weatherLogo.svg" alt="weather logo" width="50" height="46" />
-					</div>
-					<form action="" class="search-form">
-						<div class="field-control">
-							<label for="location"></label>
-							<input type="search" id="location" name="location" placeholder="Enter a City/ZIP" />
-						</div>
-					</form>
-				</div>
-				<div class="header-right">
-					<button class="logo-wrapper">
-						<img src="./assets/svgs/map-pin.svg" alt="saved locations" width="22" height="22" />
-					</button>
-					<button class="logo-wrapper">
-						<img src="./assets/svgs/settings.svg" alt="setings" width="20" height="22" />
-					</button>
-				</div>
-			</header>
-			<div class="temp-display">
-				<div class="current-forecast-header component-header">
-					<span class="current-date component-title">Today</span><span class="current-time">20:18</span>
-				</div>
-				<div class="weather-condition-blocks">
-					<div class="current-forecast-temps card">
-						<div class="tempurature-wrapper">
-							<span class="current-forecast-title title">Current</span
-							><span class="current-forecast-temp temperature">76°F</span>
-						</div>
-						<div class="secondary-weather-data">
-							<div class="min-max-temps">
-								<div class="high-temp">
-									<span class="high-title title">Hi:<span class="high-temp-reading temperature">92°</span></span>
-								</div>
-								<div class="low-temp">
-									<span class="title">Lo:<span class="low-temp-reading temperature">70°</span></span>
-								</div>
-							</div>
-							<div class="feels-like-wrapper">
-								<span class="feels-like title">Feels like:<span class="feels-like-temp temperature">77°</span></span>
-							</div>
-						</div>
-					</div>
-					<div class="current-forecast-description card">
-						<div><img src="./assets/svgs/partly-cloudy.svg" alt="partly cloudy icon" width="64" height="52" /></div>
-						<div class="weather-description-wrapper">
-							<span class="weather-state title">Partially Cloudy</span
-							><span class="weather-description">Similar temperatures continuing with no rain expected</span>
-						</div>
-					</div>
-				</div>
+		<div class="loader-wrapper">
+			<div class="inner-loader-wrapper">
+				<div class="loader-top"></div>
+				<div class="loader-bottom"></div>
 			</div>
-			<div class="circular-readings-wrapper">
-				<div class="circular-reading-wrapper">
-					<div class="humidty-reading-wrapper">
+		</div>
+
+		<div class="page-wrapper">
+			<div class="content-wrapper" style="opacity: 0; height: 0px">
+				<header>
+					<div class="header-left">
+						<div class="logo-wrapper">
+							<img src="./assets/svgs/weatherLogo.svg" alt="weather logo" width="50" height="46" />
+						</div>
+						<form action="" class="search-form">
+							<div class="field-control">
+								<label for="location"></label>
+								<input type="search" id="location" name="location" placeholder="Enter a City/ZIP" />
+							</div>
+						</form>
+					</div>
+					<div class="header-right">
+						<button class="logo-wrapper">
+							<img src="./assets/svgs/map-pin.svg" alt="saved locations" width="22" height="22" />
+						</button>
+						<button class="logo-wrapper">
+							<img src="./assets/svgs/settings.svg" alt="setings" width="20" height="22" />
+						</button>
+					</div>
+				</header>
+				<div class="temp-display">
+					<div class="current-forecast-header component-header">
+						<span class="current-date component-title">Today</span><span class="current-time">20:18</span>
+					</div>
+					<div class="weather-condition-blocks">
+						<div class="current-forecast-temps card">
+							<div class="tempurature-wrapper">
+								<span class="current-forecast-title title">Current</span
+								><span class="current-forecast-temp temperature">76°F</span>
+							</div>
+							<div class="secondary-weather-data">
+								<div class="min-max-temps">
+									<div class="high-temp">
+										<span class="high-title title">Hi:<span class="high-temp-reading temperature">92°</span></span>
+									</div>
+									<div class="low-temp">
+										<span class="title">Lo:<span class="low-temp-reading temperature">70°</span></span>
+									</div>
+								</div>
+								<div class="feels-like-wrapper">
+									<span class="feels-like title">Feels like:<span class="feels-like-temp temperature">77°</span></span>
+								</div>
+							</div>
+						</div>
+						<div class="current-forecast-description card">
+							<div><img src="./assets/svgs/partly-cloudy.svg" alt="partly cloudy icon" width="64" height="52" /></div>
+							<div class="weather-description-wrapper">
+								<span class="weather-state title">Partially Cloudy</span
+								><span class="weather-description">Similar temperatures continuing with no rain expected</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="circular-readings-wrapper">
+					<div class="circular-reading-wrapper">
+						<div class="humidty-reading-wrapper">
+							<div
+								class="progressbar humidity"
+								role="progressbar"
+								aria-valuenow="0"
+								aria-live="polite"
+								aria-valuemax="100"
+								aria-valuemin="0"
+							>
+								<span class="reference-marker"></span>
+							</div>
+							<span class="circular-reading-description">Humidity</span>
+						</div>
+					</div>
+					<div class="circular-reading-wrapper">
 						<div
-							class="progressbar humidity"
+							class="progressbar uv-index"
+							role="progressbar"
+							aria-valuenow="0"
+							aria-live="polite"
+							aria-valuemax="12"
+							aria-valuemin="0"
+						>
+							<span class="reference-marker"></span>
+						</div>
+						<span class="circular-reading-description">UV Index</span>
+					</div>
+
+					<div class="circular-reading-wrapper">
+						<div
+							class="progressbar precipitation"
 							role="progressbar"
 							aria-valuenow="0"
 							aria-live="polite"
@@ -74,529 +110,504 @@
 						>
 							<span class="reference-marker"></span>
 						</div>
-						<span class="circular-reading-description">Humidity</span>
+						<span class="circular-reading-description">Precip. Chance</span>
 					</div>
 				</div>
-				<div class="circular-reading-wrapper">
-					<div
-						class="progressbar uv-index"
-						role="progressbar"
-						aria-valuenow="0"
-						aria-live="polite"
-						aria-valuemax="12"
-						aria-valuemin="0"
-					>
-						<span class="reference-marker"></span>
+				<div class="carousel-wrapper">
+					<button class="carousel-btn backward">
+						<img
+							class="arrow-svg"
+							src="./assets/svgs/triangle-right-svgrepo-com.svg"
+							alt="next-arrow"
+							width="24"
+							height="24"
+						/>
+					</button>
+					<div class="carousel">
+						<div class="hour-card">
+							<div class="hour"><span class="time">5pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">6pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">7pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">8pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">9pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">10pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">11pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">12am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">1am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">2am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">3am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">4am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">5am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">6am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">7am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">8am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">9am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">10am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">11am</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">12pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">1pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">2pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">3pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="hour-card">
+							<div class="hour"><span class="time">4pm</span></div>
+							<div class="hour-data-card">
+								<div class="hour-condition-icon">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
+								</div>
+								<div class="hour-wind-data"></div>
+								<div class="hour-precip-data">
+									<div class="hour-precip-icon">
+										<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+									</div>
+									<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<span class="circular-reading-description">UV Index</span>
+					<button class="carousel-btn forward">
+						<img
+							class="arrow-svg"
+							src="./assets/svgs/triangle-right-svgrepo-com.svg"
+							alt="shift hour forward"
+							width="24"
+							height="24"
+						/>
+					</button>
 				</div>
-
-				<div class="circular-reading-wrapper">
-					<div
-						class="progressbar precipitation"
-						role="progressbar"
-						aria-valuenow="0"
-						aria-live="polite"
-						aria-valuemax="100"
-						aria-valuemin="0"
-					>
-						<span class="reference-marker"></span>
+				<div class="ten-day-forecast">
+					<div class="component-header">
+						<span class="ten-day-forecast-header component-title">10 Day Forecast</span>
 					</div>
-					<span class="circular-reading-description">Precip. Chance</span>
-				</div>
-			</div>
-			<div class="carousel-wrapper">
-				<button class="carousel-btn backward">
-					<img
-						class="arrow-svg"
-						src="./assets/svgs/triangle-right-svgrepo-com.svg"
-						alt="next-arrow"
-						width="24"
-						height="24"
-					/>
-				</button>
-				<div class="carousel">
-					<div class="hour-card">
-						<div class="hour"><span class="time">5pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+					<div class="ten-day-forecast-cards">
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">6pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">7pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">8pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">9pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">10pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">11pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">12am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">1am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">2am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">3am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">4am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">5am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">6am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">7am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">8am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">9am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">10am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
 							</div>
 						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">11am</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+						<div class="ten-day-card card">
+							<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
+							<div class="ten-day-conditions">
+								<div class="ten-day-icon-wrapper">
+									<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">12pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
+								<div class="ten-day-temps">
+									<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">1pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
-								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">2pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
-								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">3pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
-								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="hour-card">
-						<div class="hour"><span class="time">4pm</span></div>
-						<div class="hour-data-card">
-							<div class="hour-condition-icon">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy" width="56" height="48" />
-							</div>
-							<div class="hour-wind-data"></div>
-							<div class="hour-precip-data">
-								<div class="hour-precip-icon">
-									<img src="./assets/svgs/raindrops-1.svg" alt="raindrops" width="128" height="160" />
-								</div>
-								<div class="hourly-temp-wrapper"><span class="hourly-temp temperature">5%</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<button class="carousel-btn forward">
-					<img
-						class="arrow-svg"
-						src="./assets/svgs/triangle-right-svgrepo-com.svg"
-						alt="shift hour forward"
-						width="24"
-						height="24"
-					/>
-				</button>
-			</div>
-			<div class="ten-day-forecast">
-				<div class="component-header"><span class="ten-day-forecast-header component-title">10 Day Forecast</span></div>
-				<div class="ten-day-forecast-cards">
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
-							</div>
-						</div>
-					</div>
-					<div class="ten-day-card card">
-						<div class="ten-day-card-title-wrapper"><span class="ten-day-card-title">Thu 27th</span></div>
-						<div class="ten-day-conditions">
-							<div class="ten-day-icon-wrapper">
-								<img src="./assets/svgs/cloudy.svg" alt="cloudy icon" width="56" height="48" />
-							</div>
-							<div class="ten-day-temps">
-								<span class="ten-day-high temperature">77°</span><span class="ten-day-low temperature">66°</span>
 							</div>
 						</div>
 					</div>

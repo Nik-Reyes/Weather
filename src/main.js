@@ -4,26 +4,54 @@ import loadCurrentForcast from './scripts/CurrentForecast/currentForecast.js';
 import tenDayForecast from './scripts/TenDayForecast/tenDayForecast.js';
 import './style.css';
 
-function populateData() {
-	new Promise(resolve => {
-		resolve(weatherData.fetchWeatherData());
-	}).then(() => {
-		loadCurrentForcast(
-			weatherData.currentConditions,
-			weatherData.conditionDescription,
-			weatherData.minTemp,
-			weatherData.maxTemp,
-			weatherData.unit,
-		);
-		makeHours(weatherData.getHours(2)); // accepts days as param
-		tenDayForecast(weatherData.getDays(10));
-		pageWrapper.removeAttribute('style');
+const contentWrapper = document.querySelector('.content-wrapper');
+const loaderTop = document.querySelector('.loader-top');
+const loaderBottom = document.querySelector('.loader-bottom');
+
+function removeAnimations() {
+	[contentWrapper, loaderTop, loaderBottom].forEach(element => {
+		[...element.classList].forEach(cls => {
+			if (cls.includes('animate')) {
+				element.classList.remove(cls);
+			}
+		});
 	});
-	console.log('interval');
 }
 
-const pageWrapper = document.querySelector('.page-wrapper');
+function initializeAnimations() {
+	loaderTop.classList.add('animate-explode');
+	loaderBottom.classList.add('animate-explode');
+	loaderBottom.addEventListener(
+		'animationend',
+		() => {
+			loaderTop.classList.add('animate-retract');
+			loaderBottom.classList.add('animate-retract');
+			contentWrapper.classList.add('animate-explode');
+			contentWrapper.addEventListener('animationend', removeAnimations, { once: true });
+			contentWrapper.removeAttribute('style');
+		},
+		{ once: true },
+	);
+}
+
+async function populateData() {
+	await weatherData.fetchWeatherData();
+	loadCurrentForcast(
+		weatherData.currentConditions,
+		weatherData.conditionDescription,
+		weatherData.minTemp,
+		weatherData.maxTemp,
+		weatherData.unit,
+	);
+	makeHours(weatherData.getHours(2)); // accepts days as param
+	tenDayForecast(weatherData.getDays(10));
+	initializeAnimations();
+}
+
 // ask weather data service to get the weather data
 const weatherData = new WeatherData();
-populateData();
+if (populateData()) {
+	loaderTop.classList.add('animate-blink');
+	loaderBottom.classList.add('animate-blink');
+}
 setInterval(populateData, 900000);
