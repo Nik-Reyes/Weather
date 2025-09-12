@@ -1,5 +1,5 @@
 export default class WeatherData {
-	constructor(location = 'lake forest, ca') {
+	constructor(location = 'zion') {
 		this._rawData = null;
 		this._location = location;
 		this._baseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
@@ -52,8 +52,15 @@ export default class WeatherData {
 	}
 
 	get maxTemp() {
-		console.log(parseInt(this.todaysWeatherData.tempmax));
 		return parseInt(this.todaysWeatherData.tempmax);
+	}
+
+	get timezone() {
+		return this._rawData.timezone;
+	}
+
+	set conditionDescription(description) {
+		this._rawData.description = description;
 	}
 
 	set rawData(data) {
@@ -86,10 +93,19 @@ export default class WeatherData {
 		return this._rawData.days.slice(0, numOfDays);
 	}
 
+	trimDescription() {
+		const textToTrim = 'with no rain expected.';
+		const description = this.conditionDescription;
+		if (description.includes(textToTrim)) {
+			this.conditionDescription = `${description.replaceAll(textToTrim, '').trim()}.`;
+		}
+	}
+
 	async fetchWeatherData() {
 		try {
 			const resp = await fetch(this.url);
 			this.rawData = await resp.json(); //other methods can use this without using another api call
+			console.log(this._rawData);
 		} catch (error) {
 			console.log(error);
 		}

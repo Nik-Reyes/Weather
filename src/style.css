@@ -303,6 +303,11 @@ input[type='search']::placeholder {
 	height: var(--max-height);
 }
 
+.animate-downsize {
+	height: 0;
+	opacity: 0;
+}
+
 @keyframes blink {
 	0% {
 		opacity: 1;

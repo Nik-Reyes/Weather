@@ -1,13 +1,13 @@
 import './hourly-forecast.css';
-import { format, parse } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 
 //see description of { block: 'nearest' } here: https://stackoverflow.com/a/48635751/628418
 
-export default function makeHours(nextFortyEightHours) {
+export default function makeHours(nextFortyEightHours, timezone) {
 	if (nextFortyEightHours.length !== 48) return;
 
-	const currentHour = parseInt(format(new Date(), 'h'));
-	let meridiem = format(new Date(), 'bbb');
+	const currentHour = parseInt(formatInTimeZone(new Date(), timezone, 'h'));
+	let meridiem = formatInTimeZone(new Date(), timezone, 'aaa');
 	const TWELVE_HOURS = 12;
 	const TWENTY_FOUR_HOURS = 24;
 
@@ -54,7 +54,6 @@ export default function makeHours(nextFortyEightHours) {
 			hourCardsArr[hourCardsArr.length - 1].scrollIntoView({ block: 'nearest' });
 			return;
 		} else {
-			console.log(wholeNumber);
 			hourCardsArr.at(wholeNumber + 1).scrollIntoView({ block: 'nearest' });
 		}
 	}

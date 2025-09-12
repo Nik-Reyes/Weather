@@ -1,7 +1,8 @@
 import './current-forecast.css';
 import circularReadout from '../CircularReadout/circularReadout.js';
+import { formatInTimeZone } from 'date-fns-tz';
 
-export default function loadCurrentForcast(currentConditions, conditionDescription, minTemp, maxTemp, unit) {
+export default function loadCurrentForcast(currentConditions, conditionDescription, minTemp, maxTemp, unit, timezone) {
 	const currentCondtionDict = {
 		conditions: condition => {
 			const weatherState = document.querySelector('.weather-state.title');
@@ -23,7 +24,6 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 			circularReadout(circularElement, maxPrecipProb, precipProb);
 		},
 		temp: currTemp => {
-			console.log(unit);
 			const currentTemp = document.querySelector('.current-forecast-temp');
 			currentTemp.textContent = `${currTemp}°${unit === 'us' ? 'F' : 'C'}`;
 		},
@@ -44,7 +44,15 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 	const description = document.querySelector('.weather-condition-blocks .weather-description');
 	const minTempEl = document.querySelector('.low-temp-reading');
 	const maxTempEl = document.querySelector('.high-temp-reading');
+	const currentTime = document.querySelector('.current-time');
 
+	currentTime.textContent = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
+	let time = setInterval(() => {
+		const time = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
+		currentTime.textContent = time;
+	}, 1000);
+
+	console.log(time);
 	minTempEl.textContent = `${minTemp}°`;
 	maxTempEl.textContent = `${maxTemp}°`;
 	description.textContent = conditionDescription;
