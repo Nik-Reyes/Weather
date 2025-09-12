@@ -2,6 +2,8 @@ import './current-forecast.css';
 import circularReadout from '../CircularReadout/circularReadout.js';
 import { formatInTimeZone } from 'date-fns-tz';
 
+let time = null;
+
 export default function loadCurrentForcast(currentConditions, conditionDescription, minTemp, maxTemp, unit, timezone) {
 	const currentCondtionDict = {
 		conditions: condition => {
@@ -47,12 +49,13 @@ export default function loadCurrentForcast(currentConditions, conditionDescripti
 	const currentTime = document.querySelector('.current-time');
 
 	currentTime.textContent = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
-	let time = setInterval(() => {
-		const time = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
-		currentTime.textContent = time;
+
+	if (time) clearInterval(time);
+	time = setInterval(() => {
+		const timer = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
+		currentTime.textContent = timer;
 	}, 1000);
 
-	console.log(time);
 	minTempEl.textContent = `${minTemp}°`;
 	maxTempEl.textContent = `${maxTemp}°`;
 	description.textContent = conditionDescription;
