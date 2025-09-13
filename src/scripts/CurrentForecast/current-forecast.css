@@ -56,7 +56,7 @@
 }
 
 .weather-description {
-	font-family: 'Rajdhani Light';
+	font-family: 'Rajdhani';
 }
 
 .current-forecast-description {
@@ -71,7 +71,7 @@
 
 .current-forecast-temps span > span {
 	padding-left: 0.2em;
-	font-family: 'Rajdhani Light';
+	font-family: 'Rajdhani';
 }
 
 @media only screen and (min-width: 55rem) {

@@ -27,9 +27,15 @@ function startRevealAnimations() {
 		() => {
 			loaderTop.classList.add('animate-retract');
 			loaderBottom.classList.add('animate-retract');
-			contentWrapper.classList.add('animate-explode');
-			contentWrapper.addEventListener('animationend', removeAnimations, { once: true });
 			contentWrapper.removeAttribute('style');
+			contentWrapper.classList.add('animate-constrain', 'animate-revealing');
+			contentWrapper.addEventListener(
+				'animationend',
+				() => {
+					removeAnimations();
+				},
+				{ once: true },
+			);
 		},
 		{ once: true },
 	);
@@ -62,14 +68,15 @@ function searchNewLocation(e) {
 	const formData = new FormData(e.target);
 	const location = formData.get('location');
 	searchbar.value = location;
+	searchbar.blur();
 	weatherData.setLocation(location);
+	contentWrapper.classList.add('animate-constrain');
 	if (populateData()) {
 		startBlinkAnimation();
-		contentWrapper.classList.add('animate-downsize');
 	}
 }
-const weatherData = new WeatherData();
 
+const weatherData = new WeatherData();
 if (populateData(weatherData)) {
 	startBlinkAnimation();
 }

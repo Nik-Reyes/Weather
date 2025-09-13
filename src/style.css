@@ -138,22 +138,14 @@ span:not(.component-title, .current-time) {
 	grid-auto-columns: 1fr min-content;
 	gap: 30px;
 	padding: 30px;
-	height: 100%;
-	overflow: auto;
+	overflow-y: scroll;
 	grid-template-areas:
 		'header header'
 		'current-forecast circular-readings'
 		'hourly-forecast hourly-forecast'
 		'ten-day-forecast ten-day-forecast';
 
-	--height: 0px;
-	--width: 100dvw;
-	--max-width: var(--width);
-	--max-height: 100dvh;
-	--middle-height: calc(var(--max-height) / 2);
-	--opacity-start: 0;
-	--opacity-end: 1;
-	--duration: 400ms;
+	--duration: 600ms;
 }
 
 .header-right {
@@ -208,6 +200,112 @@ input[type='search']::placeholder {
 	background-color: var(--dark-1);
 }
 
+.loader-wrapper {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	--duration: 400ms;
+	z-index: 999;
+}
+
+.loader-wrapper > div {
+	--loader-height: 50vh;
+	height: var(--loader-height);
+	width: 5vw;
+	opacity: 0;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) scaleY(0.075);
+	background-color: var(--light-1);
+}
+
+.loader-top {
+	transform-origin: bottom;
+	bottom: 50%;
+}
+
+.loader-bottom {
+	transform-origin: top;
+	top: 50%;
+}
+
+:is(.loader-top, .loader-bottom).animate-reveal {
+	animation: var(--duration) linear forwards reveal;
+	opacity: 1;
+}
+
+.loader-top.animate-retract {
+	transform-origin: top;
+}
+
+.loader-bottom.animate-retract {
+	transform-origin: bottom;
+}
+
+:is(.loader-top, .loader-bottom).animate-retract {
+	animation: var(--duration) linear forwards retract;
+}
+
+.animate-blink {
+	animation: 200ms ease-in-out infinite forwards blink;
+}
+
+.animate-fade-in {
+	animation: var(--duration) linear forwards explode;
+}
+
+.content-wrapper.animate-revealing {
+	animation: var(--duration) ease-in-out forwards revealing;
+}
+
+.content-wrapper.animate-constrain {
+	height: 100svh;
+	overflow: hidden;
+	opacity: 0;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes reveal {
+	0% {
+		transform: translateX(-50%) scale(1, 0.075);
+	}
+	50% {
+		transform: translateX(-50%) scale(20, 0.075);
+	}
+	100% {
+		transform: translateX(-50%) scale(20, 1);
+	}
+}
+
+@keyframes retract {
+	0% {
+		transform: translateX(-50%) scale(20, 1);
+	}
+	100% {
+		transform: translateX(-50%) scale(20, 0);
+	}
+}
+
+@keyframes revealing {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 @media only screen and (min-width: 30.875rem) {
 	.content-wrapper {
 		grid-template-areas:
@@ -241,127 +339,5 @@ input[type='search']::placeholder {
 		grid-template-columns: auto 1fr;
 		column-gap: 5px;
 		row-gap: 50px;
-	}
-}
-
-.loader-wrapper {
-	position: fixed;
-	inset: 0;
-	pointer-events: none;
-
-	--max-width: 100dvw;
-	--max-height: 50dvh;
-	--duration: 600ms;
-}
-
-/* div = loader-top/bottom */
-.loader-wrapper > div {
-	--loader-height: 50vh;
-	/* magic number */
-	height: var(--loader-height);
-	width: 5vw;
-	/* turn off */
-	opacity: 0;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%) scaleY(0.075);
-	background-color: var(--light-1);
-}
-
-.loader-top {
-	transform-origin: bottom;
-	bottom: 50%;
-}
-
-.loader-bottom {
-	transform-origin: top;
-	top: 50%;
-}
-
-.loader-wrapper .animate-reveal {
-	animation: var(--duration) linear forwards reveal;
-}
-
-@keyframes reveal {
-	0% {
-		opacity: 1;
-
-		transform: translateX(-50%) scale(1, 0.075);
-	}
-	50% {
-		opacity: 1;
-
-		transform: translateX(-50%) scale(20, 0.075);
-	}
-	100% {
-		opacity: 1;
-
-		transform: translateX(-50%) scale(20, 1);
-	}
-}
-
-.loader-top.animate-retract {
-	transform-origin: top;
-}
-
-.loader-bottom.animate-retract {
-	transform-origin: bottom;
-}
-
-@keyframes retract {
-	0% {
-		opacity: 1;
-		transform: translateX(-50%) scale(20, 1);
-	}
-	100% {
-		opacity: 1;
-		transform: translateX(-50%) scale(20, 0);
-	}
-}
-
-.animate-blink {
-	animation: 200ms ease-in-out infinite forwards blink;
-}
-
-.animate-explode {
-	animation: var(--duration) linear forwards explode;
-}
-
-:is(.loader-top, .loader-bottom).animate-retract {
-	animation: 400ms linear 1 forwards retract;
-}
-
-.animate-downsize {
-	height: 0;
-	opacity: 0;
-}
-
-@keyframes blink {
-	0% {
-		opacity: 1;
-	}
-	50% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-@keyframes explode {
-	0% {
-		opacity: var(--opacity-start);
-		width: var(--width);
-		height: var(--height);
-	}
-	50% {
-		opacity: 0.5;
-		width: var(--max-width);
-		height: var(--middle-height);
-	}
-	100% {
-		opacity: var(--opacity-end);
-		width: var(--max-width);
-		height: var(--max-height);
 	}
 }
