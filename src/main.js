@@ -20,8 +20,8 @@ function removeAnimations() {
 }
 
 function startRevealAnimations() {
-	loaderTop.classList.add('animate-explode');
-	loaderBottom.classList.add('animate-explode');
+	loaderTop.classList.add('animate-reveal');
+	loaderBottom.classList.add('animate-reveal');
 	loaderBottom.addEventListener(
 		'animationend',
 		() => {
@@ -42,8 +42,6 @@ function startBlinkAnimation() {
 
 async function populateData() {
 	await weatherData.fetchWeatherData();
-	console.log(weatherData.timezone);
-
 	weatherData.trimDescription();
 	loadCurrentForcast(
 		weatherData.currentConditions,
@@ -70,12 +68,10 @@ function searchNewLocation(e) {
 		contentWrapper.classList.add('animate-downsize');
 	}
 }
-
-// ask weather data service to get the weather data
 const weatherData = new WeatherData();
-if (populateData()) {
+
+if (populateData(weatherData)) {
 	startBlinkAnimation();
 }
-setInterval(populateData, 900000);
-
 form.addEventListener('submit', searchNewLocation);
+setInterval(populateData, 900000);
