@@ -1,5 +1,5 @@
 export default class WeatherData {
-	constructor(location = 'zion') {
+	constructor(location = 'Miami, FL') {
 		this._rawData = null;
 		this._location = location;
 		this._baseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
