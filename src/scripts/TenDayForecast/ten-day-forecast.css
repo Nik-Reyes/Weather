@@ -13,10 +13,6 @@
 	background-color: var(--dark-1);
 	padding: 5px 10px;
 }
-/* 
-:is(.ten-day-card-title, .ten-day-high, .ten-day-conditions) {
-	font-size: 1.3125rem;
-} */
 
 .ten-day-card-title,
 .ten-day-high {

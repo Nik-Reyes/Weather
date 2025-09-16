@@ -43,7 +43,7 @@
 .carousel-btn {
 	font-size: var(--time-tile-fs);
 	width: 25px;
-	background-color: var(--light-1);
+	background-color: var(--light-2);
 	display: grid;
 	place-items: center;
 	margin-top: calc(var(--time-tile-fs) + var(--card-row-gap));
@@ -69,6 +69,7 @@
 	grid-template-rows: auto 1fr;
 	background-color: var(--dark-1);
 	padding: 5px;
+	grid-template-rows: 1fr min-content;
 }
 
 .hour-precip-data {
