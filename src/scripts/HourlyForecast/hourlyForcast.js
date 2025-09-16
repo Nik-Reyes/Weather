@@ -6,6 +6,13 @@ import { formatInTimeZone } from 'date-fns-tz';
 export default function makeHours(nextFortyEightHours, timezone) {
 	if (nextFortyEightHours.length !== 48) return;
 
+	const carousel = document.querySelector('.carousel');
+	const times = carousel.querySelectorAll('.time');
+	const hourlyTemps = carousel.querySelectorAll('.hourly-temp');
+	const hourCards = document.querySelectorAll('.hour-card');
+	const hourCardsArr = Array.from(hourCards);
+	const carouselWrapper = document.querySelector('.carousel-wrapper');
+
 	const currentHour = parseInt(formatInTimeZone(new Date(), timezone, 'h'));
 	let meridiem = formatInTimeZone(new Date(), timezone, 'aaa');
 	const TWELVE_HOURS = 12;
@@ -17,10 +24,6 @@ export default function makeHours(nextFortyEightHours, timezone) {
 		meridiemAdjustedStartHour + TWENTY_FOUR_HOURS,
 	);
 
-	const carousel = document.querySelector('.carousel');
-	const times = carousel.querySelectorAll('.time');
-	const hourlyTemps = carousel.querySelectorAll('.hourly-temp');
-
 	for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
 		let hour = (currentHour + i) % TWELVE_HOURS;
 		if (hour === 0) {
@@ -30,10 +33,6 @@ export default function makeHours(nextFortyEightHours, timezone) {
 		times[i].textContent = `${hour}${meridiem}`;
 		hourlyTemps[i].textContent = `${parseInt(nextTwentyFourHours[i].temp)}°`;
 	}
-
-	const hourCards = document.querySelectorAll('.hour-card');
-	const hourCardsArr = Array.from(hourCards);
-	const carouselWrapper = document.querySelector('.carousel-wrapper');
 
 	function shiftCarouselBackward(cardWidth) {
 		const numberOfCards = Math.round(carousel.scrollLeft / cardWidth);
