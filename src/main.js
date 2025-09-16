@@ -81,4 +81,4 @@ if (populateData(weatherData)) {
 	startBlinkAnimation();
 }
 form.addEventListener('submit', searchNewLocation);
-setInterval(populateData, 900000);
+setInterval(populateData, 600000); //refreshes every 10 minutes
