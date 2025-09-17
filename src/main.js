@@ -1,7 +1,6 @@
 import WeatherData from './modules/WeatherDataService.js';
-import makeHours from './scripts/HourlyForecast/hourlyForcast.js';
+import DomManager from './modules/DomManager.js';
 import './style.css';
-import DomManager from './modules/DOM.js';
 
 const contentWrapper = document.querySelector('.content-wrapper');
 const loaderTop = document.querySelector('.loader-top');
@@ -48,6 +47,8 @@ function startBlinkAnimation() {
 
 async function populateData() {
 	await weatherData.fetchWeatherData();
+	startRevealAnimations();
+	weatherData.trimDescription();
 	dom.populateData({
 		currentConditions: weatherData.currentConditions,
 		conditionDescription: weatherData.conditionDescription,
@@ -56,18 +57,9 @@ async function populateData() {
 		unit: weatherData.unit,
 		timezone: weatherData.timezone,
 		tenDayForecast: weatherData.getDays(10),
+		nextFourtyEightHours: weatherData.getHours(2),
+		timezone: weatherData.timezone,
 	});
-	weatherData.trimDescription();
-	// loadCurrentForcast(
-	// 	weatherData.currentConditions,
-	// 	weatherData.conditionDescription,
-	// 	weatherData.minTemp,
-	// 	weatherData.maxTemp,
-	// 	weatherData.unit,
-	// 	weatherData.timezone,
-	// );
-	// makeHours(weatherData.getHours(2), weatherData.timezone); // accepts days as param
-	startRevealAnimations();
 }
 
 function searchNewLocation(e) {
@@ -79,9 +71,8 @@ function searchNewLocation(e) {
 	searchbar.blur();
 	weatherData.setLocation(location);
 	contentWrapper.classList.add('animate-constrain');
-	if (populateData()) {
-		startBlinkAnimation();
-	}
+	populateData();
+	startBlinkAnimation();
 }
 
 const weatherData = new WeatherData();
