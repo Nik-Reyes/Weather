@@ -105,7 +105,6 @@ export default class WeatherData {
 		try {
 			const resp = await fetch(this.url);
 			this.rawData = await resp.json(); //other methods can use this without using another api call
-			console.log(this._rawData);
 		} catch (error) {
 			console.log(error);
 		}

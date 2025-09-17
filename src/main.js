@@ -1,13 +1,13 @@
 import WeatherData from './modules/WeatherDataService.js';
 import makeHours from './scripts/HourlyForecast/hourlyForcast.js';
-import loadCurrentForcast from './scripts/CurrentForecast/currentForecast.js';
-import tenDayForecast from './scripts/TenDayForecast/tenDayForecast.js';
 import './style.css';
+import DomManager from './modules/DOM.js';
 
 const contentWrapper = document.querySelector('.content-wrapper');
 const loaderTop = document.querySelector('.loader-top');
 const loaderBottom = document.querySelector('.loader-bottom');
 const form = document.querySelector('form');
+const dom = new DomManager();
 
 function removeAnimations() {
 	[contentWrapper, loaderTop, loaderBottom].forEach(element => {
@@ -48,17 +48,25 @@ function startBlinkAnimation() {
 
 async function populateData() {
 	await weatherData.fetchWeatherData();
+	dom.populateData({
+		currentConditions: weatherData.currentConditions,
+		conditionDescription: weatherData.conditionDescription,
+		minTemp: weatherData.minTemp,
+		maxTemp: weatherData.maxTemp,
+		unit: weatherData.unit,
+		timezone: weatherData.timezone,
+		tenDayForecast: weatherData.getDays(10),
+	});
 	weatherData.trimDescription();
-	loadCurrentForcast(
-		weatherData.currentConditions,
-		weatherData.conditionDescription,
-		weatherData.minTemp,
-		weatherData.maxTemp,
-		weatherData.unit,
-		weatherData.timezone,
-	);
-	makeHours(weatherData.getHours(2), weatherData.timezone); // accepts days as param
-	tenDayForecast(weatherData.getDays(10));
+	// loadCurrentForcast(
+	// 	weatherData.currentConditions,
+	// 	weatherData.conditionDescription,
+	// 	weatherData.minTemp,
+	// 	weatherData.maxTemp,
+	// 	weatherData.unit,
+	// 	weatherData.timezone,
+	// );
+	// makeHours(weatherData.getHours(2), weatherData.timezone); // accepts days as param
 	startRevealAnimations();
 }
 
@@ -77,7 +85,7 @@ function searchNewLocation(e) {
 }
 
 const weatherData = new WeatherData();
-if (populateData(weatherData)) {
+if (populateData()) {
 	startBlinkAnimation();
 }
 form.addEventListener('submit', searchNewLocation);
