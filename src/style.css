@@ -82,13 +82,10 @@
 	--box-shadow-adjustment: var(--bxsh-spread);
 }
 
-html {
-	scrollbar-color: var(--light-1) var(--dark-1);
-}
-
 body {
 	background: linear-gradient(180deg, hsl(196, 100%, 9%) 10%, #011515 100%) fixed;
 	position: relative;
+	overflow: hidden;
 }
 
 header {
@@ -133,8 +130,7 @@ span:not(.component-title, .current-time) {
 .page-wrapper {
 	display: grid;
 	place-items: center;
-	min-height: 100dvh;
-	overflow: hidden;
+	height: 100dvh;
 	max-width: 112.5rem;
 	margin: 0 auto;
 }
@@ -144,15 +140,16 @@ span:not(.component-title, .current-time) {
 	grid-auto-rows: min-content;
 	grid-auto-columns: 1fr min-content;
 	height: 100%;
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+	scrollbar-color: var(--light-1) var(--dark-1);
 	gap: 30px;
 	padding: 30px;
-	overflow-y: auto;
 	grid-template-areas:
 		'header header'
 		'current-forecast circular-readings'
 		'hourly-forecast hourly-forecast'
 		'ten-day-forecast ten-day-forecast';
-
 	--duration: 600ms;
 }
 
