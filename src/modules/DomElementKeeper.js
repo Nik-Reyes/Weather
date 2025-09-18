@@ -20,6 +20,10 @@ export default class DomElementKeeper {
 			carousel: { selector: '.carousel', all: false },
 			hourCards: { selector: '.hour-card', all: true },
 			carouselWrapper: { selector: '.carousel-wrapper', all: false },
+			contentWrapper: { selector: '.content-wrapper', all: false },
+			loaderTop: { selector: '.loader-top', all: false },
+			loaderBottom: { selector: '.loader-bottom', all: false },
+			form: { selector: 'form', all: false },
 		});
 	}
 
@@ -84,5 +88,17 @@ export default class DomElementKeeper {
 	}
 	get carouselWrapper() {
 		return this.elements.carouselWrapper;
+	}
+	get contentWrapper() {
+		return this.elements.contentWrapper;
+	}
+	get loaderTop() {
+		return this.elements.loaderTop;
+	}
+	get loaderBottom() {
+		return this.elements.loaderBottom;
+	}
+	get form() {
+		return this.elements.form;
 	}
 }

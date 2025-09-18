@@ -9,8 +9,8 @@ import '../stylesheets/circular-readout.css';
 import '../stylesheets/hourly-forecast.css';
 
 export default class DomManager {
-	constructor() {
-		this.elementKeeper = new DomElementKeeper();
+	constructor(elememts) {
+		this.elementKeeper = elememts;
 		this.timeKeeper = new TimeKeeper(this.elementKeeper.currentTime);
 		new CarouselHandler(this.elementKeeper.carousel, this.elementKeeper.hourCards, this.elementKeeper.carouselWrapper);
 	}
@@ -117,5 +117,48 @@ export default class DomManager {
 		this.populateTenDayForecast(weatherData.tenDayForecast);
 		this.populateHourlyForecast(weatherData.nextFourtyEightHours, weatherData.timezone);
 		this.timeKeeper.startTimeKeeper(weatherData.timezone);
+	}
+
+	removeAnimations() {
+		[this.elementKeeper.contentWrapper, this.elementKeeper.loaderTop, this.elementKeeper.loaderBottom].forEach(
+			element => {
+				[...element.classList].forEach(cls => {
+					if (cls.includes('animate')) {
+						element.classList.remove(cls);
+					}
+				});
+			},
+		);
+	}
+
+	startRevealAnimations() {
+		this.elementKeeper.loaderTop.classList.add('animate-reveal');
+		this.elementKeeper.loaderBottom.classList.add('animate-reveal');
+		this.elementKeeper.loaderBottom.addEventListener(
+			'animationend',
+			() => {
+				this.elementKeeper.loaderTop.classList.add('animate-retract');
+				this.elementKeeper.loaderBottom.classList.add('animate-retract');
+				this.elementKeeper.contentWrapper.removeAttribute('style');
+				this.elementKeeper.contentWrapper.classList.add('animate-constrain', 'animate-revealing');
+				this.elementKeeper.contentWrapper.addEventListener(
+					'animationend',
+					() => {
+						this.removeAnimations();
+					},
+					{ once: true },
+				);
+			},
+			{ once: true },
+		);
+	}
+
+	addAnimationConstrain() {
+		this.elementKeeper.contentWrapper.classList.add('animate-constrain');
+	}
+
+	startBlinkAnimation() {
+		this.elementKeeper.loaderTop.classList.add('animate-blink');
+		this.elementKeeper.loaderBottom.classList.add('animate-blink');
 	}
 }
