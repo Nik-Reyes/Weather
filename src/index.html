@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="page-wrapper">
-			<div class="content-wrapper" style="opacity: 0; height: 0px">
+			<div class="content-wrapper animate-constrain">
 				<header>
 					<div class="header-left">
 						<div class="logo-wrapper">
@@ -21,14 +21,42 @@
 						<form class="search-form">
 							<div class="field-control">
 								<label for="location"></label>
-								<input
-									type="search"
-									id="location"
-									name="location"
-									placeholder="Enter a City/ZIP"
-									autocomplete="off"
-									value="Miami, FL"
-								/>
+								<input type="search" id="location" name="location" placeholder="Enter a City/ZIP" autocomplete="off" />
+								<div class="search-results hidden">
+									<span class="no-results hidden">No Results</span>
+									<ul>
+										<li>
+											<button type="submit" name="btn-location-1" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-2" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-3" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-4" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-5" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-6" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-7" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-8" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-9" class="search-result hidden"></button>
+										</li>
+										<li>
+											<button type="submit" name="btn-location-10" class="search-result hidden"></button>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -43,7 +71,7 @@
 				</header>
 				<div class="temp-display">
 					<div class="current-forecast-header component-header">
-						<span class="current-date component-title"></span><span class="current-time"></span>
+						<span class="current-date component-title">Today</span><span class="current-time"></span>
 					</div>
 					<div class="weather-condition-blocks">
 						<div class="current-forecast-temps card">
@@ -54,22 +82,24 @@
 							<div class="secondary-weather-data">
 								<div class="min-max-temps">
 									<div class="high-temp">
-										<span class="high-title title"><span class="high-temp-reading temperature"></span></span>
+										<span class="high-title title">Hi:<span class="high-temp-reading temperature"></span></span>
 									</div>
 									<div class="low-temp">
-										<span class="title"><span class="low-temp-reading temperature"></span></span>
+										<span class="title">Lo:<span class="low-temp-reading temperature"></span></span>
 									</div>
 								</div>
 								<div class="feels-like-wrapper">
-									<span class="feels-like title"><span class="feels-like-temp temperature"°</span></span>
+									<span class="feels-like title">
+										Feels Like:
+										<span class="feels-like-temp temperature">°</span>
+									</span>
 								</div>
 							</div>
 						</div>
 						<div class="current-forecast-description card">
 							<div><img src="./assets/svgs/partly-cloudy.svg" alt="partly cloudy icon" width="64" height="52" /></div>
 							<div class="weather-description-wrapper">
-								<span class="weather-state title"></span
-								><span class="weather-description"></span>
+								<span class="weather-state title"></span><span class="weather-description"></span>
 							</div>
 						</div>
 					</div>

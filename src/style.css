@@ -331,7 +331,7 @@ input[type='search']::placeholder {
 	}
 
 	.tempurature-wrapper .current-forecast-temp {
-		font-size: clamp(2.5rem, -5.4677rem + 25.8065vw, 3rem);
+		font-size: clamp(2.5rem, -0.6667rem + 10.2564vw, 3.5rem);
 	}
 }
 
