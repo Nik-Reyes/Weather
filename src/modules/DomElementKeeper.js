@@ -1,7 +1,7 @@
 export default class DomElementKeeper {
 	constructor() {
 		this.elements = {};
-		this.queryElements({
+		this.elementsToQuery = {
 			dates: { selector: '.ten-day-forecast .ten-day-card-title', all: true },
 			lows: { selector: '.ten-day-forecast .ten-day-low', all: true },
 			highs: { selector: '.ten-day-forecast .ten-day-high', all: true },
@@ -24,7 +24,12 @@ export default class DomElementKeeper {
 			loaderTop: { selector: '.loader-top', all: false },
 			loaderBottom: { selector: '.loader-bottom', all: false },
 			form: { selector: 'form', all: false },
-		});
+			searchbar: { selector: '[type="search"]', all: false },
+			searchResultElements: { selector: '.search-result', all: true },
+			searchResultContainer: { selector: '.search-results', all: false },
+			noResults: { selector: '.no-results', all: false },
+		};
+		this.queryElements(this.elementsToQuery);
 	}
 
 	queryElements(selectors) {
@@ -100,5 +105,17 @@ export default class DomElementKeeper {
 	}
 	get form() {
 		return this.elements.form;
+	}
+	get searchbar() {
+		return this.elements.searchbar;
+	}
+	get searchResultElements() {
+		return this.elements.searchResultElements;
+	}
+	get searchResultContainer() {
+		return this.elements.searchResultContainer;
+	}
+	get noResults() {
+		return this.elements.noResults;
 	}
 }

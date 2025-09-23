@@ -1,5 +1,4 @@
 import TimeKeeper from './TimeKeeper.js';
-import DomElementKeeper from './DomElementKeeper.js';
 import CarouselHandler from './CarouselHandler.js';
 import { format, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -7,12 +6,18 @@ import '../stylesheets/ten-day-forecast.css';
 import '../stylesheets/current-forecast.css';
 import '../stylesheets/circular-readout.css';
 import '../stylesheets/hourly-forecast.css';
+import '../stylesheets/searchbar.css';
 
 export default class DomManager {
 	constructor(elememts) {
 		this.elementKeeper = elememts;
 		this.timeKeeper = new TimeKeeper(this.elementKeeper.currentTime);
 		new CarouselHandler(this.elementKeeper.carousel, this.elementKeeper.hourCards, this.elementKeeper.carouselWrapper);
+	}
+
+	setSeachbarMetaData(newLocation) {
+		this.elementKeeper.searchbar.value = newLocation;
+		this.elementKeeper.searchbar.innerText = newLocation;
 	}
 
 	populateTenDayForecast(tenDayForecast) {
@@ -73,7 +78,7 @@ export default class DomManager {
 				this.elementKeeper.weatherState.textContent = condition;
 			},
 			feelslike: feelsLikeTemp => {
-				this.elementKeeper.feelsLike.textContent = `Feels Like: ${feelsLikeTemp}°`;
+				this.elementKeeper.feelsLike.textContent = `${feelsLikeTemp}°`;
 			},
 			humidity: currHumidity => {
 				const maxHumidity = 100;
@@ -100,8 +105,8 @@ export default class DomManager {
 			}
 		}
 
-		this.elementKeeper.minTemp.textContent = `Lo: ${minTemp}°`;
-		this.elementKeeper.maxTemp.textContent = `Hi: ${maxTemp}°`;
+		this.elementKeeper.minTemp.textContent = `${minTemp}°`;
+		this.elementKeeper.maxTemp.textContent = `${maxTemp}°`;
 		this.elementKeeper.forecastDescription.textContent = conditionDescription;
 	}
 
@@ -139,7 +144,6 @@ export default class DomManager {
 			() => {
 				this.elementKeeper.loaderTop.classList.add('animate-retract');
 				this.elementKeeper.loaderBottom.classList.add('animate-retract');
-				this.elementKeeper.contentWrapper.removeAttribute('style');
 				this.elementKeeper.contentWrapper.classList.add('animate-constrain', 'animate-revealing');
 				this.elementKeeper.contentWrapper.addEventListener(
 					'animationend',

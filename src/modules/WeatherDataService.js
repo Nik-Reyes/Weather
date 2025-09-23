@@ -1,6 +1,7 @@
 export default class WeatherData {
 	constructor(location = 'Miami, FL') {
 		this._rawData = null;
+		this._abbreviatedLocation = null;
 		this._location = location;
 		this._baseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
 		this._apiKey = 'D99Y9FUTYS77HVAMWTVJV9TV4';
@@ -8,6 +9,10 @@ export default class WeatherData {
 			metric: false,
 			us: true,
 		};
+	}
+
+	abbreviateLocation() {
+		this._abbreviatedLocation = this._location.split(',').at(0);
 	}
 
 	setLocation(newLocation) {
@@ -59,6 +64,10 @@ export default class WeatherData {
 		return this._rawData.timezone;
 	}
 
+	get abbreviatedLocation() {
+		return this._abbreviatedLocation;
+	}
+
 	set conditionDescription(description) {
 		this._rawData.description = description;
 	}
@@ -94,10 +103,12 @@ export default class WeatherData {
 	}
 
 	trimDescription() {
-		const textToTrim = 'with no rain expected.';
-		const description = this.conditionDescription;
-		if (description.includes(textToTrim)) {
-			this.conditionDescription = `${description.replaceAll(textToTrim, '').trim()}.`;
+		const textToTrim = 'similar temperatures continuing';
+		console.log(this.conditionDescription.toLowerCase());
+
+		if (this.conditionDescription.toLowerCase().includes(textToTrim)) {
+			console.log('it does');
+			this.conditionDescription = 'Similar temperatures continuing.';
 		}
 	}
 
@@ -105,8 +116,9 @@ export default class WeatherData {
 		try {
 			const resp = await fetch(this.url);
 			this.rawData = await resp.json(); //other methods can use this without using another api call
+			this.abbreviateLocation();
 		} catch (error) {
-			console.log(error);
+			return null;
 		}
 	}
 }
