@@ -2,6 +2,7 @@
 	display: grid;
 	grid-area: current-forecast;
 	grid-template-rows: auto 1fr;
+	--gap: 15px;
 }
 
 .weather-condition-blocks {
@@ -24,12 +25,12 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 20px;
+	gap: var(--gap);
 }
 
 .current-forecast-temps,
 .current-forecast-description {
-	padding: 10px 15px;
+	padding: 5px 10px;
 }
 
 .current-forecast-temp {
@@ -62,7 +63,11 @@
 .current-forecast-description {
 	display: flex;
 	align-items: center;
-	column-gap: 15px;
+	gap: var(--gap);
+}
+
+.feels-like-wrapper {
+	white-space: nowrap;
 }
 
 .title {
