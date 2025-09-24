@@ -40,8 +40,6 @@ export default class OpenCageAPI {
 			const json = await this.getLocation();
 			const locationResults = json.results;
 			if (locationResults.length === 0) {
-				//need to figure out a way to tie this back into DOM
-				//if there are no results, then the no results DIV needs to appear
 				return null;
 			}
 
@@ -67,7 +65,6 @@ export default class OpenCageAPI {
 		return async location => {
 			this.location = location;
 			clearTimeout(timer);
-
 			const locations = await new Promise(resolve => {
 				timer = setTimeout(async () => {
 					resolve(await processResults());

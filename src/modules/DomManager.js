@@ -165,4 +165,25 @@ export default class DomManager {
 		this.elementKeeper.loaderTop.classList.add('animate-blink');
 		this.elementKeeper.loaderBottom.classList.add('animate-blink');
 	}
+
+	hideResults() {
+		this.elementKeeper.searchResultElements.forEach(searchResult => {
+			searchResult.classList.add('hidden');
+		});
+		this.elementKeeper.noResults.classList.add('hidden');
+	}
+
+	showLocationResults(searchResults) {
+		this.elementKeeper.searchResultContainer.classList.remove('hidden');
+		for (let i = 0; i < searchResults.length; i++) {
+			this.elementKeeper.searchResultElements[i].classList.remove('hidden');
+			this.elementKeeper.searchResultElements[i].textContent = searchResults[i];
+			this.elementKeeper.searchResultElements[i].value = searchResults[i];
+		}
+	}
+
+	showNoResults() {
+		this.elementKeeper.searchResultContainer.classList.remove('hidden');
+		this.elementKeeper.noResults.classList.remove('hidden');
+	}
 }
