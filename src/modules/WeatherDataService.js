@@ -79,11 +79,9 @@ export default class WeatherData {
 	// accepts integer as number of days including today
 	getHours(numOfDays) {
 		if (numOfDays <= 0) {
-			console.log('Must specify amount of days greater than 0');
 			return;
 		}
 		if (numOfDays >= 15) {
-			console.log('Must specify amount of days less than 15');
 			return;
 		}
 		const cumulativeHours = this._rawData.days.slice(0, numOfDays).flatMap(day => day.hours);
@@ -92,11 +90,9 @@ export default class WeatherData {
 
 	getDays(numOfDays) {
 		if (numOfDays <= 0) {
-			console.log('Must specify amount of days greater than 0');
 			return;
 		}
 		if (numOfDays >= 15) {
-			console.log('Must specify amount of days less than 15');
 			return;
 		}
 		return this._rawData.days.slice(0, numOfDays);
@@ -104,10 +100,7 @@ export default class WeatherData {
 
 	trimDescription() {
 		const textToTrim = 'similar temperatures continuing';
-		console.log(this.conditionDescription.toLowerCase());
-
 		if (this.conditionDescription.toLowerCase().includes(textToTrim)) {
-			console.log('it does');
 			this.conditionDescription = 'Similar temperatures continuing.';
 		}
 	}
