@@ -15,12 +15,22 @@ export default class DomManager {
 		new CarouselHandler(this.elementKeeper.carousel, this.elementKeeper.hourCards, this.elementKeeper.carouselWrapper);
 	}
 
+	async setImgIcon(img, icon) {
+		const iconName = icon.toLowerCase();
+		const iconModule = await import(`../assets/svgs/weatherIcons/${iconName}.svg`);
+		const iconURL = iconModule.default;
+
+		img.src = iconURL;
+		img.alt = `${icon.split('-').join(' ')} icon`;
+	}
+
 	setSeachbarMetaData(newLocation) {
 		this.elementKeeper.searchbar.value = newLocation;
 		this.elementKeeper.searchbar.innerText = newLocation;
 	}
 
 	populateTenDayForecast(tenDayForecast) {
+		console.log(tenDayForecast);
 		for (let i = 0; i < this.elementKeeper.highs.length; i++) {
 			if (i === 0) {
 				this.elementKeeper.dates[i].textContent = 'Today';
@@ -31,6 +41,7 @@ export default class DomManager {
 			}
 			this.elementKeeper.highs[i].textContent = `${parseInt(tenDayForecast[i].tempmax)}°`;
 			this.elementKeeper.lows[i].textContent = `${parseInt(tenDayForecast[i].tempmin)}°`;
+			this.setImgIcon(this.elementKeeper.dailyWeatherIcons[i], tenDayForecast[i].icon);
 		}
 	}
 
@@ -56,6 +67,7 @@ export default class DomManager {
 			}
 			this.elementKeeper.times[i].textContent = `${hour}${meridiem}`;
 			this.elementKeeper.hourlyTemps[i].textContent = `${parseInt(nextTwentyFourHours[i].temp)}°`;
+			this.setImgIcon(this.elementKeeper.hourlyWeatherIcons[i], nextTwentyFourHours[i].icon);
 		}
 	}
 
@@ -72,7 +84,7 @@ export default class DomManager {
 		}
 	}
 
-	populateCurrentConditions(currentConditions, conditionDescription, minTemp, maxTemp, unit, timezone) {
+	populateCurrentConditions(currentConditions, conditionDescription, minTemp, maxTemp, unit, icon) {
 		const currentCondtionDict = {
 			conditions: condition => {
 				this.elementKeeper.weatherState.textContent = condition;
@@ -84,7 +96,9 @@ export default class DomManager {
 				const maxHumidity = 100;
 				this.populateCircularReadout(this.elementKeeper.humidity, maxHumidity, currHumidity);
 			},
-			icon: () => {},
+			icon: icon => {
+				this.setImgIcon(this.elementKeeper.currentWeatherIcon, icon);
+			},
 			precipprob: precipProb => {
 				const maxPrecipProb = 100;
 				this.populateCircularReadout(this.elementKeeper.precipitation, maxPrecipProb, precipProb);

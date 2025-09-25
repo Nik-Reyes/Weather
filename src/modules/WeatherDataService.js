@@ -1,5 +1,5 @@
 export default class WeatherData {
-	constructor(location = 'Miami, FL') {
+	constructor(location = 'Lake Forest, CA') {
 		this._rawData = null;
 		this._abbreviatedLocation = null;
 		this._location = location;
@@ -66,6 +66,18 @@ export default class WeatherData {
 
 	get abbreviatedLocation() {
 		return this._abbreviatedLocation;
+	}
+
+	get currentIcon() {
+		return this._rawData.currentConditions.icon;
+	}
+
+	get hourlyIcons() {
+		return this._rawData.currentConditions.icon;
+	}
+
+	get dailyIcons() {
+		return this._rawData.currentConditions.icon;
 	}
 
 	set conditionDescription(description) {

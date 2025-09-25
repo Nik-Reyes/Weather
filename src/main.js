@@ -13,14 +13,7 @@ class App {
 		this.formClass = 'search-form';
 	}
 
-	async populateData() {
-		if ((await this.weatherData.fetchWeatherData()) === null) {
-			console.log('no weather data available');
-			return 'no-data';
-		}
-		this.dom.startRevealAnimations();
-		this.weatherData.trimDescription();
-		this.dom.setSeachbarMetaData(this.weatherData.abbreviatedLocation);
+	requestDOMDataPopulation() {
 		this.dom.populateData({
 			currentConditions: this.weatherData.currentConditions,
 			conditionDescription: this.weatherData.conditionDescription,
@@ -34,23 +27,34 @@ class App {
 		});
 	}
 
+	weatherDataIsValid() {
+		return this.weatherData === null ? false : true;
+	}
+
+	launchErrorPopup() {
+		console.log('no weather data available');
+	}
+
+	async populateData() {
+		await this.weatherData.fetchWeatherData();
+		if (!this.weatherDataIsValid()) {
+			this.launchErrorPopup();
+			return;
+		}
+		this.dom.startRevealAnimations();
+		this.weatherData.trimDescription();
+		this.dom.setSeachbarMetaData(this.weatherData.abbreviatedLocation);
+		this.requestDOMDataPopulation();
+	}
+
 	async refreshData() {
-		if ((await this.weatherData.fetchWeatherData()) === null) {
-			console.log('no weather data available');
+		await this.weatherData.fetchWeatherData();
+		if (!this.weatherDataIsValid()) {
+			this.launchErrorPopup();
 			return;
 		}
 		this.weatherData.trimDescription();
-		this.dom.populateData({
-			currentConditions: this.weatherData.currentConditions,
-			conditionDescription: this.weatherData.conditionDescription,
-			minTemp: this.weatherData.minTemp,
-			maxTemp: this.weatherData.maxTemp,
-			unit: this.weatherData.unit,
-			timezone: this.weatherData.timezone,
-			tenDayForecast: this.weatherData.getDays(10),
-			nextFourtyEightHours: this.weatherData.getHours(2),
-			timezone: this.weatherData.timezone,
-		});
+		this.requestDOMDataPopulation();
 	}
 
 	searchNewLocation(e) {

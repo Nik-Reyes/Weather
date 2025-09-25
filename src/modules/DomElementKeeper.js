@@ -28,6 +28,9 @@ export default class DomElementKeeper {
 			searchResultElements: { selector: '.search-result', all: true },
 			searchResultContainer: { selector: '.search-results', all: false },
 			noResults: { selector: '.no-results', all: false },
+			currentWeatherIcon: { selector: '.current-forecast-description.card img', all: false },
+			hourlyWeatherIcons: { selector: '.hour-condition-icon img', all: true },
+			dailyWeatherIcons: { selector: '.ten-day-icon-wrapper img', all: true },
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -117,5 +120,14 @@ export default class DomElementKeeper {
 	}
 	get noResults() {
 		return this.elements.noResults;
+	}
+	get currentWeatherIcon() {
+		return this.elements.currentWeatherIcon;
+	}
+	get hourlyWeatherIcons() {
+		return this.elements.hourlyWeatherIcons;
+	}
+	get dailyWeatherIcons() {
+		return this.elements.dailyWeatherIcons;
 	}
 }
