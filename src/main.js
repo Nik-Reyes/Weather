@@ -24,6 +24,7 @@ class App {
 			tenDayForecast: this.weatherData.getDays(10),
 			nextFourtyEightHours: this.weatherData.getHours(2),
 			timezone: this.weatherData.timezone,
+			currentIcon: this.weatherData.currentIcon,
 		});
 	}
 
@@ -60,8 +61,12 @@ class App {
 	searchNewLocation(e) {
 		e.preventDefault();
 		const focusedELement = document.activeElement;
-		// prohibit enter key on searchbar
-		if ([...focusedELement.attributes].some(attr => attr.nodeName === 'type' && attr.nodeValue === 'search')) {
+		// prohibit form submition with enter key (user must explicitly select location)
+		if (
+			[...focusedELement.attributes].some(
+				attr => attr.nodeName === 'type' && attr.nodeValue === 'search',
+			)
+		) {
 			return;
 		}
 
@@ -108,9 +113,15 @@ class App {
 
 	init() {
 		this.populateData();
-		this.elementKeeper.form.addEventListener('submit', e => this.searchNewLocation(e));
-		this.elementKeeper.searchbar.addEventListener('keyup', e => this.handleSearches(e));
-		document.addEventListener('click', e => this.handleOutOfBoundsClick(e));
+		this.elementKeeper.form.addEventListener('submit', e =>
+			this.searchNewLocation(e),
+		);
+		this.elementKeeper.searchbar.addEventListener('keyup', e =>
+			this.handleSearches(e),
+		);
+		document.addEventListener('click', e =>
+			this.handleOutOfBoundsClick(e),
+		);
 		setInterval(() => this.refreshData(), 600000); //10 minutes
 	}
 }

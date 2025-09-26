@@ -12,12 +12,18 @@ export default class DomManager {
 	constructor(elememts) {
 		this.elementKeeper = elememts;
 		this.timeKeeper = new TimeKeeper(this.elementKeeper.currentTime);
-		new CarouselHandler(this.elementKeeper.carousel, this.elementKeeper.hourCards, this.elementKeeper.carouselWrapper);
+		new CarouselHandler(
+			this.elementKeeper.carousel,
+			this.elementKeeper.hourCards,
+			this.elementKeeper.carouselWrapper,
+		);
 	}
 
 	async setImgIcon(img, icon) {
 		const iconName = icon.toLowerCase();
-		const iconModule = await import(`../assets/svgs/weatherIcons/${iconName}.svg`);
+		const iconModule = await import(
+			`../assets/svgs/weatherIcons/${iconName}.svg`
+		);
 		const iconURL = iconModule.default;
 
 		img.src = iconURL;
@@ -29,34 +35,53 @@ export default class DomManager {
 		this.elementKeeper.searchbar.innerText = newLocation;
 	}
 
-	populateTenDayForecast(tenDayForecast) {
-		console.log(tenDayForecast);
+	populateTenDayForecast(tenDayForecast, currentIcon) {
 		for (let i = 0; i < this.elementKeeper.highs.length; i++) {
 			if (i === 0) {
 				this.elementKeeper.dates[i].textContent = 'Today';
 			} else if (i === 1) {
 				this.elementKeeper.dates[i].textContent = 'Tomorrow';
 			} else {
-				this.elementKeeper.dates[i].textContent = format(parseISO(tenDayForecast[i].datetime), 'ccc do');
+				this.elementKeeper.dates[i].textContent = format(
+					parseISO(tenDayForecast[i].datetime),
+					'ccc do',
+				);
 			}
-			this.elementKeeper.highs[i].textContent = `${parseInt(tenDayForecast[i].tempmax)}°`;
-			this.elementKeeper.lows[i].textContent = `${parseInt(tenDayForecast[i].tempmin)}°`;
-			this.setImgIcon(this.elementKeeper.dailyWeatherIcons[i], tenDayForecast[i].icon);
+			this.elementKeeper.highs[i].textContent =
+				`${parseInt(tenDayForecast[i].tempmax)}°`;
+			this.elementKeeper.lows[i].textContent =
+				`${parseInt(tenDayForecast[i].tempmin)}°`;
+
+			i === 0
+				? this.setImgIcon(
+						this.elementKeeper.dailyWeatherIcons[i],
+						currentIcon,
+					)
+				: this.setImgIcon(
+						this.elementKeeper.dailyWeatherIcons[i],
+						tenDayForecast[i].icon,
+					);
 		}
 	}
 
-	populateHourlyForecast(nextFortyEightHours, timezone) {
+	populateHourlyForecast(nextFortyEightHours, timezone, currentIcon) {
 		if (nextFortyEightHours.length !== 48) return;
 
-		const currentHour = parseInt(formatInTimeZone(new Date(), timezone, 'h'));
+		const currentHour = parseInt(
+			formatInTimeZone(new Date(), timezone, 'h'),
+		);
 		let meridiem = formatInTimeZone(new Date(), timezone, 'aaa');
 		const TWELVE_HOURS = 12;
 		const TWENTY_FOUR_HOURS = 24;
 
-		const meridiemAdjustedStartHour = meridiem === 'am' ? currentHour : currentHour + TWELVE_HOURS;
+		const meridiemAdjustedStartHour =
+			meridiem === 'am' ? currentHour : currentHour + TWELVE_HOURS;
 		const nextTwentyFourHours = nextFortyEightHours.slice(
 			meridiemAdjustedStartHour,
 			meridiemAdjustedStartHour + TWENTY_FOUR_HOURS,
+		);
+		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(
+			hour => hour.precipprob,
 		);
 
 		for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
@@ -66,8 +91,20 @@ export default class DomManager {
 				meridiem = meridiem === 'am' ? 'pm' : 'am';
 			}
 			this.elementKeeper.times[i].textContent = `${hour}${meridiem}`;
-			this.elementKeeper.hourlyTemps[i].textContent = `${parseInt(nextTwentyFourHours[i].temp)}°`;
-			this.setImgIcon(this.elementKeeper.hourlyWeatherIcons[i], nextTwentyFourHours[i].icon);
+			this.elementKeeper.hourlyTemps[i].textContent =
+				`${parseInt(nextTwentyFourHours[i].temp)}°`;
+			this.elementKeeper.hourlyPrecipitationChances[i].innerText =
+				`${nextTwentyFourHoursPrecipChance[i]}%`;
+
+			i === 0
+				? this.setImgIcon(
+						this.elementKeeper.hourlyWeatherIcons[i],
+						currentIcon,
+					)
+				: this.setImgIcon(
+						this.elementKeeper.hourlyWeatherIcons[i],
+						nextTwentyFourHours[i].icon,
+					);
 		}
 	}
 
@@ -84,7 +121,14 @@ export default class DomManager {
 		}
 	}
 
-	populateCurrentConditions(currentConditions, conditionDescription, minTemp, maxTemp, unit, icon) {
+	populateCurrentConditions(
+		currentConditions,
+		conditionDescription,
+		minTemp,
+		maxTemp,
+		unit,
+		icon,
+	) {
 		const currentCondtionDict = {
 			conditions: condition => {
 				this.elementKeeper.weatherState.textContent = condition;
@@ -94,25 +138,39 @@ export default class DomManager {
 			},
 			humidity: currHumidity => {
 				const maxHumidity = 100;
-				this.populateCircularReadout(this.elementKeeper.humidity, maxHumidity, currHumidity);
+				this.populateCircularReadout(
+					this.elementKeeper.humidity,
+					maxHumidity,
+					currHumidity,
+				);
 			},
 			icon: icon => {
 				this.setImgIcon(this.elementKeeper.currentWeatherIcon, icon);
 			},
 			precipprob: precipProb => {
 				const maxPrecipProb = 100;
-				this.populateCircularReadout(this.elementKeeper.precipitation, maxPrecipProb, precipProb);
+				this.populateCircularReadout(
+					this.elementKeeper.precipitation,
+					maxPrecipProb,
+					precipProb,
+				);
 			},
 			temp: currTemp => {
 				this.elementKeeper.currentTemp.textContent = `${currTemp}°${unit === 'us' ? 'F' : 'C'}`;
 			},
 			uvindex: UVIndex => {
 				const maxUVIndex = 12;
-				this.populateCircularReadout(this.elementKeeper.uvIndex, maxUVIndex, UVIndex);
+				this.populateCircularReadout(
+					this.elementKeeper.uvIndex,
+					maxUVIndex,
+					UVIndex,
+				);
 			},
 		};
 
-		for (let [weatherElement, value] of Object.entries(currentConditions)) {
+		for (let [weatherElement, value] of Object.entries(
+			currentConditions,
+		)) {
 			if (Object.hasOwn(currentCondtionDict, weatherElement)) {
 				if (!isNaN(value)) value = parseInt(value);
 				currentCondtionDict[weatherElement](value);
@@ -121,7 +179,8 @@ export default class DomManager {
 
 		this.elementKeeper.minTemp.textContent = `${minTemp}°`;
 		this.elementKeeper.maxTemp.textContent = `${maxTemp}°`;
-		this.elementKeeper.forecastDescription.textContent = conditionDescription;
+		this.elementKeeper.forecastDescription.textContent =
+			conditionDescription;
 	}
 
 	populateData(weatherData) {
@@ -133,21 +192,30 @@ export default class DomManager {
 			weatherData.unit,
 			weatherData.timezone,
 		);
-		this.populateTenDayForecast(weatherData.tenDayForecast);
-		this.populateHourlyForecast(weatherData.nextFourtyEightHours, weatherData.timezone);
+		this.populateTenDayForecast(
+			weatherData.tenDayForecast,
+			weatherData.currentIcon,
+		);
+		this.populateHourlyForecast(
+			weatherData.nextFourtyEightHours,
+			weatherData.timezone,
+			weatherData.currentIcon,
+		);
 		this.timeKeeper.startTimeKeeper(weatherData.timezone);
 	}
 
 	removeAnimations() {
-		[this.elementKeeper.contentWrapper, this.elementKeeper.loaderTop, this.elementKeeper.loaderBottom].forEach(
-			element => {
-				[...element.classList].forEach(cls => {
-					if (cls.includes('animate')) {
-						element.classList.remove(cls);
-					}
-				});
-			},
-		);
+		[
+			this.elementKeeper.contentWrapper,
+			this.elementKeeper.loaderTop,
+			this.elementKeeper.loaderBottom,
+		].forEach(element => {
+			[...element.classList].forEach(cls => {
+				if (cls.includes('animate')) {
+					element.classList.remove(cls);
+				}
+			});
+		});
 	}
 
 	startRevealAnimations() {
@@ -158,7 +226,10 @@ export default class DomManager {
 			() => {
 				this.elementKeeper.loaderTop.classList.add('animate-retract');
 				this.elementKeeper.loaderBottom.classList.add('animate-retract');
-				this.elementKeeper.contentWrapper.classList.add('animate-constrain', 'animate-revealing');
+				this.elementKeeper.contentWrapper.classList.add(
+					'animate-constrain',
+					'animate-revealing',
+				);
 				this.elementKeeper.contentWrapper.addEventListener(
 					'animationend',
 					() => {
@@ -190,8 +261,11 @@ export default class DomManager {
 	showLocationResults(searchResults) {
 		this.elementKeeper.searchResultContainer.classList.remove('hidden');
 		for (let i = 0; i < searchResults.length; i++) {
-			this.elementKeeper.searchResultElements[i].classList.remove('hidden');
-			this.elementKeeper.searchResultElements[i].textContent = searchResults[i];
+			this.elementKeeper.searchResultElements[i].classList.remove(
+				'hidden',
+			);
+			this.elementKeeper.searchResultElements[i].textContent =
+				searchResults[i];
 			this.elementKeeper.searchResultElements[i].value = searchResults[i];
 		}
 	}
