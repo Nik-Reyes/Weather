@@ -1,18 +1,32 @@
 import { formatInTimeZone } from 'date-fns-tz';
 
 export default class TimeKeeper {
-	constructor(currentTime) {
+	constructor() {
 		this.intervalID = null;
-		this.currentTimeElement = currentTime;
+		this.currTime = null;
+		this.prevTime = null;
+		this.currHour = null;
+		this.prevHour = null;
 	}
 
-	startTimeKeeper(timezone) {
-		this.currentTimeElement.textContent = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
+	parseHour(time) {
+		return time.split(':').at(0);
+	}
 
+	startTimeKeeper(timezone, callback) {
 		if (this.intervalID !== null) clearInterval(this.intervalID);
 		this.intervalID = setInterval(() => {
-			const timer = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
-			this.currentTimeElement.textContent = timer;
+			this.prevTime = this.currTime || '0';
+			this.prevHour = this.parseHour(this.prevTime);
+			this.currTime = formatInTimeZone(new Date(), timezone, 'h:mmaaa');
+			this.currHour = this.parseHour(this.currTime);
+
+			callback({
+				currTime: this.currTime,
+				prevHour: this.prevHour,
+				currHour: this.currHour,
+			});
 		}, 1000);
+		return formatInTimeZone(new Date(), timezone, 'h:mmaaa');
 	}
 }

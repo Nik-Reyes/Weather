@@ -11,7 +11,7 @@ import '../stylesheets/searchbar.css';
 export default class DomManager {
 	constructor(elememts) {
 		this.elementKeeper = elememts;
-		this.timeKeeper = new TimeKeeper(this.elementKeeper.currentTime);
+		this.timeKeeper = new TimeKeeper();
 		new CarouselHandler(
 			this.elementKeeper.carousel,
 			this.elementKeeper.hourCards,
@@ -183,6 +183,28 @@ export default class DomManager {
 			conditionDescription;
 	}
 
+	setHourlyForecast(weatherData) {
+		console.log('first'); //fix setHourlyForecast being called two times at start
+		this.populateHourlyForecast(
+			weatherData.nextFourtyEightHours,
+			weatherData.timezone,
+			weatherData.currentIcon,
+		);
+	}
+
+	setTime(currTime) {
+		this.elementKeeper.currentTime.innerText = currTime;
+	}
+
+	processTime(timeData, weatherData) {
+		const { currTime, prevHour, currHour } = timeData;
+		this.setTime(currTime);
+		if (currHour !== prevHour) {
+			//if the hour is different (the hour of the current time is greater than that of the previous time, then refresh the hourly cards)
+			this.setHourlyForecast(weatherData);
+		}
+	}
+
 	populateData(weatherData) {
 		this.populateCurrentConditions(
 			weatherData.currentConditions,
@@ -196,12 +218,13 @@ export default class DomManager {
 			weatherData.tenDayForecast,
 			weatherData.currentIcon,
 		);
-		this.populateHourlyForecast(
-			weatherData.nextFourtyEightHours,
-			weatherData.timezone,
-			weatherData.currentIcon,
+		this.setHourlyForecast(weatherData);
+
+		this.setTime(
+			this.timeKeeper.startTimeKeeper(weatherData.timezone, timeData =>
+				this.processTime(timeData, weatherData),
+			),
 		);
-		this.timeKeeper.startTimeKeeper(weatherData.timezone);
 	}
 
 	removeAnimations() {
