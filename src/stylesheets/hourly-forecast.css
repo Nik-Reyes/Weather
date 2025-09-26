@@ -1,9 +1,3 @@
-.carousel-wrapper img {
-	width: 100%;
-	height: auto;
-	display: block;
-}
-
 .carousel-wrapper {
 	display: grid;
 	grid-area: hourly-forecast;
@@ -45,7 +39,7 @@
 	height: 50px;
 	display: grid;
 	place-items: center;
-	margin: 0 auto 10px auto;
+	margin: 0 auto 0px auto;
 	--clear-night-scale-adjustment: 75%;
 }
 
@@ -88,9 +82,9 @@
 
 .hour-precip-data {
 	display: grid;
+	place-items: center;
 }
 
-.hour-precip-icon img {
-	display: grid;
-	place-content: center;
+.hour-precip-icon {
+	width: 30px;
 }

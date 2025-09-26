@@ -2,17 +2,26 @@ export default class DomElementKeeper {
 	constructor() {
 		this.elements = {};
 		this.elementsToQuery = {
-			dates: { selector: '.ten-day-forecast .ten-day-card-title', all: true },
+			dates: {
+				selector: '.ten-day-forecast .ten-day-card-title',
+				all: true,
+			},
 			lows: { selector: '.ten-day-forecast .ten-day-low', all: true },
 			highs: { selector: '.ten-day-forecast .ten-day-high', all: true },
-			forecastDescription: { selector: '.weather-condition-blocks .weather-description', all: false },
+			forecastDescription: {
+				selector: '.weather-condition-blocks .weather-description',
+				all: false,
+			},
 			minTemp: { selector: '.low-temp-reading', all: false },
 			maxTemp: { selector: '.high-temp-reading', all: false },
 			currentTime: { selector: '.current-time', all: false },
 			weatherState: { selector: '.weather-state.title', all: false },
 			feelsLike: { selector: '.feels-like-temp', all: false },
 			humidity: { selector: '.progressbar.humidity', all: false },
-			precipitation: { selector: '.progressbar.precipitation', all: false },
+			precipitation: {
+				selector: '.progressbar.precipitation',
+				all: false,
+			},
 			uvIndex: { selector: '.progressbar.uv-index', all: false },
 			currentTemp: { selector: '.current-forecast-temp', all: false },
 			times: { selector: '.time', all: true },
@@ -28,9 +37,22 @@ export default class DomElementKeeper {
 			searchResultElements: { selector: '.search-result', all: true },
 			searchResultContainer: { selector: '.search-results', all: false },
 			noResults: { selector: '.no-results', all: false },
-			currentWeatherIcon: { selector: '.current-forecast-description.card img', all: false },
-			hourlyWeatherIcons: { selector: '.hour-condition-icon img', all: true },
-			dailyWeatherIcons: { selector: '.ten-day-icon-wrapper img', all: true },
+			currentWeatherIcon: {
+				selector: '.current-forecast-description.card img',
+				all: false,
+			},
+			hourlyWeatherIcons: {
+				selector: '.hour-condition-icon img',
+				all: true,
+			},
+			dailyWeatherIcons: {
+				selector: '.ten-day-icon-wrapper img',
+				all: true,
+			},
+			hourlyPrecipitationChances: {
+				selector: '.hour-precip-chance',
+				all: true,
+			},
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -38,8 +60,12 @@ export default class DomElementKeeper {
 	queryElements(selectors) {
 		Object.entries(selectors).forEach(([key, selectorOptions]) => {
 			selectorOptions.all === false
-				? (this.elements[key] = document.querySelector(selectorOptions.selector))
-				: (this.elements[key] = document.querySelectorAll(selectorOptions.selector));
+				? (this.elements[key] = document.querySelector(
+						selectorOptions.selector,
+					))
+				: (this.elements[key] = document.querySelectorAll(
+						selectorOptions.selector,
+					));
 		});
 	}
 
@@ -129,5 +155,8 @@ export default class DomElementKeeper {
 	}
 	get dailyWeatherIcons() {
 		return this.elements.dailyWeatherIcons;
+	}
+	get hourlyPrecipitationChances() {
+		return this.elements.hourlyPrecipitationChances;
 	}
 }
