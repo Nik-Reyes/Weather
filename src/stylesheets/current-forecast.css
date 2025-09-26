@@ -66,6 +66,11 @@
 	gap: var(--gap);
 }
 
+.current-weather-icon-wrapper {
+	width: 60px;
+	flex-shrink: 0;
+}
+
 .feels-like-wrapper {
 	white-space: nowrap;
 }

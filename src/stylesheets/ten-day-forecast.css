@@ -38,8 +38,8 @@
 }
 
 .ten-day-forecast-cards {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-auto-rows: 1fr;
 	gap: 5px;
 	overflow-x: auto;
 }
@@ -48,10 +48,15 @@
 	display: flex;
 }
 
+.ten-day-card > div {
+	padding: 8px;
+}
+
 .ten-day-icon-wrapper {
 	margin-left: auto;
 	display: grid;
 	place-content: center;
+	width: var(--small-icon-size);
 }
 
 .ten-day-conditions {

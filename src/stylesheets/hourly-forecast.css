@@ -40,6 +40,20 @@
 	height: 100%;
 }
 
+.hour-condition-icon {
+	width: var(--small-icon-size);
+	height: 50px;
+	display: grid;
+	place-items: center;
+	margin: 0 auto 10px auto;
+	--clear-night-scale-adjustment: 75%;
+}
+
+/* the clear-night svg APPEARS (not actually is) noticeably larger than the others */
+.hour-condition-icon img[alt*='clear night'] {
+	width: var(--clear-night-scale-adjustment);
+}
+
 .carousel-btn {
 	font-size: var(--time-tile-fs);
 	width: 25px;
