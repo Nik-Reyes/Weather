@@ -53,6 +53,7 @@ export default class DomElementKeeper {
 				selector: '.hour-precip-chance',
 				all: true,
 			},
+			dailyPrecipChance: { selector: '.daily-precip-chance', all: true },
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -158,5 +159,8 @@ export default class DomElementKeeper {
 	}
 	get hourlyPrecipitationChances() {
 		return this.elements.hourlyPrecipitationChances;
+	}
+	get dailyPrecipChance() {
+		return this.elements.dailyPrecipChance;
 	}
 }

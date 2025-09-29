@@ -36,6 +36,7 @@ export default class DomManager {
 	}
 
 	populateTenDayForecast(tenDayForecast, currentIcon) {
+		console.log(this.elementKeeper.dailyPrecipChance[0].innerText);
 		for (let i = 0; i < this.elementKeeper.highs.length; i++) {
 			if (i === 0) {
 				this.elementKeeper.dates[i].textContent = 'Today';
@@ -47,10 +48,13 @@ export default class DomManager {
 					'ccc do',
 				);
 			}
+
 			this.elementKeeper.highs[i].textContent =
 				`${parseInt(tenDayForecast[i].tempmax)}°`;
 			this.elementKeeper.lows[i].textContent =
 				`${parseInt(tenDayForecast[i].tempmin)}°`;
+			this.elementKeeper.dailyPrecipChance[i].innerText =
+				`${tenDayForecast[i].precipprob}%`;
 
 			i === 0
 				? this.setImgIcon(
