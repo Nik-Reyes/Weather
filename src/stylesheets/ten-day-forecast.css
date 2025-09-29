@@ -6,17 +6,48 @@
 }
 
 .ten-day-card {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 1.5fr 2fr;
+}
+
+.daily-precip-chance-wrapper {
 	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	margin-left: auto;
+}
+
+.daily-precip-chance-wrapper * {
+	font-size: inherit;
+}
+
+.daily-precip-icon {
+	width: 25px;
+}
+
+.ten-day-card-title {
+	display: block;
+	width: 100%;
+	text-align: left;
 }
 
 :where(.ten-day-card-title-wrapper, .ten-day-conditions) {
 	background-color: var(--dark-1);
-	padding: 5px 10px;
+}
+
+.ten-day-card-title-wrapper {
+	display: grid;
+	place-items: center start;
 }
 
 .ten-day-card-title,
 .ten-day-high {
-	font-family: 'Rajdhani';
+	font-family: 'Rajdhani Medium';
+}
+
+.ten-day-high {
+	font-size: 1.5rem;
 }
 
 .ten-day-low {
@@ -25,12 +56,7 @@
 
 .ten-day-card-title,
 .ten-day-conditions {
-	padding: 0.1em 0.5em;
-}
-
-.ten-day-card-title-wrapper {
-	display: grid;
-	place-content: center;
+	padding: 0.75em;
 }
 
 .ten-day-forecast-cards .card {
@@ -44,16 +70,8 @@
 	overflow-x: auto;
 }
 
-.ten-day-card {
-	display: flex;
-}
-
-.ten-day-card > div {
-	padding: 8px;
-}
-
 .ten-day-icon-wrapper {
-	margin-left: auto;
+	/* margin-left: auto; */
 	display: grid;
 	place-content: center;
 	width: var(--small-icon-size);
@@ -63,22 +81,32 @@
 	flex: 1;
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	/* justify-content: space-between; */
 }
 
 .ten-day-temps {
 	display: flex;
 	gap: 10px;
 	align-items: flex-end;
+	margin-left: 10px;
 }
 
 @media only screen and (min-width: 55rem) {
 	.ten-day-forecast-cards {
-		flex-direction: row;
+		display: flex;
 		overscroll-behavior-inline: contain;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 		scroll-behavior: smooth;
+	}
+
+	.ten-day-conditions {
+		display: flex;
+		gap: 15px;
+	}
+
+	.daily-precip-chance-wrapper {
+		display: grid;
 	}
 
 	.carousel::-webkit-scrollbar {
@@ -102,18 +130,28 @@
 
 	.ten-day-card-title-wrapper {
 		background-color: transparent;
+		padding: 5px 10px;
 	}
 
-	.ten-day-conditions {
-		padding: 0px 10px;
+	.ten-day-card-title {
+		white-space: nowrap;
+		height: 1em;
+		padding: 0px;
+		text-align: center;
 	}
 
 	.ten-day-temps {
 		flex-direction: column;
 		gap: 0px;
+		align-items: center;
 	}
 
 	.ten-day-low {
+		font-size: 1.125rem;
+		padding-right: 3px;
+	}
+
+	.daily-precip-chance {
 		font-size: 1.125rem;
 	}
 }
