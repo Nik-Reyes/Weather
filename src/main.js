@@ -122,7 +122,7 @@ class App {
 		document.addEventListener('click', e =>
 			this.handleOutOfBoundsClick(e),
 		);
-		setInterval(() => this.refreshData(), 600000); //10 minutes
+		setInterval(() => this.refreshData(), 1800000); //30 minutes: https://www.visualcrossing.com/resources/documentation/weather-api/how-to-look-up-the-current-weather-conditions-in-the-weather-api/
 	}
 }
 
