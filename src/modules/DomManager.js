@@ -55,7 +55,7 @@ export default class DomManager {
 			this.elementKeeper.lows[i].textContent =
 				`${parseInt(tenDayForecast[i].tempmin)}°`;
 			this.elementKeeper.dailyPrecipChance[i].innerText =
-				`${tenDayForecast[i].precipprob}%`;
+				`${parseInt(tenDayForecast[i].precipprob)}%`;
 
 			i === 0
 				? this.setImgIcon(
@@ -85,8 +85,8 @@ export default class DomManager {
 			meridiemAdjustedStartHour,
 			meridiemAdjustedStartHour + TWENTY_FOUR_HOURS,
 		);
-		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(
-			hour => hour.precipprob,
+		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(hour =>
+			parseInt(hour.precipprob),
 		);
 
 		for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
@@ -132,7 +132,6 @@ export default class DomManager {
 		minTemp,
 		maxTemp,
 		unit,
-		icon,
 	) {
 		const currentCondtionDict = {
 			conditions: condition => {
