@@ -45,6 +45,10 @@ export default class WeatherData {
 		return this.todaysWeatherData.hours;
 	}
 
+	get weatherState() {
+		return this.currentConditions.conditions;
+	}
+
 	get currentConditions() {
 		return this._rawData.currentConditions;
 	}
@@ -74,7 +78,6 @@ export default class WeatherData {
 	}
 
 	get nearestStation() {
-		console.log(this._rawData.stations);
 		const stations = Object.entries(this._rawData.stations);
 		const distances = stations.map(
 			stationArray => stationArray.at(1).distance,
@@ -93,6 +96,10 @@ export default class WeatherData {
 
 	set rawData(data) {
 		this._rawData = data;
+	}
+
+	set weatherState(state) {
+		return (this.currentConditions.conditions = state);
 	}
 
 	// accepts integer as number of days including today
@@ -117,6 +124,11 @@ export default class WeatherData {
 			return;
 		}
 		return this._rawData.days.slice(0, numOfDays);
+	}
+
+	trimWeatherState() {
+		this.weatherState = this.weatherState.split(',').at(0);
+		console.log(this.weatherState);
 	}
 
 	trimDescription() {
