@@ -1,5 +1,6 @@
 import TimeKeeper from './TimeKeeper.js';
 import CarouselHandler from './CarouselHandler.js';
+import NWS from './NationalWeatherService.js';
 import { format, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import '../stylesheets/ten-day-forecast.css';
@@ -11,6 +12,7 @@ import '../stylesheets/searchbar.css';
 export default class DomManager {
 	constructor(elememts) {
 		this.elementKeeper = elememts;
+		this.nws = new NWS();
 		this.timeKeeper = new TimeKeeper();
 		new CarouselHandler(
 			this.elementKeeper.carousel,
@@ -36,7 +38,6 @@ export default class DomManager {
 	}
 
 	populateTenDayForecast(tenDayForecast, currentIcon) {
-		console.log(this.elementKeeper.dailyPrecipChance[0].innerText);
 		for (let i = 0; i < this.elementKeeper.highs.length; i++) {
 			if (i === 0) {
 				this.elementKeeper.dates[i].textContent = 'Today';
@@ -187,8 +188,17 @@ export default class DomManager {
 			conditionDescription;
 	}
 
+	async populateBottomLevelDecor(weatherStation) {
+		this.nws.stationID = weatherStation[0];
+		await this.nws.fetchStation();
+
+		const coords = `(LAT: ${weatherStation[1].latitude} | LONG: ${weatherStation[1].longitude})`;
+		this.elementKeeper.weatherStationCoords.innerText = coords;
+		this.elementKeeper.weatherStationName.innerText = this.nws.stationName;
+	}
+
 	setHourlyForecast(weatherData) {
-		console.log('first'); //fix setHourlyForecast being called two times at start
+		//fix setHourlyForecast being called two times at start
 		this.populateHourlyForecast(
 			weatherData.nextFourtyEightHours,
 			weatherData.timezone,
@@ -223,12 +233,12 @@ export default class DomManager {
 			weatherData.currentIcon,
 		);
 		this.setHourlyForecast(weatherData);
-
 		this.setTime(
 			this.timeKeeper.startTimeKeeper(weatherData.timezone, timeData =>
 				this.processTime(timeData, weatherData),
 			),
 		);
+		this.populateBottomLevelDecor(weatherData.station);
 	}
 
 	removeAnimations() {

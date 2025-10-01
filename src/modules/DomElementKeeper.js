@@ -54,6 +54,18 @@ export default class DomElementKeeper {
 				all: true,
 			},
 			dailyPrecipChance: { selector: '.daily-precip-chance', all: true },
+			weatherStationName: {
+				selector: '.weather-station-name',
+				all: false,
+			},
+			weatherStationName: {
+				selector: '.weather-station-name span',
+				all: false,
+			},
+			weatherStationCoords: {
+				selector: '.weather-station-coords span',
+				all: false,
+			},
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -162,5 +174,11 @@ export default class DomElementKeeper {
 	}
 	get dailyPrecipChance() {
 		return this.elements.dailyPrecipChance;
+	}
+	get weatherStationCoords() {
+		return this.elements.weatherStationCoords;
+	}
+	get weatherStationName() {
+		return this.elements.weatherStationName;
 	}
 }

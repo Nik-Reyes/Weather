@@ -3,7 +3,8 @@ export default class WeatherData {
 		this._rawData = null;
 		this._abbreviatedLocation = null;
 		this._location = location;
-		this._baseURL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
+		this._baseURL =
+			'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
 		this._apiKey = 'D99Y9FUTYS77HVAMWTVJV9TV4';
 		this._units = {
 			metric: false,
@@ -72,12 +73,18 @@ export default class WeatherData {
 		return this._rawData.currentConditions.icon;
 	}
 
-	get hourlyIcons() {
-		return this._rawData.currentConditions.icon;
-	}
+	get nearestStation() {
+		console.log(this._rawData.stations);
+		const stations = Object.entries(this._rawData.stations);
+		const distances = stations.map(
+			stationArray => stationArray.at(1).distance,
+		);
+		const minDistance = Math.min.apply(null, distances);
+		const nearestStationIdx = stations.findIndex(
+			stationArray => stationArray.at(1).distance === minDistance,
+		);
 
-	get dailyIcons() {
-		return this._rawData.currentConditions.icon;
+		return stations.at(nearestStationIdx);
 	}
 
 	set conditionDescription(description) {
@@ -96,7 +103,9 @@ export default class WeatherData {
 		if (numOfDays >= 15) {
 			return;
 		}
-		const cumulativeHours = this._rawData.days.slice(0, numOfDays).flatMap(day => day.hours);
+		const cumulativeHours = this._rawData.days
+			.slice(0, numOfDays)
+			.flatMap(day => day.hours);
 		return cumulativeHours;
 	}
 

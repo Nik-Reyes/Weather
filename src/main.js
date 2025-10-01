@@ -25,6 +25,7 @@ class App {
 			nextFourtyEightHours: this.weatherData.getHours(2),
 			timezone: this.weatherData.timezone,
 			currentIcon: this.weatherData.currentIcon,
+			station: this.weatherData.nearestStation,
 		});
 	}
 
