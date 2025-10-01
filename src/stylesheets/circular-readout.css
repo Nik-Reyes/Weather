@@ -2,8 +2,9 @@
 	grid-area: circular-readings;
 	display: grid;
 	gap: 15px;
-	place-content: center;
 	font-family: 'Rajdhani';
+	margin-left: auto;
+	width: min-content;
 }
 
 :is(.circular-reading-wrapper, .circular-reading-wrapper > div) {
@@ -22,22 +23,31 @@
 	--fs-default: 1.125rem;
 	--bar-width-ratio-default: 0.18;
 	--diameter-default: 3.75em;
-	--bar-width-default: calc(100% - calc(var(--diameter-default) * var(--bar-width-ratio-default)));
+	--bar-width-default: calc(
+		100% - calc(var(--diameter-default) * var(--bar-width-ratio-default))
+	);
 
 	--bar-width-ratio-m: 0.2;
 	--fs-m: calc(var(--fs-default) * 1.5);
 	--diameter-m: 4.25em;
-	--bar-width-m: calc(100% - calc(var(--diameter-m) * var(--bar-width-ratio-m)));
+	--bar-width-m: calc(
+		100% - calc(var(--diameter-m) * var(--bar-width-ratio-m))
+	);
 
 	--fs-l: calc(var(--fs-default) * 2.25);
 	--diameter-l: 4.25em;
-	--bar-width-l: calc(100% - calc(var(--diameter-l) * var(--bar-width-ratio-m)));
+	--bar-width-l: calc(
+		100% - calc(var(--diameter-l) * var(--bar-width-ratio-m))
+	);
 
 	--progress: 0;
 
 	width: var(--diameter-default);
 	aspect-ratio: 1;
-	background: conic-gradient(var(--color-progress-indicator) var(--progress, 0), var(--color-progress-bg) 0%);
+	background: conic-gradient(
+		var(--color-progress-indicator) var(--progress, 0),
+		var(--color-progress-bg) 0%
+	);
 	border-radius: 50%;
 	font-size: var(--fs-default);
 	display: grid;
@@ -129,9 +139,9 @@
 		grid-template-areas:
 			'. humidity .'
 			'uv-index . precip-chance';
-		gap: 0px;
 		grid-template-rows: 177px auto;
 		grid-template-columns: 1fr 0px 1fr;
+		margin: 0px;
 	}
 
 	.circular-reading-wrapper:has(.humidity) {

@@ -419,11 +419,12 @@ input[type='search']::placeholder {
 			'circular-readings hourly-forecast'
 			'bottom-level-decor bottom-level-decor';
 
-		grid-template-columns: auto 1fr;
+		grid-template-columns: min-content 1fr;
 		gap: 50px 5px;
 	}
 
-	.barcode-wrapper {
-		visibility: visible;
+	.header-right {
+		justify-content: flex-end;
+		column-gap: 5px;
 	}
 }

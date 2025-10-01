@@ -2,7 +2,6 @@
 	display: grid;
 	grid-area: hourly-forecast;
 	grid-template-columns: auto 1fr auto;
-	font-family: 'Rajdhani';
 	--time-tile-fs: 1.25rem;
 	--card-row-gap: 5px;
 }
