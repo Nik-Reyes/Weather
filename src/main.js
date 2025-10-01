@@ -14,6 +14,9 @@ class App {
 	}
 
 	requestDOMDataPopulation() {
+		this.weatherData.trimDescription();
+		this.weatherData.trimWeatherState();
+
 		this.dom.populateData({
 			currentConditions: this.weatherData.currentConditions,
 			conditionDescription: this.weatherData.conditionDescription,
@@ -44,7 +47,6 @@ class App {
 			return;
 		}
 		this.dom.startRevealAnimations();
-		this.weatherData.trimDescription();
 		this.dom.setSeachbarMetaData(this.weatherData.abbreviatedLocation);
 		this.requestDOMDataPopulation();
 	}
@@ -55,7 +57,6 @@ class App {
 			this.launchErrorPopup();
 			return;
 		}
-		this.weatherData.trimDescription();
 		this.requestDOMDataPopulation();
 	}
 
