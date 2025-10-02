@@ -14,9 +14,6 @@ class App {
 	}
 
 	requestDOMDataPopulation() {
-		this.weatherData.trimDescription();
-		this.weatherData.trimWeatherState();
-
 		this.dom.populateData({
 			currentConditions: this.weatherData.currentConditions,
 			conditionDescription: this.weatherData.conditionDescription,

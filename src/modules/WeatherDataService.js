@@ -126,18 +126,6 @@ export default class WeatherData {
 		return this._rawData.days.slice(0, numOfDays);
 	}
 
-	trimWeatherState() {
-		this.weatherState = this.weatherState.split(',').at(0);
-		console.log(this.weatherState);
-	}
-
-	trimDescription() {
-		const textToTrim = 'similar temperatures continuing';
-		if (this.conditionDescription.toLowerCase().includes(textToTrim)) {
-			this.conditionDescription = 'Similar temperatures continuing.';
-		}
-	}
-
 	async fetchWeatherData() {
 		try {
 			const resp = await fetch(this.url);
