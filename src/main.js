@@ -14,23 +14,30 @@ class App {
 	}
 
 	requestDOMDataPopulation() {
-		this.dom.populateData({
-			currentConditions: this.weatherData.currentConditions,
-			conditionDescription: this.weatherData.conditionDescription,
-			minTemp: this.weatherData.minTemp,
-			maxTemp: this.weatherData.maxTemp,
-			unit: this.weatherData.unit,
-			timezone: this.weatherData.timezone,
-			tenDayForecast: this.weatherData.getDays(10),
-			nextFourtyEightHours: this.weatherData.getHours(2),
-			timezone: this.weatherData.timezone,
-			currentIcon: this.weatherData.currentIcon,
-			station: this.weatherData.nearestStation,
+		return new Promise(resolve => {
+			this.dom.populateData({
+				currentConditions: this.weatherData.currentConditions,
+				conditionDescription: this.weatherData.conditionDescription,
+				minTemp: this.weatherData.minTemp,
+				maxTemp: this.weatherData.maxTemp,
+				unit: this.weatherData.unit,
+				timezone: this.weatherData.timezone,
+				tenDayForecast: this.weatherData.getDays(10),
+				nextFourtyEightHours: this.weatherData.getHours(2),
+				timezone: this.weatherData.timezone,
+				currentIcon: this.weatherData.currentIcon,
+				station: this.weatherData.nearestStation,
+			});
+			resolve();
 		});
 	}
 
-	weatherDataIsValid() {
-		return this.weatherData === null ? false : true;
+	checkIfDataIsInvalid() {
+		if (this.weatherData.validity === false) {
+			this.launchErrorPopup();
+			return true;
+		}
+		return false;
 	}
 
 	launchErrorPopup() {
@@ -39,21 +46,20 @@ class App {
 
 	async populateData() {
 		await this.weatherData.fetchWeatherData();
-		if (!this.weatherDataIsValid()) {
-			this.launchErrorPopup();
-			return;
-		}
-		this.dom.startRevealAnimations();
+		if (this.checkIfDataIsInvalid()) return;
+
+		this.dom.startBlinkAnimation();
+		this.dom.addAnimationConstrain();
 		this.dom.setSeachbarMetaData(this.weatherData.abbreviatedLocation);
-		this.requestDOMDataPopulation();
+		this.requestDOMDataPopulation().then(() => {
+			this.dom.startRevealAnimations();
+		});
 	}
 
 	async refreshData() {
 		await this.weatherData.fetchWeatherData();
-		if (!this.weatherDataIsValid()) {
-			this.launchErrorPopup();
-			return;
-		}
+		if (this.checkIfDataIsInvalid()) return null;
+
 		this.requestDOMDataPopulation();
 	}
 
@@ -74,11 +80,11 @@ class App {
 		this.dom.hideResults();
 
 		this.weatherData.setLocation(location);
-		const hasData = this.populateData();
-		if (!hasData) return;
-
-		this.dom.addAnimationConstrain();
-		this.dom.startBlinkAnimation();
+		this.populateData().then(returnVal => {
+			if (returnVal === null) {
+				return;
+			}
+		});
 	}
 
 	async handleSearches(e) {

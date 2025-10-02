@@ -188,10 +188,19 @@ export default class DomManager {
 	}
 
 	async populateBottomLevelDecor(weatherStation) {
-		this.nws.stationID = weatherStation[0];
-		await this.nws.fetchStation();
+		let coords = null;
+		if (!Array.isArray(weatherStation)) {
+			const invalidStation = weatherStation;
+			console.log('first');
+			this.nws.stationID = invalidStation.stationID;
+			this.nws.stationName = invalidStation.stationName;
+			coords = invalidStation.coords;
+		} else {
+			this.nws.stationID = weatherStation[0];
+			await this.nws.fetchStation();
+			coords = `(LAT: ${weatherStation[1].latitude} | LONG: ${weatherStation[1].longitude})`;
+		}
 
-		const coords = `(LAT: ${weatherStation[1].latitude} | LONG: ${weatherStation[1].longitude})`;
 		this.elementKeeper.weatherStationCoords.innerText = coords;
 		this.elementKeeper.weatherStationName.innerText = this.nws.stationName;
 	}
@@ -237,6 +246,7 @@ export default class DomManager {
 				this.processTime(timeData, weatherData),
 			),
 		);
+		console.log(weatherData);
 		this.populateBottomLevelDecor(weatherData.station);
 	}
 

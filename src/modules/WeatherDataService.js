@@ -3,12 +3,18 @@ export default class WeatherData {
 		this._rawData = null;
 		this._abbreviatedLocation = null;
 		this._location = location;
+		this._valid = false;
 		this._baseURL =
 			'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
 		this._apiKey = 'D99Y9FUTYS77HVAMWTVJV9TV4';
 		this._units = {
 			metric: false,
 			us: true,
+		};
+		this.noStation = {
+			stationID: 'Unavailable',
+			stationName: 'Unavailable',
+			coords: '(LAT: N/A | LONG: N/A)',
 		};
 	}
 
@@ -77,7 +83,15 @@ export default class WeatherData {
 		return this._rawData.currentConditions.icon;
 	}
 
+	get validity() {
+		return this._valid;
+	}
+
 	get nearestStation() {
+		if (!Object.hasOwn(this._rawData, 'stations')) {
+			return this.noStation;
+		}
+
 		const stations = Object.entries(this._rawData.stations);
 		const distances = stations.map(
 			stationArray => stationArray.at(1).distance,
@@ -88,6 +102,10 @@ export default class WeatherData {
 		);
 
 		return stations.at(nearestStationIdx);
+	}
+
+	get rawData() {
+		return this._rawData;
 	}
 
 	set conditionDescription(description) {
@@ -129,8 +147,14 @@ export default class WeatherData {
 	async fetchWeatherData() {
 		try {
 			const resp = await fetch(this.url);
-			this.rawData = await resp.json(); //other methods can use this without using another api call
-			this.abbreviateLocation();
+			if (!resp.ok) {
+				this._valid = false;
+				return;
+			} else {
+				this._valid = true;
+				this.rawData = await resp.json(); //other methods can use this without using another api call
+				this.abbreviateLocation();
+			}
 		} catch (error) {
 			return null;
 		}

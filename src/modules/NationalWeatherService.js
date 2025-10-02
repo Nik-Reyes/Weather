@@ -27,4 +27,8 @@ export default class NWS {
 	set stationID(stationID) {
 		this._stationID = stationID;
 	}
+
+	set stationName(name) {
+		this._stationName = name;
+	}
 }
