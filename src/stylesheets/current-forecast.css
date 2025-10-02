@@ -1,94 +1,115 @@
-.temp-display {
-	display: grid;
+.current-conditions-wrapper {
 	grid-area: current-forecast;
+	display: grid;
 	grid-template-rows: auto 1fr;
-	--gap: 15px;
 }
 
-.weather-condition-blocks {
+.conditions-wrapper {
 	display: grid;
-	grid-auto-rows: 1fr;
-	grid-auto-columns: 1fr;
-	gap: var(--card-spacing);
+	align-items: center;
+	--pad: 0.35em;
+	padding: var(--pad);
+	column-gap: var(--pad);
+	grid-template-rows: 1fr min-content auto;
+	grid-template-areas:
+		'icon current-temp'
+		'extraneous-readings extraneous-readings'
+		'description description';
 }
 
-.current-forecast-header {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+.conditions-wrapper > div:nth-child(n + 3) {
+	border-top: 2px solid var(--dark-2);
 }
 
-.tempurature-wrapper {
-	display: grid;
+.conditions-wrapper > div:not(:first-of-type) {
+	padding: calc(var(--pad) * 2);
 }
 
-.current-forecast-temps {
+.conditions-wrapper > div:nth-of-type(2) {
+	padding: calc(var(--pad) * 2) 0;
+}
+
+.conditions-wrapper > div + div + div span:not(.weather-state) {
+	font-size: 1rem;
+}
+
+.conditions-wrapper > div + div + div span.temperature {
+	margin-left: 0.3em;
+}
+
+.current-conditions-header {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	gap: var(--gap);
+	flex-wrap: wrap;
 }
 
-.current-forecast-temps,
-.current-forecast-description {
-	padding: 5px 10px;
+.current-conditions-icon-wrapper {
+	--icon-width: 50px;
+	width: var(--icon-width);
+	grid-area: icon;
+	margin-left: auto;
 }
 
-.current-forecast-temp {
-	font-size: 3.5rem;
+.temperature-wrapper {
+	grid-area: current-temp;
+	text-align: center;
+	width: min-content;
+}
+
+.current-temp {
+	font-size: clamp(3rem, 0.5rem + 13.3333vw, 3.5rem);
 	font-family: 'Rajdhani Medium';
 }
 
-.secondary-weather-data {
+.weather-state {
+	font-family: 'Rajdhani Medium';
+}
+
+.extraneous-readings {
+	grid-area: extraneous-readings;
 	display: grid;
-	row-gap: 8px;
+	grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+	justify-content: space-around;
+	white-space: nowrap;
+	text-align: center;
 }
 
-.min-max-temps {
+.right-side,
+.left-side {
 	display: flex;
-	column-gap: 0.5em;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }
 
-.current-time {
-	justify-self: end;
+:where(.right-side, .left-side) > div {
+	min-width: 90px;
 }
 
-.weather-description-wrapper {
+.conditions-description-wrapper {
+	grid-area: description;
 	display: grid;
 }
 
-.current-forecast-description {
-	display: flex;
-	align-items: center;
-	gap: var(--gap);
+.weather-description {
+	opacity: 0.9;
 }
 
-.current-weather-icon-wrapper {
-	width: 60px;
-	flex-shrink: 0;
-}
-
-.feels-like-wrapper {
-	white-space: nowrap;
-}
-
-.title {
-	font-family: 'Rajdhani Bold';
-}
-
-.current-forecast-temps span > span {
-	padding-left: 0.2em;
-}
-
-span.temperature {
-	white-space: nowrap;
-}
-
-@media only screen and (min-width: 55rem) {
-	.weather-condition-blocks {
-		grid-auto-columns: 1fr auto;
+@media only screen and (min-width: 30.875rem) {
+	.conditions-wrapper {
+		grid-template-areas:
+			'icon current-temp description'
+			'extraneous-readings extraneous-readings extraneous-readings';
 	}
 
-	.weather-description {
-		max-width: 20ch;
+	.conditions-wrapper > div:nth-child(4) {
+		border: none;
+	}
+
+	.extraneous-readings {
+		text-align: left;
+	}
+
+	.conditions-wrapper > div:not(:first-of-type) {
+		padding-bottom: var(--pad);
 	}
 }

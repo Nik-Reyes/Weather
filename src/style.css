@@ -68,7 +68,7 @@
 		sans-serif;
 
 	--dark-1: #028cab;
-	/* --dark-1: rgb(19, 107, 128); */
+	--dark-2: hsl(192, 74%, 69%);
 	--light-1: rgb(224, 241, 237);
 	--light-2: rgb(194, 238, 255);
 	--light-title-1: rgb(239, 257, 244);
@@ -419,7 +419,7 @@ input[type='search']::placeholder {
 			'circular-readings hourly-forecast'
 			'bottom-level-decor bottom-level-decor';
 
-		grid-template-columns: min-content 1fr;
+		grid-template-columns: auto 1fr;
 		gap: 50px 5px;
 	}
 

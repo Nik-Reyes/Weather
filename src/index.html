@@ -138,32 +138,36 @@
 						</button>
 					</div>
 				</header>
-				<div class="temp-display">
-					<div class="current-forecast-header component-header">
-						<span class="current-date component-title">Today</span
+				<div class="current-conditions-wrapper">
+					<div class="current-conditions-header component-header">
+						<span class="current-date component-title">Right Now</span
 						><span class="current-time"></span>
 					</div>
-					<div class="weather-condition-blocks">
-						<div class="current-forecast-temps card">
-							<div class="tempurature-wrapper">
-								<span class="current-forecast-title title">Current</span
-								><span class="current-forecast-temp temperature"></span>
-							</div>
-							<div class="secondary-weather-data">
-								<div class="min-max-temps">
-									<div class="high-temp">
-										<span class="high-title title"
-											>Hi:<span
-												class="high-temp-reading temperature"
-											></span
-										></span>
-									</div>
-									<div class="low-temp">
-										<span class="title"
-											>Lo:<span class="low-temp-reading temperature"></span
-										></span>
-									</div>
+
+					<div class="conditions-wrapper card">
+						<div class="current-conditions-icon-wrapper">
+							<img />
+						</div>
+						<div class="temperature-wrapper">
+							<span class="current-temp temperature"></span>
+						</div>
+						<div class="extraneous-readings">
+							<div class="left-side">
+								<div class="high-temp">
+									<span class="high-title title"
+										>High:<span
+											class="high-temp-reading temperature"
+										></span
+									></span>
 								</div>
+								<div class="low-temp">
+									<span class="title"
+										>Low:<span class="low-temp-reading temperature"></span
+									></span>
+								</div>
+							</div>
+
+							<div class="right-side">
 								<div class="feels-like-wrapper">
 									<span class="feels-like title">
 										Feels Like:<span class="feels-like-temp temperature"
@@ -171,14 +175,18 @@
 										>
 									</span>
 								</div>
+								<div class="wind-wrapper">
+									<span class="feels-like title">
+										Wind:<span class="feels-like-temp temperature"
+											>5pmh</span
+										>
+									</span>
+								</div>
 							</div>
 						</div>
-						<div class="current-forecast-description card">
-							<div class="current-weather-icon-wrapper"><img /></div>
-							<div class="weather-description-wrapper">
-								<span class="weather-state title"></span
-								><span class="weather-description"></span>
-							</div>
+						<div class="conditions-description-wrapper">
+							<span class="weather-state title"></span
+							><span class="weather-description"></span>
 						</div>
 					</div>
 				</div>

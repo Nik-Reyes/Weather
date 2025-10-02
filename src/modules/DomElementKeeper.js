@@ -9,7 +9,7 @@ export default class DomElementKeeper {
 			lows: { selector: '.ten-day-forecast .ten-day-low', all: true },
 			highs: { selector: '.ten-day-forecast .ten-day-high', all: true },
 			forecastDescription: {
-				selector: '.weather-condition-blocks .weather-description',
+				selector: '.weather-description',
 				all: false,
 			},
 			minTemp: { selector: '.low-temp-reading', all: false },
@@ -23,7 +23,7 @@ export default class DomElementKeeper {
 				all: false,
 			},
 			uvIndex: { selector: '.progressbar.uv-index', all: false },
-			currentTemp: { selector: '.current-forecast-temp', all: false },
+			currentTemp: { selector: '.current-temp', all: false },
 			times: { selector: '.time', all: true },
 			hourlyTemps: { selector: '.hourly-temp', all: true },
 			carousel: { selector: '.carousel', all: false },
@@ -38,7 +38,7 @@ export default class DomElementKeeper {
 			searchResultContainer: { selector: '.search-results', all: false },
 			noResults: { selector: '.no-results', all: false },
 			currentWeatherIcon: {
-				selector: '.current-forecast-description.card img',
+				selector: '.current-conditions-icon-wrapper img',
 				all: false,
 			},
 			hourlyWeatherIcons: {
