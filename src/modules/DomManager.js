@@ -28,8 +28,11 @@ export default class DomManager {
 		);
 		const iconURL = iconModule.default;
 
-		img.src = iconURL;
-		img.alt = `${icon.split('-').join(' ')} icon`;
+		return new Promise(resolve => {
+			img.onload = resolve;
+			img.src = iconURL;
+			img.alt = `${icon.split('-').join(' ')} icon`;
+		});
 	}
 
 	setSeachbarMetaData(newLocation) {
