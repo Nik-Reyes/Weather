@@ -138,20 +138,18 @@ span:not(.component-title, .current-time) {
 /* ***********CONTENT WRAPPER STYLE DECLARATIONS*********** */
 .page-wrapper {
 	display: grid;
-	place-items: center;
 	height: 100dvh;
-	max-width: 112.5rem;
-	margin: 0 auto;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+	scrollbar-color: var(--light-1) var(--dark-1);
 }
 
 .content-wrapper {
 	display: grid;
 	grid-auto-rows: min-content;
 	grid-auto-columns: 1fr min-content;
-	height: 100%;
-	overflow-y: scroll;
-	scrollbar-gutter: stable;
-	scrollbar-color: var(--light-1) var(--dark-1);
+	max-width: 112.5rem;
+	margin: 0 auto;
 	gap: 30px;
 	padding: 30px;
 	grid-template-areas:
