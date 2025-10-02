@@ -13,22 +13,19 @@ class App {
 		this.formClass = 'search-form';
 	}
 
-	requestDOMDataPopulation() {
-		return new Promise(resolve => {
-			this.dom.populateData({
-				currentConditions: this.weatherData.currentConditions,
-				conditionDescription: this.weatherData.conditionDescription,
-				minTemp: this.weatherData.minTemp,
-				maxTemp: this.weatherData.maxTemp,
-				unit: this.weatherData.unit,
-				timezone: this.weatherData.timezone,
-				tenDayForecast: this.weatherData.getDays(10),
-				nextFourtyEightHours: this.weatherData.getHours(2),
-				timezone: this.weatherData.timezone,
-				currentIcon: this.weatherData.currentIcon,
-				station: this.weatherData.nearestStation,
-			});
-			resolve();
+	async requestDOMDataPopulation() {
+		await this.dom.populateData({
+			currentConditions: this.weatherData.currentConditions,
+			conditionDescription: this.weatherData.conditionDescription,
+			minTemp: this.weatherData.minTemp,
+			maxTemp: this.weatherData.maxTemp,
+			unit: this.weatherData.unit,
+			timezone: this.weatherData.timezone,
+			tenDayForecast: this.weatherData.getDays(10),
+			nextFourtyEightHours: this.weatherData.getHours(2),
+			timezone: this.weatherData.timezone,
+			currentIcon: this.weatherData.currentIcon,
+			station: this.weatherData.nearestStation,
 		});
 	}
 
@@ -51,9 +48,8 @@ class App {
 		this.dom.startBlinkAnimation();
 		this.dom.addAnimationConstrain();
 		this.dom.setSeachbarMetaData(this.weatherData.abbreviatedLocation);
-		this.requestDOMDataPopulation().then(() => {
-			this.dom.startRevealAnimations();
-		});
+		await this.requestDOMDataPopulation();
+		this.dom.startRevealAnimations();
 	}
 
 	async refreshData() {

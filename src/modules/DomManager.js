@@ -37,7 +37,9 @@ export default class DomManager {
 		this.elementKeeper.searchbar.innerText = newLocation;
 	}
 
-	populateTenDayForecast(tenDayForecast, currentIcon) {
+	async populateTenDayForecast(tenDayForecast, currentIcon) {
+		const imgPromises = [];
+
 		for (let i = 0; i < this.elementKeeper.highs.length; i++) {
 			if (i === 0) {
 				this.elementKeeper.dates[i].textContent = 'Today';
@@ -57,21 +59,30 @@ export default class DomManager {
 			this.elementKeeper.dailyPrecipChance[i].innerText =
 				`${parseInt(tenDayForecast[i].precipprob)}%`;
 
-			i === 0
-				? this.setImgIcon(
-						this.elementKeeper.dailyWeatherIcons[i],
-						currentIcon,
-					)
-				: this.setImgIcon(
-						this.elementKeeper.dailyWeatherIcons[i],
-						tenDayForecast[i].icon,
-					);
+			const imgPromise =
+				i === 0
+					? this.setImgIcon(
+							this.elementKeeper.dailyWeatherIcons[i],
+							currentIcon,
+						)
+					: this.setImgIcon(
+							this.elementKeeper.dailyWeatherIcons[i],
+							tenDayForecast[i].icon,
+						);
+			imgPromises.push(imgPromise);
 		}
+
+		await Promise.all(imgPromises);
 	}
 
-	populateHourlyForecast(nextFortyEightHours, timezone, currentIcon) {
+	async populateHourlyForecast(
+		nextFortyEightHours,
+		timezone,
+		currentIcon,
+	) {
 		if (nextFortyEightHours.length !== 48) return;
 
+		const imgPromises = [];
 		const currentHour = parseInt(
 			formatInTimeZone(new Date(), timezone, 'h'),
 		);
@@ -101,16 +112,19 @@ export default class DomManager {
 			this.elementKeeper.hourlyPrecipitationChances[i].innerText =
 				`${nextTwentyFourHoursPrecipChance[i]}%`;
 
-			i === 0
-				? this.setImgIcon(
-						this.elementKeeper.hourlyWeatherIcons[i],
-						currentIcon,
-					)
-				: this.setImgIcon(
-						this.elementKeeper.hourlyWeatherIcons[i],
-						nextTwentyFourHours[i].icon,
-					);
+			const imgPromise =
+				i === 0
+					? this.setImgIcon(
+							this.elementKeeper.hourlyWeatherIcons[i],
+							currentIcon,
+						)
+					: this.setImgIcon(
+							this.elementKeeper.hourlyWeatherIcons[i],
+							nextTwentyFourHours[i].icon,
+						);
+			imgPromises.push(imgPromise);
 		}
+		await Promise.all(imgPromises);
 	}
 
 	populateCircularReadout(circle, max, value) {
@@ -126,13 +140,14 @@ export default class DomManager {
 		}
 	}
 
-	populateCurrentConditions(
+	async populateCurrentConditions(
 		currentConditions,
 		conditionDescription,
 		minTemp,
 		maxTemp,
 		unit,
 	) {
+		const imgPromises = [];
 		const currentCondtionDict = {
 			conditions: condition => {
 				this.elementKeeper.weatherState.textContent = condition;
@@ -149,7 +164,9 @@ export default class DomManager {
 				);
 			},
 			icon: icon => {
-				this.setImgIcon(this.elementKeeper.currentWeatherIcon, icon);
+				imgPromises.push(
+					this.setImgIcon(this.elementKeeper.currentWeatherIcon, icon),
+				);
 			},
 			precipprob: precipProb => {
 				const maxPrecipProb = 100;
@@ -185,13 +202,13 @@ export default class DomManager {
 		this.elementKeeper.maxTemp.textContent = `${maxTemp}°`;
 		this.elementKeeper.forecastDescription.textContent =
 			conditionDescription;
+		await Promise.all(imgPromises);
 	}
 
 	async populateBottomLevelDecor(weatherStation) {
 		let coords = null;
 		if (!Array.isArray(weatherStation)) {
 			const invalidStation = weatherStation;
-			console.log('first');
 			this.nws.stationID = invalidStation.stationID;
 			this.nws.stationName = invalidStation.stationName;
 			coords = invalidStation.coords;
@@ -205,9 +222,9 @@ export default class DomManager {
 		this.elementKeeper.weatherStationName.innerText = this.nws.stationName;
 	}
 
-	setHourlyForecast(weatherData) {
+	async setHourlyForecast(weatherData) {
 		//fix setHourlyForecast being called two times at start
-		this.populateHourlyForecast(
+		await this.populateHourlyForecast(
 			weatherData.nextFourtyEightHours,
 			weatherData.timezone,
 			weatherData.currentIcon,
@@ -227,8 +244,14 @@ export default class DomManager {
 		}
 	}
 
-	populateData(weatherData) {
-		this.populateCurrentConditions(
+	async populateData(weatherData) {
+		this.setTime(
+			this.timeKeeper.startTimeKeeper(weatherData.timezone, timeData =>
+				this.processTime(timeData, weatherData),
+			),
+		);
+
+		await this.populateCurrentConditions(
 			weatherData.currentConditions,
 			weatherData.conditionDescription,
 			weatherData.minTemp,
@@ -236,18 +259,14 @@ export default class DomManager {
 			weatherData.unit,
 			weatherData.timezone,
 		);
-		this.populateTenDayForecast(
+
+		await this.populateBottomLevelDecor(weatherData.station);
+
+		await this.populateTenDayForecast(
 			weatherData.tenDayForecast,
 			weatherData.currentIcon,
 		);
-		this.setHourlyForecast(weatherData);
-		this.setTime(
-			this.timeKeeper.startTimeKeeper(weatherData.timezone, timeData =>
-				this.processTime(timeData, weatherData),
-			),
-		);
-		console.log(weatherData);
-		this.populateBottomLevelDecor(weatherData.station);
+		await this.setHourlyForecast(weatherData);
 	}
 
 	removeAnimations() {
