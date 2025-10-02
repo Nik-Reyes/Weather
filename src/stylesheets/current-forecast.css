@@ -71,7 +71,6 @@
 	grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
 	justify-content: space-around;
 	white-space: nowrap;
-	text-align: center;
 }
 
 .right-side,
@@ -103,10 +102,6 @@
 
 	.conditions-wrapper > div:nth-child(4) {
 		border: none;
-	}
-
-	.extraneous-readings {
-		text-align: left;
 	}
 
 	.conditions-wrapper > div:not(:first-of-type) {
