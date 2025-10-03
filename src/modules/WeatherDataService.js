@@ -19,7 +19,13 @@ export default class WeatherData {
 	}
 
 	abbreviateLocation() {
-		this._abbreviatedLocation = this._location.split(',').at(0);
+		console.log(this._location.split(','));
+		const splitLocation = this._location.split(',');
+		const region =
+			splitLocation.at(-1).trim() === 'USA'
+				? splitLocation.at(-2)
+				: splitLocation.at(-1);
+		this._abbreviatedLocation = `${splitLocation.at(0)},${region}`;
 	}
 
 	setLocation(newLocation) {
