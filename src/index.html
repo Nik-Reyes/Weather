@@ -9,6 +9,19 @@
 		<title>StratoWeather</title>
 	</head>
 	<body>
+		<dialog class="modal" id="modal">
+			<div class="warning-icon-wrapper">
+				<img src="./assets/svgs/light2Warning.svg" alt="warning icon" />
+			</div>
+			<div class="location-not-found">
+				<span
+					>Weather forecasts for
+					<strong><em class="no-data-location"></em></strong> could not be
+					found</span
+				>
+			</div>
+			<button class="close-modal">Ok</button>
+		</dialog>
 		<div class="loader-wrapper">
 			<div class="loader-top animate-blink"></div>
 			<div class="loader-bottom animate-blink"></div>

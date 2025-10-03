@@ -19,6 +19,7 @@ export default class DomManager {
 			this.elementKeeper.hourCards,
 			this.elementKeeper.carouselWrapper,
 		);
+		this.init();
 	}
 
 	async setImgIcon(img, icon) {
@@ -326,6 +327,10 @@ export default class DomManager {
 		this.elementKeeper.noResults.classList.add('hidden');
 	}
 
+	updateSearchbarValue(location) {
+		this.elementKeeper.searchbar.value = location;
+	}
+
 	showLocationResults(searchResults) {
 		this.elementKeeper.searchResultContainer.classList.remove('hidden');
 		for (let i = 0; i < searchResults.length; i++) {
@@ -341,5 +346,16 @@ export default class DomManager {
 	showNoResults() {
 		this.elementKeeper.searchResultContainer.classList.remove('hidden');
 		this.elementKeeper.noResults.classList.remove('hidden');
+	}
+
+	showNoLocationErrorMsg(location) {
+		this.elementKeeper.noWeatherDataLocation.innerText = location;
+		this.elementKeeper.nolocationModal.showModal();
+	}
+
+	init() {
+		this.elementKeeper.closeModalBtn.addEventListener('click', () => {
+			this.elementKeeper.nolocationModal.close();
+		});
 	}
 }

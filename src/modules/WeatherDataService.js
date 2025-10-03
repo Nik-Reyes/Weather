@@ -108,6 +108,10 @@ export default class WeatherData {
 		return this._rawData;
 	}
 
+	get location() {
+		return this._location;
+	}
+
 	set conditionDescription(description) {
 		this._rawData.description = description;
 	}

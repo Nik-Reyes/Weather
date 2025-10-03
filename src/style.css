@@ -272,6 +272,57 @@ input[type='search']::placeholder {
 	border-color: var(--dark-1);
 }
 
+/* ***********MODAL STYLE DECLARATIONS*********** */
+.modal {
+	background-color: hsla(197, 100%, 30%);
+	position: fixed;
+	max-width: 30ch;
+	width: 100%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-transform: uppercase;
+	font-weight: 900;
+	border: none;
+	box-shadow: 0px 0px 50px 10px rgb(77, 131, 153);
+	padding: 2em;
+	text-align: center;
+}
+
+.modal span {
+	line-height: 1.4;
+}
+
+.no-data-location {
+	font-family: 'Rajdhani Bold';
+}
+
+.modal::backdrop {
+	background-color: hsla(197, 100%, 11%, 0.7);
+}
+
+.modal[open] {
+	display: grid;
+	gap: 1em;
+	grid-auto-rows: min-content;
+	align-items: center;
+}
+
+.warning-icon-wrapper {
+	width: 80px;
+	margin: 0 auto;
+}
+
+.close-modal {
+	padding: 0.75em 1.5em;
+	background-color: var(--light-2);
+	color: rgba(3, 54, 62, 0.8);
+	font-size: 1.25em;
+	font-family: 'Rajdhani Medium';
+	line-height: 1;
+	height: min-content;
+}
+
 /* ***********ANIMATION STYLE DECLARATIONS*********** */
 .loader-wrapper {
 	position: fixed;

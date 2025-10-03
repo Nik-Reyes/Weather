@@ -66,6 +66,18 @@ export default class DomElementKeeper {
 				selector: '.weather-station-coords span',
 				all: false,
 			},
+			nolocationModal: {
+				selector: '#modal',
+				all: false,
+			},
+			noWeatherDataLocation: {
+				selector: '.no-data-location',
+				all: false,
+			},
+			closeModalBtn: {
+				selector: '.close-modal',
+				all: false,
+			},
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -180,5 +192,15 @@ export default class DomElementKeeper {
 	}
 	get weatherStationName() {
 		return this.elements.weatherStationName;
+	}
+
+	get nolocationModal() {
+		return this.elements.nolocationModal;
+	}
+	get noWeatherDataLocation() {
+		return this.elements.noWeatherDataLocation;
+	}
+	get closeModalBtn() {
+		return this.elements.closeModalBtn;
 	}
 }

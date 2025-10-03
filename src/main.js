@@ -31,19 +31,18 @@ class App {
 
 	checkIfDataIsInvalid() {
 		if (this.weatherData.validity === false) {
-			this.launchErrorPopup();
 			return true;
 		}
 		return false;
 	}
 
-	launchErrorPopup() {
+	requestDOMErrorMsg() {
 		console.log('no weather data available');
 	}
 
 	async populateData() {
 		await this.weatherData.fetchWeatherData();
-		if (this.checkIfDataIsInvalid()) return;
+		if (this.checkIfDataIsInvalid()) return null;
 
 		this.dom.startBlinkAnimation();
 		this.dom.addAnimationConstrain();
@@ -54,8 +53,7 @@ class App {
 
 	async refreshData() {
 		await this.weatherData.fetchWeatherData();
-		if (this.checkIfDataIsInvalid()) return null;
-
+		if (this.checkIfDataIsInvalid()) return;
 		this.requestDOMDataPopulation();
 	}
 
@@ -71,14 +69,15 @@ class App {
 			return;
 		}
 
+		const prevLocation = this.weatherData.abbreviatedLocation;
 		const submitter = e.submitter;
 		const location = submitter.value;
 		this.dom.hideResults();
-
 		this.weatherData.setLocation(location);
 		this.populateData().then(returnVal => {
 			if (returnVal === null) {
-				return;
+				this.dom.showNoLocationErrorMsg(location);
+				this.dom.updateSearchbarValue(prevLocation);
 			}
 		});
 	}
