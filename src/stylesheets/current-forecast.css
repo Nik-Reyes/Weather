@@ -7,10 +7,10 @@
 .conditions-wrapper {
 	display: grid;
 	align-items: center;
-	--pad: 0.35em;
-	padding: var(--pad);
-	column-gap: var(--pad);
-	grid-template-rows: 1fr min-content auto;
+	font-size: 1rem;
+	--base-padding: 0.75em;
+	padding: 0 1em;
+	grid-template-rows: auto min-content auto;
 	grid-template-areas:
 		'icon current-temp'
 		'extraneous-readings extraneous-readings'
@@ -21,16 +21,8 @@
 	border-top: 2px solid var(--dark-2);
 }
 
-.conditions-wrapper > div:not(:first-of-type) {
-	padding: calc(var(--pad) * 2);
-}
-
-.conditions-wrapper > div:nth-of-type(2) {
-	padding: calc(var(--pad) * 2) 0;
-}
-
 .conditions-wrapper > div + div + div span:not(.weather-state) {
-	font-size: 1rem;
+	font-size: 1.1rem;
 }
 
 .conditions-wrapper > div + div + div span.temperature {
@@ -54,15 +46,14 @@
 	grid-area: current-temp;
 	text-align: center;
 	width: min-content;
+	padding: calc(var(--base-padding) - 0.25em) 0
+		calc(var(--base-padding) - 0.25em) var(--base-padding);
 }
 
 .current-temp {
 	font-size: clamp(3rem, 0.5rem + 13.3333vw, 3.5rem);
 	font-family: 'Rajdhani Medium';
-}
-
-.weather-state {
-	font-family: 'Rajdhani Medium';
+	padding-top: 4px;
 }
 
 .extraneous-readings {
@@ -71,6 +62,7 @@
 	grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
 	justify-content: space-around;
 	white-space: nowrap;
+	padding: calc(var(--base-padding) - 0.25em) 0;
 }
 
 .right-side,
@@ -84,9 +76,16 @@
 	min-width: 90px;
 }
 
+.weather-state {
+	align-self: center;
+}
+
 .conditions-description-wrapper {
 	grid-area: description;
 	display: grid;
+	align-self: stretch;
+	max-width: 31.25rem;
+	padding: calc(var(--base-padding) - 0.25em) 0;
 }
 
 .weather-description {
@@ -104,7 +103,7 @@
 		border: none;
 	}
 
-	.conditions-wrapper > div:not(:first-of-type) {
-		padding-bottom: var(--pad);
+	.temperature-wrapper {
+		padding-right: calc(var(--base-padding) * 2);
 	}
 }
