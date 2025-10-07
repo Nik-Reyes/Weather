@@ -11,10 +11,10 @@
 }
 
 .daily-precip-chance-wrapper {
-	display: flex;
-	align-items: center;
 	font-size: 1rem;
 	margin-left: auto;
+	display: flex;
+	align-items: center;
 }
 
 .daily-precip-chance-wrapper * {
@@ -70,28 +70,26 @@
 }
 
 .ten-day-icon-wrapper {
-	/* margin-left: auto; */
-	display: grid;
-	place-content: center;
+	align-content: center;
 	width: var(--small-icon-size);
 }
 
 .ten-day-conditions {
 	flex: 1;
+	align-content: center;
 }
 
 .ten-day-condition-wrapper {
 	max-width: 15.625rem;
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(2, auto) 1fr;
 	align-items: center;
 	margin-left: auto;
 }
 
 .ten-day-temps {
-	display: flex;
-	gap: 10px;
-	align-items: flex-end;
 	margin-left: 10px;
+	text-align: center;
 }
 
 @media only screen and (min-width: 55rem) {
@@ -103,13 +101,9 @@
 		scroll-behavior: smooth;
 	}
 
-	.ten-day-conditions {
-		display: flex;
-		gap: 15px;
-	}
-
 	.daily-precip-chance-wrapper {
 		display: grid;
+		place-items: center;
 	}
 
 	.carousel::-webkit-scrollbar {
@@ -159,6 +153,10 @@
 	}
 
 	.ten-day-condition-wrapper {
-		column-gap: 8px;
+		column-gap: 20px;
+	}
+
+	.ten-day-temps {
+		margin-left: 0px;
 	}
 }
