@@ -191,13 +191,16 @@ export default class DomManager {
 					UVIndex,
 				);
 			},
+			visibility: visibleDistance => {
+				this.elementKeeper.visibleDistance.textContent = `${visibleDistance}mi`;
+			},
 		};
 
 		for (let [weatherElement, value] of Object.entries(
 			currentConditions,
 		)) {
 			if (Object.hasOwn(currentCondtionDict, weatherElement)) {
-				if (!isNaN(value)) value = parseInt(value);
+				if (!isNaN(value)) value = Math.round(value);
 				currentCondtionDict[weatherElement](value);
 			}
 		}
@@ -353,9 +356,23 @@ export default class DomManager {
 		this.elementKeeper.nolocationModal.showModal();
 	}
 
+	handleOutOfBoundsClick(e) {
+		const isInBounds = e
+			.composedPath()
+			.filter(el => el.classList !== undefined)
+			.some(el => el.classList.contains(this.formClass));
+
+		if (!isInBounds) {
+			this.hideResults();
+		}
+	}
+
 	init() {
 		this.elementKeeper.closeModalBtn.addEventListener('click', () => {
 			this.elementKeeper.nolocationModal.close();
 		});
+		document.addEventListener('click', e =>
+			this.handleOutOfBoundsClick(e),
+		);
 	}
 }

@@ -78,6 +78,10 @@ export default class DomElementKeeper {
 				selector: '.close-modal',
 				all: false,
 			},
+			visibleDistance: {
+				selector: '.visibile-distance',
+				all: false,
+			},
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -202,5 +206,8 @@ export default class DomElementKeeper {
 	}
 	get closeModalBtn() {
 		return this.elements.closeModalBtn;
+	}
+	get visibleDistance() {
+		return this.elements.visibleDistance;
 	}
 }

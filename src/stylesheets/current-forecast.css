@@ -25,7 +25,8 @@
 	font-size: 1.1rem;
 }
 
-.conditions-wrapper > div + div + div span.temperature {
+.conditions-wrapper > div + div + div span.temperature,
+.measurement {
 	margin-left: 0.3em;
 }
 
@@ -84,7 +85,6 @@
 	grid-area: description;
 	display: grid;
 	align-self: stretch;
-	max-width: 31.25rem;
 	padding: calc(var(--base-padding) - 0.25em) 0;
 }
 
@@ -105,5 +105,11 @@
 
 	.temperature-wrapper {
 		padding-right: calc(var(--base-padding) * 2);
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.conditions-description-wrapper {
+		width: 32ch;
 	}
 }
