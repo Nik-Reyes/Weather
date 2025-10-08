@@ -100,17 +100,6 @@ class App {
 		this.dom.showLocationResults(searchResults);
 	}
 
-	handleOutOfBoundsClick(e) {
-		const isInBounds = e
-			.composedPath()
-			.filter(el => el.classList !== undefined)
-			.some(el => el.classList.contains(this.formClass));
-
-		if (!isInBounds) {
-			this.dom.hideResults();
-		}
-	}
-
 	init() {
 		this.populateData();
 		this.elementKeeper.form.addEventListener('submit', e =>
@@ -119,9 +108,7 @@ class App {
 		this.elementKeeper.searchbar.addEventListener('keyup', e =>
 			this.handleSearches(e),
 		);
-		document.addEventListener('click', e =>
-			this.handleOutOfBoundsClick(e),
-		);
+
 		setInterval(() => this.refreshData(), 1800000); //30 minutes: https://www.visualcrossing.com/resources/documentation/weather-api/how-to-look-up-the-current-weather-conditions-in-the-weather-api/
 	}
 }
