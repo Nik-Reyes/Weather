@@ -22,7 +22,9 @@ class App {
 			unit: this.weatherData.unit,
 			timezone: this.weatherData.timezone,
 			tenDayForecast: this.weatherData.getDays(10),
-			nextFourtyEightHours: this.weatherData.getHours(2),
+			nextTwentyFourHours: this.weatherData.getNextTwentyFourHourData(),
+			meridiem: this.weatherData.getMeridiem(),
+			currentHour: this.weatherData.getCurrentHour(),
 			timezone: this.weatherData.timezone,
 			currentIcon: this.weatherData.currentIcon,
 			station: this.weatherData.nearestStation,
@@ -33,7 +35,7 @@ class App {
 		const prevSIUnit = this.weatherData.unit;
 		this.weatherData.toggleUnitOfMeasurement();
 		this.dom.updateUnitsOfMeasurement({
-			nextTwentyFourHours: this.weatherData.getNextTwentyFourHours(),
+			nextTwentyFourHours: this.weatherData.getNextTwentyFourHourTemps(),
 			prevSIUnit: prevSIUnit,
 			unit: this.weatherData.unit,
 			apiCallUnit: this.weatherData.apiCallUnit,
@@ -47,20 +49,11 @@ class App {
 		this.dom.updateUnitConversionBtn();
 	}
 
-	toggleUnitOfMeasurement() {
-		this.weatherData.toggleUnit();
-		this.dom.updateUnitsOfMeasurement(this.weatherData.unit);
-	}
-
 	checkIfDataIsInvalid() {
 		if (this.weatherData.validity === false) {
 			return true;
 		}
 		return false;
-	}
-
-	requestDOMErrorMsg() {
-		console.log('no weather data available');
 	}
 
 	async populateData() {

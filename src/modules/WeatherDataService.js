@@ -194,13 +194,15 @@ export default class WeatherData {
 		return this.getHours(2); // 2 === 2 days (48 hours)
 	}
 
-	getNextTwentyFourHours() {
-		return this.getNextFortyEightHours()
-			.slice(
-				this.getMerdiemAdjustedStartHour(),
-				this.getMerdiemAdjustedStartHour() + this.TWENTY_FOUR_HOURS,
-			)
-			.map(hour => hour.temp);
+	getNextTwentyFourHourData() {
+		return this.getNextFortyEightHours().slice(
+			this.getMerdiemAdjustedStartHour(),
+			this.getMerdiemAdjustedStartHour() + this.TWENTY_FOUR_HOURS,
+		);
+	}
+
+	getNextTwentyFourHourTemps() {
+		return this.getNextTwentyFourHourData().map(hour => hour.temp);
 	}
 
 	getMeridiem() {

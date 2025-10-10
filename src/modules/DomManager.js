@@ -2,7 +2,6 @@ import TimeKeeper from './TimeKeeper.js';
 import CarouselHandler from './CarouselHandler.js';
 import NWS from './NationalWeatherService.js';
 import { format, parseISO } from 'date-fns';
-import { formatInTimeZone } from 'date-fns-tz';
 import '../stylesheets/ten-day-forecast.css';
 import '../stylesheets/current-forecast.css';
 import '../stylesheets/circular-readout.css';
@@ -85,45 +84,13 @@ export default class DomManager {
 		await Promise.all(imgPromises);
 	}
 
-	getNextTwentyFourHours(meridiemAdjustedStartHour, nextFortyEightHours) {
-		return nextFortyEightHours.slice(
-			meridiemAdjustedStartHour,
-			meridiemAdjustedStartHour + this.TWENTY_FOUR_HOURS,
-		);
-	}
-
-	getMeridiem(timezone) {
-		return formatInTimeZone(new Date(), timezone, 'aaa');
-	}
-
-	getCurrentHour(timezone) {
-		return parseInt(formatInTimeZone(new Date(), timezone, 'h'));
-	}
-
-	getMerdiemAdjustedStartHour(meridiem, currentHour) {
-		return meridiem === 'am'
-			? currentHour
-			: currentHour + this.TWELVE_HOURS;
-	}
-
 	async populateHourlyForecast(
-		nextFortyEightHours,
-		timezone,
+		nextTwentyFourHours,
+		meridiem,
 		currentIcon,
+		currentHour,
 	) {
-		if (nextFortyEightHours.length !== 48) return;
 		const imgPromises = [];
-		const currentHour = this.getCurrentHour(timezone);
-		let meridiem = this.getMeridiem(timezone);
-		const meridiemAdjustedStartHour = this.getMerdiemAdjustedStartHour(
-			meridiem,
-			currentHour,
-		);
-		const nextTwentyFourHours = this.getNextTwentyFourHours(
-			meridiemAdjustedStartHour,
-			nextFortyEightHours,
-		);
-
 		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(hour =>
 			Math.round(hour.precipprob),
 		);
@@ -256,10 +223,10 @@ export default class DomManager {
 	async setHourlyForecast(weatherData) {
 		//fix setHourlyForecast being called two times at start
 		await this.populateHourlyForecast(
-			weatherData.nextFourtyEightHours,
-			weatherData.timezone,
+			weatherData.nextTwentyFourHours,
+			weatherData.meridiem,
 			weatherData.currentIcon,
-			weatherData.unit,
+			weatherData.currentHour,
 		);
 	}
 
@@ -269,11 +236,10 @@ export default class DomManager {
 
 	processTime(timeData, weatherData) {
 		const { currTime, prevHour, currHour } = timeData;
+		if (currHour === prevHour) return;
+
 		this.setTime(currTime);
-		if (currHour !== prevHour) {
-			//if the hour is different (the hour of the current time is greater than that of the previous time, then refresh the hourly cards)
-			this.setHourlyForecast(weatherData);
-		}
+		this.setHourlyForecast(weatherData);
 	}
 
 	async populateData(weatherData) {
@@ -407,6 +373,23 @@ export default class DomManager {
 		return temp * (9 / 5) + 32;
 	}
 
+	convertUnits(weatherData, conversionMap, converstionMethod) {
+		console.log(converstionMethod);
+		for (let [prop, value] of Object.entries(weatherData)) {
+			if (Object.hasOwn(conversionMap, prop)) {
+				if (Array.isArray(value)) {
+					value = value.map(val =>
+						converstionMethod(val, weatherData.apiCallUnit),
+					);
+					conversionMap[prop](value);
+				} else {
+					value = converstionMethod(value, weatherData.apiCallUnit);
+					conversionMap[prop](value);
+				}
+			}
+		}
+	}
+
 	updateUnitsOfMeasurement(weatherData) {
 		const temps = {
 			hourlyTemps: this.elementKeeper.hourlyTemps,
@@ -443,41 +426,14 @@ export default class DomManager {
 			},
 		};
 
-		// check if the unit is °F. If so, no conversion needed, just assign the temps; return;
 		if (weatherData.prevSIUnit === 'metric') {
-			for (let [prop, value] of Object.entries(weatherData)) {
-				if (Object.hasOwn(conversionMap, prop)) {
-					if (Array.isArray(value)) {
-						value = value.map(val => {
-							return this.convertToFahrenheit(
-								val,
-								weatherData.apiCallUnit,
-							);
-						});
-						conversionMap[prop](value);
-					} else {
-						value = this.convertToFahrenheit(
-							value,
-							weatherData.apiCallUnit,
-						);
-						conversionMap[prop](value);
-					}
-				}
-			}
+			this.convertUnits(
+				weatherData,
+				conversionMap,
+				this.convertToFahrenheit,
+			);
 		} else if (weatherData.prevSIUnit === 'us') {
-			for (let [prop, value] of Object.entries(weatherData)) {
-				if (Object.hasOwn(conversionMap, prop)) {
-					if (Array.isArray(value)) {
-						value = value.map(val => {
-							return this.convertToCelsius(val, weatherData.apiCallUnit);
-						});
-						conversionMap[prop](value);
-					} else {
-						value = this.convertToCelsius(value, weatherData.apiCallUnit);
-						conversionMap[prop](value);
-					}
-				}
-			}
+			this.convertUnits(weatherData, conversionMap, this.convertToCelsius);
 		}
 	}
 
