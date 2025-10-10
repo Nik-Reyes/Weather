@@ -29,6 +29,29 @@ class App {
 		});
 	}
 
+	requestDOMUnitConversion() {
+		const prevSIUnit = this.weatherData.unit;
+		this.weatherData.toggleUnitOfMeasurement();
+		this.dom.updateUnitsOfMeasurement({
+			nextTwentyFourHours: this.weatherData.getNextTwentyFourHours(),
+			prevSIUnit: prevSIUnit,
+			unit: this.weatherData.unit,
+			apiCallUnit: this.weatherData.apiCallUnit,
+			minTemp: this.weatherData.minTemp,
+			maxTemp: this.weatherData.maxTemp,
+			currentTemp: this.weatherData.currentTemp,
+			feelsLike: this.weatherData.feelsLike,
+			tenDayLows: this.weatherData.getTenDayLows(),
+			tenDayHighs: this.weatherData.getTenDayHighs(),
+		});
+		this.dom.updateUnitConversionBtn();
+	}
+
+	toggleUnitOfMeasurement() {
+		this.weatherData.toggleUnit();
+		this.dom.updateUnitsOfMeasurement(this.weatherData.unit);
+	}
+
 	checkIfDataIsInvalid() {
 		if (this.weatherData.validity === false) {
 			return true;
@@ -107,6 +130,9 @@ class App {
 		);
 		this.elementKeeper.searchbar.addEventListener('keyup', e =>
 			this.handleSearches(e),
+		);
+		this.elementKeeper.unitConversionBtn.addEventListener('click', () =>
+			this.requestDOMUnitConversion(),
 		);
 
 		setInterval(() => this.refreshData(), 1800000); //30 minutes: https://www.visualcrossing.com/resources/documentation/weather-api/how-to-look-up-the-current-weather-conditions-in-the-weather-api/
