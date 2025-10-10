@@ -98,6 +98,9 @@ button {
 	border-radius: 0px;
 	border: none;
 	background-color: transparent;
+	font-family: 'Rajdhani Medium';
+	line-height: 1;
+	font-size: 1rem;
 }
 
 img {
@@ -281,9 +284,64 @@ input[type='search']::placeholder {
 	color: hsl(197, 100%, 30%);
 }
 
+.settings-logo-wrapper {
+	position: relative;
+	z-index: 999;
+}
+
+.settings-wrapper {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: max-content;
+	background-color: #04677b;
+}
+
+.unit-conversion-opt {
+	padding: 0.75rem 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 0.5em;
+}
+
+.unit-conversion-btn {
+	width: 3rem;
+	background-color: var(--dark-1);
+	position: relative;
+	--spacing: 3px;
+	outline: 1px solid var(--light-1);
+}
+
+.unit-conversion-btn::after {
+	content: '';
+	position: absolute;
+	background-color: var(--light-1);
+	top: calc(0px + var(--spacing));
+	height: calc(100% - (var(--spacing) * 2));
+	width: calc(50% - var(--spacing));
+}
+
+.unit-conversion-btn[data-unit='fahrenheit']::after {
+	left: calc(0px + var(--spacing));
+	right: auto;
+}
+
+.unit-conversion-btn[data-unit='celsius']::after {
+	right: calc(0px + var(--spacing));
+	left: auto;
+}
+
 :where(input[type='search'], button):focus-visible {
 	outline: 1px solid var(--light-1);
 	border-color: var(--dark-1);
+}
+
+img[alt='settings'] {
+	transition: transform 650ms ease-in-out;
+}
+
+img[alt='settings']:hover {
+	transform: rotate(360deg);
 }
 
 /* ***********MODAL STYLE DECLARATIONS*********** */

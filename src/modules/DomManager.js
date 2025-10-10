@@ -11,15 +11,21 @@ import '../stylesheets/searchbar.css';
 
 export default class DomManager {
 	constructor(elememts) {
+		this.TWELVE_HOURS = 12;
+		this.TWENTY_FOUR_HOURS = 24;
 		this.elementKeeper = elememts;
-		this.nws = new NWS();
-		this.timeKeeper = new TimeKeeper();
 		new CarouselHandler(
 			this.elementKeeper.carousel,
 			this.elementKeeper.hourCards,
 			this.elementKeeper.carouselWrapper,
 		);
+		this.nws = new NWS();
+		this.timeKeeper = new TimeKeeper();
 		this.init();
+	}
+
+	getUnitString(unit) {
+		return unit === 'us' ? 'F' : 'C';
 	}
 
 	async setImgIcon(img, icon) {
@@ -57,11 +63,11 @@ export default class DomManager {
 			}
 
 			this.elementKeeper.highs[i].textContent =
-				`${parseInt(tenDayForecast[i].tempmax)}°`;
+				`${Math.round(tenDayForecast[i].tempmax)}°`;
 			this.elementKeeper.lows[i].textContent =
-				`${parseInt(tenDayForecast[i].tempmin)}°`;
+				`${Math.round(tenDayForecast[i].tempmin)}°`;
 			this.elementKeeper.dailyPrecipChance[i].innerText =
-				`${parseInt(tenDayForecast[i].precipprob)}%`;
+				`${Math.round(tenDayForecast[i].precipprob)}%`;
 
 			const imgPromise =
 				i === 0
@@ -79,40 +85,58 @@ export default class DomManager {
 		await Promise.all(imgPromises);
 	}
 
+	getNextTwentyFourHours(meridiemAdjustedStartHour, nextFortyEightHours) {
+		return nextFortyEightHours.slice(
+			meridiemAdjustedStartHour,
+			meridiemAdjustedStartHour + this.TWENTY_FOUR_HOURS,
+		);
+	}
+
+	getMeridiem(timezone) {
+		return formatInTimeZone(new Date(), timezone, 'aaa');
+	}
+
+	getCurrentHour(timezone) {
+		return parseInt(formatInTimeZone(new Date(), timezone, 'h'));
+	}
+
+	getMerdiemAdjustedStartHour(meridiem, currentHour) {
+		return meridiem === 'am'
+			? currentHour
+			: currentHour + this.TWELVE_HOURS;
+	}
+
 	async populateHourlyForecast(
 		nextFortyEightHours,
 		timezone,
 		currentIcon,
 	) {
 		if (nextFortyEightHours.length !== 48) return;
-
 		const imgPromises = [];
-		const currentHour = parseInt(
-			formatInTimeZone(new Date(), timezone, 'h'),
+		const currentHour = this.getCurrentHour(timezone);
+		let meridiem = this.getMeridiem(timezone);
+		const meridiemAdjustedStartHour = this.getMerdiemAdjustedStartHour(
+			meridiem,
+			currentHour,
 		);
-		let meridiem = formatInTimeZone(new Date(), timezone, 'aaa');
-		const TWELVE_HOURS = 12;
-		const TWENTY_FOUR_HOURS = 24;
-
-		const meridiemAdjustedStartHour =
-			meridiem === 'am' ? currentHour : currentHour + TWELVE_HOURS;
-		const nextTwentyFourHours = nextFortyEightHours.slice(
+		const nextTwentyFourHours = this.getNextTwentyFourHours(
 			meridiemAdjustedStartHour,
-			meridiemAdjustedStartHour + TWENTY_FOUR_HOURS,
-		);
-		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(hour =>
-			parseInt(hour.precipprob),
+			nextFortyEightHours,
 		);
 
-		for (let i = 0; i < TWENTY_FOUR_HOURS; i++) {
-			let hour = (currentHour + i) % TWELVE_HOURS;
+		const nextTwentyFourHoursPrecipChance = nextTwentyFourHours.map(hour =>
+			Math.round(hour.precipprob),
+		);
+
+		for (let i = 0; i < this.TWENTY_FOUR_HOURS; i++) {
+			let hour = (currentHour + i) % this.TWELVE_HOURS;
 			if (hour === 0) {
-				hour = TWELVE_HOURS;
+				hour = this.TWELVE_HOURS;
 				meridiem = meridiem === 'am' ? 'pm' : 'am';
 			}
 			this.elementKeeper.times[i].textContent = `${hour}${meridiem}`;
 			this.elementKeeper.hourlyTemps[i].textContent =
-				`${parseInt(nextTwentyFourHours[i].temp)}°`;
+				`${Math.round(nextTwentyFourHours[i].temp)}°`;
 			this.elementKeeper.hourlyPrecipitationChances[i].innerText =
 				`${nextTwentyFourHoursPrecipChance[i]}%`;
 
@@ -181,7 +205,7 @@ export default class DomManager {
 				);
 			},
 			temp: currTemp => {
-				this.elementKeeper.currentTemp.textContent = `${currTemp}°${unit === 'us' ? 'F' : 'C'}`;
+				this.elementKeeper.currentTemp.textContent = `${currTemp}°${this.getUnitString(unit)}`;
 			},
 			uvindex: UVIndex => {
 				const maxUVIndex = 12;
@@ -235,6 +259,7 @@ export default class DomManager {
 			weatherData.nextFourtyEightHours,
 			weatherData.timezone,
 			weatherData.currentIcon,
+			weatherData.unit,
 		);
 	}
 
@@ -266,12 +291,11 @@ export default class DomManager {
 			weatherData.unit,
 			weatherData.timezone,
 		);
-
 		await this.populateBottomLevelDecor(weatherData.station);
-
 		await this.populateTenDayForecast(
 			weatherData.tenDayForecast,
 			weatherData.currentIcon,
+			weatherData.unit,
 		);
 		await this.setHourlyForecast(weatherData);
 	}
@@ -367,7 +391,110 @@ export default class DomManager {
 		}
 	}
 
+	convertToCelsius(temp, unit) {
+		//tests to see if the user is starting on fahrenheit (us)
+		if (unit === 'metric') {
+			return temp;
+		}
+		return (temp - 32) * (5 / 9);
+	}
+
+	convertToFahrenheit(temp, unit) {
+		//tests to see if the user is starting on fahrenheit (us)
+		if (unit === 'us') {
+			return temp;
+		}
+		return temp * (9 / 5) + 32;
+	}
+
+	updateUnitsOfMeasurement(weatherData) {
+		const temps = {
+			hourlyTemps: this.elementKeeper.hourlyTemps,
+			minTemp: this.elementKeeper.minTemp,
+			maxTemp: this.elementKeeper.maxTemp,
+			currentTemp: this.elementKeeper.currentTemp,
+			feelsLike: this.elementKeeper.feelsLike,
+			highs: this.elementKeeper.highs,
+			lows: this.elementKeeper.lows,
+		};
+
+		const conversionMap = {
+			currentTemp: temp => {
+				temps.currentTemp.innerText = `${Math.round(temp)}°${this.getUnitString(weatherData.unit)}`;
+			},
+			feelsLike: temp =>
+				(temps.feelsLike.innerText = `${Math.round(temp)}°`),
+			maxTemp: temp => (temps.maxTemp.innerText = `${Math.round(temp)}°`),
+			minTemp: temp => (temps.minTemp.innerText = `${Math.round(temp)}°`),
+			nextTwentyFourHours: hoursArr => {
+				temps.hourlyTemps.forEach((hour, i) => {
+					hour.innerText = `${Math.round(hoursArr[i])}°`;
+				});
+			},
+			tenDayHighs: highsArr => {
+				temps.highs.forEach((high, i) => {
+					high.innerText = `${Math.round(highsArr[i])}°`;
+				});
+			},
+			tenDayLows: lowsArr => {
+				temps.lows.forEach((low, i) => {
+					low.innerText = `${Math.round(lowsArr[i])}°`;
+				});
+			},
+		};
+
+		// check if the unit is °F. If so, no conversion needed, just assign the temps; return;
+		if (weatherData.prevSIUnit === 'metric') {
+			for (let [prop, value] of Object.entries(weatherData)) {
+				if (Object.hasOwn(conversionMap, prop)) {
+					if (Array.isArray(value)) {
+						value = value.map(val => {
+							return this.convertToFahrenheit(
+								val,
+								weatherData.apiCallUnit,
+							);
+						});
+						conversionMap[prop](value);
+					} else {
+						value = this.convertToFahrenheit(
+							value,
+							weatherData.apiCallUnit,
+						);
+						conversionMap[prop](value);
+					}
+				}
+			}
+		} else if (weatherData.prevSIUnit === 'us') {
+			for (let [prop, value] of Object.entries(weatherData)) {
+				if (Object.hasOwn(conversionMap, prop)) {
+					if (Array.isArray(value)) {
+						value = value.map(val => {
+							return this.convertToCelsius(val, weatherData.apiCallUnit);
+						});
+						conversionMap[prop](value);
+					} else {
+						value = this.convertToCelsius(value, weatherData.apiCallUnit);
+						conversionMap[prop](value);
+					}
+				}
+			}
+		}
+	}
+
+	updateUnitConversionBtn() {
+		const unit = this.elementKeeper.unitConversionBtn.dataset.unit;
+		this.elementKeeper.unitConversionBtn.dataset.unit =
+			unit === 'fahrenheit' ? 'celsius' : 'fahrenheit';
+	}
+
+	handleSettingsClick() {
+		this.elementKeeper.settingsWrapper.classList.toggle('hidden');
+	}
+
 	init() {
+		this.elementKeeper.settingsBtn.addEventListener('click', () =>
+			this.handleSettingsClick(),
+		);
 		this.elementKeeper.closeModalBtn.addEventListener('click', () => {
 			this.elementKeeper.nolocationModal.close();
 		});

@@ -82,6 +82,18 @@ export default class DomElementKeeper {
 				selector: '.visibile-distance',
 				all: false,
 			},
+			settingsBtn: {
+				selector: 'button:has(img[alt="settings"])',
+				all: false,
+			},
+			settingsWrapper: {
+				selector: '.settings-wrapper',
+				all: false,
+			},
+			unitConversionBtn: {
+				selector: '.unit-conversion-btn',
+				all: false,
+			},
 		};
 		this.queryElements(this.elementsToQuery);
 	}
@@ -209,5 +221,14 @@ export default class DomElementKeeper {
 	}
 	get visibleDistance() {
 		return this.elements.visibleDistance;
+	}
+	get settingsBtn() {
+		return this.elements.settingsBtn;
+	}
+	get settingsWrapper() {
+		return this.elements.settingsWrapper;
+	}
+	get unitConversionBtn() {
+		return this.elements.unitConversionBtn;
 	}
 }

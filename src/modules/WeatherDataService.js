@@ -1,5 +1,10 @@
+import { formatInTimeZone } from 'date-fns-tz';
+
 export default class WeatherData {
 	constructor(location = 'Lake Forest, CA') {
+		this.TWELVE_HOURS = 12;
+		this.TWENTY_FOUR_HOURS = 24;
+		this._apiCallUnit = null;
 		this._rawData = null;
 		this._abbreviatedLocation = null;
 		this._location = location;
@@ -19,7 +24,6 @@ export default class WeatherData {
 	}
 
 	abbreviateLocation() {
-		console.log(this._location.split(','));
 		const splitLocation = this._location.split(',');
 		const region =
 			splitLocation.at(-1).trim() === 'USA'
@@ -31,6 +35,14 @@ export default class WeatherData {
 	setLocation(newLocation) {
 		this._location = newLocation;
 		this._rawData = null;
+	}
+
+	//swaps units truthiness
+	toggleUnitOfMeasurement() {
+		[this._units.metric, this._units.us] = [
+			this._units.us,
+			this._units.metric,
+		];
 	}
 
 	get unit() {
@@ -47,6 +59,14 @@ export default class WeatherData {
 
 	get url() {
 		return `${this._baseURL}${this._location}?unitGroup=${this.unit}&key=${this._apiKey}&contentType=json&iconSet=icons2`;
+	}
+
+	get apiCallUnit() {
+		return this._apiCallUnit;
+	}
+
+	set apiCallUnit(unit) {
+		this._apiCallUnit = unit;
 	}
 
 	get todaysWeatherData() {
@@ -75,6 +95,14 @@ export default class WeatherData {
 
 	get maxTemp() {
 		return parseInt(this.todaysWeatherData.tempmax);
+	}
+
+	get currentTemp() {
+		return this._rawData.currentConditions.temp;
+	}
+
+	get feelsLike() {
+		return this._rawData.currentConditions.feelslike;
 	}
 
 	get timezone() {
@@ -130,6 +158,14 @@ export default class WeatherData {
 		return (this.currentConditions.conditions = state);
 	}
 
+	getTenDayHighs() {
+		return this.getDays(10).map(day => day.tempmax);
+	}
+
+	getTenDayLows() {
+		return this.getDays(10).map(day => day.tempmin);
+	}
+
 	// accepts integer as number of days including today
 	getHours(numOfDays) {
 		if (numOfDays <= 0) {
@@ -154,6 +190,33 @@ export default class WeatherData {
 		return this._rawData.days.slice(0, numOfDays);
 	}
 
+	getNextFortyEightHours() {
+		return this.getHours(2); // 2 === 2 days (48 hours)
+	}
+
+	getNextTwentyFourHours() {
+		return this.getNextFortyEightHours()
+			.slice(
+				this.getMerdiemAdjustedStartHour(),
+				this.getMerdiemAdjustedStartHour() + this.TWENTY_FOUR_HOURS,
+			)
+			.map(hour => hour.temp);
+	}
+
+	getMeridiem() {
+		return formatInTimeZone(new Date(), this.timezone, 'aaa');
+	}
+
+	getCurrentHour() {
+		return parseInt(formatInTimeZone(new Date(), this.timezone, 'h'));
+	}
+
+	getMerdiemAdjustedStartHour() {
+		return this.getMeridiem() === 'am'
+			? this.getCurrentHour()
+			: this.getCurrentHour() + this.TWELVE_HOURS;
+	}
+
 	async fetchWeatherData() {
 		try {
 			const resp = await fetch(this.url);
@@ -164,6 +227,7 @@ export default class WeatherData {
 				this._valid = true;
 				this.rawData = await resp.json(); //other methods can use this without using another api call
 				this.abbreviateLocation();
+				this.apiCallUnit = this.unit;
 			}
 		} catch (error) {
 			return null;
