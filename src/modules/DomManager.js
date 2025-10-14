@@ -346,17 +346,6 @@ export default class DomManager {
 		this.elementKeeper.nolocationModal.showModal();
 	}
 
-	handleOutOfBoundsClick(e) {
-		const isInBounds = e
-			.composedPath()
-			.filter(el => el.classList !== undefined)
-			.some(el => el.classList.contains(this.formClass));
-
-		if (!isInBounds) {
-			this.hideResults();
-		}
-	}
-
 	convertToCelsius(temp, unit) {
 		//tests to see if the user is starting on fahrenheit (us)
 		if (unit === 'metric') {
@@ -374,7 +363,6 @@ export default class DomManager {
 	}
 
 	convertUnits(weatherData, conversionMap, converstionMethod) {
-		console.log(converstionMethod);
 		for (let [prop, value] of Object.entries(weatherData)) {
 			if (Object.hasOwn(conversionMap, prop)) {
 				if (Array.isArray(value)) {
@@ -447,6 +435,15 @@ export default class DomManager {
 		this.elementKeeper.settingsWrapper.classList.toggle('hidden');
 	}
 
+	handleOutOfBoundsClick(e) {
+		const searchbar = this.elementKeeper.searchbar;
+		const isInBounds = e.composedPath().includes(searchbar);
+
+		if (!isInBounds) {
+			this.hideResults();
+		}
+	}
+
 	init() {
 		this.elementKeeper.settingsBtn.addEventListener('click', () =>
 			this.handleSettingsClick(),
@@ -454,6 +451,7 @@ export default class DomManager {
 		this.elementKeeper.closeModalBtn.addEventListener('click', () => {
 			this.elementKeeper.nolocationModal.close();
 		});
+
 		document.addEventListener('click', e =>
 			this.handleOutOfBoundsClick(e),
 		);

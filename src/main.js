@@ -37,7 +37,6 @@ class App {
 		this.dom.updateUnitsOfMeasurement({
 			nextTwentyFourHours: this.weatherData.getNextTwentyFourHourTemps(),
 			prevSIUnit: prevSIUnit,
-			unit: this.weatherData.unit,
 			apiCallUnit: this.weatherData.apiCallUnit,
 			minTemp: this.weatherData.minTemp,
 			maxTemp: this.weatherData.maxTemp,
@@ -127,7 +126,6 @@ class App {
 		this.elementKeeper.unitConversionBtn.addEventListener('click', () =>
 			this.requestDOMUnitConversion(),
 		);
-
 		setInterval(() => this.refreshData(), 1800000); //30 minutes: https://www.visualcrossing.com/resources/documentation/weather-api/how-to-look-up-the-current-weather-conditions-in-the-weather-api/
 	}
 }
