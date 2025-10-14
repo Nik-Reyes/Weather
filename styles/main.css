@@ -1,0 +1,1176 @@
+.ten-day-forecast {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	grid-area: ten-day-forecast;
+}
+
+.ten-day-card {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 1.5fr 2fr;
+}
+
+.daily-precip-chance-wrapper {
+	font-size: 1rem;
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+}
+
+.daily-precip-chance-wrapper * {
+	font-size: inherit;
+}
+
+.daily-precip-icon {
+	width: 25px;
+}
+
+.ten-day-card-title {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
+:where(.ten-day-card-title-wrapper, .ten-day-conditions) {
+	background-color: var(--dark-1);
+}
+
+.ten-day-card-title-wrapper {
+	display: grid;
+	place-items: center start;
+}
+
+.ten-day-card-title,
+.ten-day-high {
+	font-family: 'Rajdhani Medium';
+}
+
+.ten-day-high {
+	font-size: 1.5rem;
+}
+
+.ten-day-low {
+	font-size: 1rem;
+}
+
+.ten-day-card-title,
+.ten-day-conditions {
+	padding: 0.75em;
+}
+
+.ten-day-forecast-cards .card {
+	background-color: transparent;
+}
+
+.ten-day-forecast-cards {
+	display: grid;
+	grid-auto-rows: 1fr;
+	gap: 5px;
+	overflow-x: auto;
+}
+
+.ten-day-icon-wrapper {
+	align-content: center;
+	width: var(--small-icon-size);
+}
+
+.ten-day-conditions {
+	flex: 1;
+	align-content: center;
+}
+
+.ten-day-condition-wrapper {
+	max-width: 15.625rem;
+	display: grid;
+	grid-template-columns: repeat(2, auto) 1fr;
+	align-items: center;
+	margin-left: auto;
+}
+
+.ten-day-temps {
+	margin-left: 10px;
+	text-align: center;
+}
+
+@media only screen and (min-width: 55rem) {
+	.ten-day-forecast-cards {
+		display: flex;
+		overscroll-behavior-inline: contain;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+		scroll-behavior: smooth;
+	}
+
+	.daily-precip-chance-wrapper {
+		display: grid;
+		place-items: center;
+	}
+
+	.carousel::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+		display: none;
+	}
+
+	.ten-day-forecast .component-header {
+		display: none;
+	}
+
+	.ten-day-forecast {
+		grid-template-rows: auto;
+	}
+
+	.ten-day-card {
+		display: grid;
+		grid-template-rows: auto 1fr;
+	}
+
+	.ten-day-card-title-wrapper {
+		background-color: transparent;
+		padding: 5px 10px;
+	}
+
+	.ten-day-card-title {
+		white-space: nowrap;
+		height: 1em;
+		padding: 0px;
+		text-align: center;
+	}
+
+	.ten-day-temps {
+		flex-direction: column;
+		gap: 0px;
+		align-items: center;
+	}
+
+	.ten-day-low {
+		font-size: 1.125rem;
+		padding-right: 3px;
+	}
+
+	.daily-precip-chance {
+		font-size: 1.125rem;
+	}
+
+	.ten-day-condition-wrapper {
+		column-gap: 20px;
+	}
+
+	.ten-day-temps {
+		margin-left: 0px;
+	}
+}
+
+.current-conditions-wrapper {
+	grid-area: current-forecast;
+	display: grid;
+	grid-template-rows: auto 1fr;
+}
+
+.conditions-wrapper {
+	display: grid;
+	align-items: center;
+	font-size: 1rem;
+	--base-padding: 0.75em;
+	padding: 0 1em;
+	grid-template-rows: auto min-content auto;
+	grid-template-areas:
+		'icon current-temp'
+		'extraneous-readings extraneous-readings'
+		'description description';
+}
+
+.conditions-wrapper > div:nth-child(n + 3) {
+	border-top: 2px solid var(--dark-2);
+}
+
+.conditions-wrapper > div + div + div span:not(.weather-state) {
+	font-size: 1.1rem;
+}
+
+.conditions-wrapper > div + div + div span.temperature,
+.measurement {
+	margin-left: 0.3em;
+}
+
+.current-conditions-header {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.current-conditions-icon-wrapper {
+	--icon-width: 50px;
+	width: var(--icon-width);
+	grid-area: icon;
+	margin-left: auto;
+}
+
+.temperature-wrapper {
+	grid-area: current-temp;
+	text-align: center;
+	width: min-content;
+	padding: calc(var(--base-padding) - 0.25em) 0
+		calc(var(--base-padding) - 0.25em) var(--base-padding);
+}
+
+.current-temp {
+	font-size: clamp(3rem, 0.5rem + 13.3333vw, 3.5rem);
+	font-family: 'Rajdhani Medium';
+	padding-top: 4px;
+}
+
+.extraneous-readings {
+	grid-area: extraneous-readings;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+	justify-content: space-around;
+	white-space: nowrap;
+	padding: calc(var(--base-padding) - 0.25em) 0;
+}
+
+.right-side,
+.left-side {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+:where(.right-side, .left-side) > div {
+	min-width: 90px;
+}
+
+.weather-state {
+	align-self: center;
+}
+
+.conditions-description-wrapper {
+	grid-area: description;
+	display: grid;
+	align-self: stretch;
+	padding: calc(var(--base-padding) - 0.25em) 0;
+}
+
+.weather-description {
+	opacity: 0.9;
+}
+
+@media only screen and (min-width: 30.875rem) {
+	.conditions-wrapper {
+		grid-template-areas:
+			'icon current-temp description'
+			'extraneous-readings extraneous-readings extraneous-readings';
+	}
+
+	.conditions-wrapper > div:nth-child(4) {
+		border: none;
+	}
+
+	.temperature-wrapper {
+		padding-right: calc(var(--base-padding) * 2);
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.conditions-description-wrapper {
+		width: 32ch;
+	}
+}
+
+.circular-readings-wrapper {
+	grid-area: circular-readings;
+	display: grid;
+	gap: 15px;
+	font-family: 'Rajdhani';
+	margin-left: auto;
+	width: min-content;
+}
+
+:is(.circular-reading-wrapper, .circular-reading-wrapper > div) {
+	display: grid;
+	gap: 5px;
+	place-items: center;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.circular-reading-wrapper.hidden {
+	display: none;
+}
+
+[role='progressbar'] {
+	--fs-default: 1.125rem;
+	--bar-width-ratio-default: 0.18;
+	--diameter-default: 3.75em;
+	--bar-width-default: calc(
+		100% - calc(var(--diameter-default) * var(--bar-width-ratio-default))
+	);
+
+	--bar-width-ratio-m: 0.2;
+	--fs-m: calc(var(--fs-default) * 1.5);
+	--diameter-m: 4.25em;
+	--bar-width-m: calc(
+		100% - calc(var(--diameter-m) * var(--bar-width-ratio-m))
+	);
+
+	--fs-l: calc(var(--fs-default) * 2);
+	--diameter-l: 4.25em;
+	--bar-width-l: calc(
+		100% - calc(var(--diameter-l) * var(--bar-width-ratio-m))
+	);
+
+	--progress: 0;
+
+	width: var(--diameter-default);
+	aspect-ratio: 1;
+	background: conic-gradient(
+		var(--color-progress-indicator) var(--progress, 0),
+		var(--color-progress-bg) 0%
+	);
+	border-radius: 50%;
+	font-size: var(--fs-default);
+	display: grid;
+	place-items: center;
+	position: relative;
+	z-index: 0;
+}
+
+[role='progressbar'][aria-valuemax='100']::before {
+	content: attr(aria-valuenow) '%';
+}
+
+[role='progressbar']::before {
+	content: attr(aria-valuenow);
+	position: absolute;
+	padding-top: calc(var(--diameter-default) * 0.05);
+	color: var(--color-progress-indicator);
+	z-index: 2;
+}
+
+[role='progressbar']::after {
+	content: '';
+	background-color: var(--color-page-bg);
+	border-radius: inherit;
+	width: var(--bar-width-default);
+	aspect-ratio: 1;
+	z-index: 1;
+}
+
+[role='progressbar'] .reference-marker {
+	--reference-marker-bg: #e0eff1;
+	position: absolute;
+	--width: calc(var(--diameter-default) * 0.025);
+	width: var(--width);
+	height: calc(var(--bar-width-default) + (var(--width)));
+	background-color: var(--reference-marker-bg);
+	top: calc(var(--width) * -1);
+}
+
+.full-meter {
+	box-shadow: 0px 0px 10px 0px #e0eff1;
+}
+
+.circular-reading-description {
+	font-size: 1rem;
+	text-align: center;
+}
+
+@media only screen and (min-width: 30.875rem) {
+	.circular-readings-wrapper .circular-reading-wrapper {
+		margin: 0;
+	}
+
+	.progressbar[role='progressbar'] {
+		font-size: var(--fs-m);
+		width: var(--diameter-m);
+	}
+
+	.circular-reading-wrapper [role='progressbar'] .reference-marker {
+		height: calc(var(--bar-width-m) + (var(--width)));
+	}
+
+	.circular-reading-wrapper [role='progressbar']::after {
+		width: var(--bar-width-m);
+	}
+
+	.circular-reading-wrapper [role='progressbar']::before {
+		padding-top: calc(var(--diameter-m) * 0.05);
+	}
+
+	.circular-reading-wrapper .circular-reading-description {
+		font-size: 1.125rem;
+	}
+}
+
+@media only screen and (min-width: 32.8125rem) {
+	.circular-reading-wrapper.hidden {
+		display: grid;
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.circular-reading-wrapper.hidden {
+		display: none;
+	}
+
+	.circular-readings-wrapper {
+		display: grid;
+		grid-template-areas:
+			'. humidity .'
+			'uv-index . precip-chance';
+		grid-template-rows: 177px auto;
+		grid-template-columns: 1fr 0px 1fr;
+		margin: 0px;
+		width: auto;
+		gap: 0px;
+	}
+
+	.circular-reading-wrapper:has(.humidity) {
+		grid-area: humidity;
+		position: relative;
+	}
+
+	.humidty-reading-wrapper {
+		position: absolute;
+		display: grid;
+		gap: 5px;
+	}
+
+	.circular-reading-wrapper:has(.precipitation) {
+		grid-area: precip-chance;
+	}
+
+	.circular-reading-wrapper:has(.uv-index) {
+		grid-area: uv-index;
+	}
+
+	.progressbar[role='progressbar'] {
+		font-size: var(--fs-l);
+		width: var(--diameter-l);
+	}
+
+	.circular-reading-wrapper [role='progressbar'] .reference-marker {
+		height: calc(var(--bar-width-l) + (var(--width)));
+	}
+
+	.circular-reading-wrapper [role='progressbar']::after {
+		width: var(--bar-width-l);
+	}
+
+	.circular-reading-wrapper [role='progressbar']::before {
+		padding-top: calc(var(--diameter-l) * 0.05);
+	}
+}
+
+.carousel-wrapper {
+	display: grid;
+	grid-area: hourly-forecast;
+	grid-template-columns: auto 1fr auto;
+	--time-tile-fs: 1.25rem;
+	--card-row-gap: 5px;
+}
+
+.carousel {
+	--card-width: 65px;
+	--card-height: 200px;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc(var(--card-width));
+	column-gap: var(--card-spacing);
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scroll-behavior: smooth;
+	min-height: var(--card-height);
+}
+
+.carousel::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+.hour {
+	height: var(--time-tile-fs);
+}
+.hour .time {
+	display: inline-block;
+	height: 100%;
+}
+
+.hour-condition-icon {
+	width: var(--small-icon-size);
+	height: 50px;
+	display: grid;
+	place-items: center;
+	margin: 0 auto 0px auto;
+}
+
+/* the clear-night svg APPEARS (not actually is) noticeably larger than the others */
+
+.carousel-btn {
+	font-size: var(--time-tile-fs);
+	width: 25px;
+	background-color: var(--light-2);
+	display: grid;
+	place-items: center;
+	margin-top: calc(var(--time-tile-fs) + var(--card-row-gap));
+	border: none;
+	border-radius: 0px;
+	cursor: pointer;
+	box-shadow: var(--light-glow);
+}
+
+.carousel-btn.backward img {
+	transform: rotate(180deg);
+}
+
+.hour-card {
+	display: grid;
+	text-align: center;
+	grid-template-rows: auto 1fr;
+	gap: var(--card-row-gap);
+}
+
+.hour-data-card {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	background-color: var(--dark-1);
+	padding: 5px;
+	grid-template-rows: 1fr min-content;
+}
+
+.hour-precip-data {
+	display: grid;
+	place-items: center;
+}
+
+.hour-precip-icon {
+	width: 30px;
+}
+
+.search-form {
+	height: auto;
+	align-self: center;
+}
+
+form {
+	position: relative;
+	flex: 1;
+}
+
+input[type='search'] {
+	border-radius: 0px;
+	border: 1px solid var(--dark-1);
+	background-color: #0d1713;
+	color: var(--light-1);
+	width: 100%;
+	font-size: 1rem;
+	padding: 0.35em 0.5em;
+}
+
+input[type='search']::placeholder {
+	color: hsl(197, 100%, 30%);
+}
+
+.hidden,
+.no-results.hidden {
+	display: none;
+}
+
+.search-results {
+	position: absolute;
+	background-color: #04677b;
+	top: calc(100% + 5px);
+	left: 0;
+	width: 100%;
+	z-index: 999;
+}
+
+.search-results button {
+	width: 100%;
+	min-height: 1lh;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	text-align: left;
+	font-size: 1rem;
+	padding: 10px;
+	cursor: pointer;
+	color: var(--light-1);
+}
+
+.search-results button:hover,
+.search-results button:focus {
+	background-color: var(--color-progress-indicator);
+}
+
+li {
+	list-style: none;
+}
+
+.no-results {
+	min-height: 1lh;
+	padding: 10px;
+	padding-top: 12.5px;
+	font-size: 1rem;
+	display: block;
+	width: 100%;
+	color: var(--light-1);
+	font-size: 1rem;
+}
+
+@font-face {
+	font-family: 'Rajdhani Light';
+	src:
+		url(../assets/fonts/Rajdhani-Light.woff2) format('woff2'),
+		url(../assets/fonts/Rajdhani-Light.woff) format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani';
+	src:
+		url(../assets/fonts/Rajdhani-Regular.woff2) format('woff2'),
+		url(../assets/fonts/Rajdhani-Regular.woff) format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani Medium';
+	src:
+		url(../assets/fonts/Rajdhani-Medium.woff2) format('woff2'),
+		url(../assets/fonts/Rajdhani-Medium.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+@font-face {
+	font-family: 'Rajdhani Bold';
+	src:
+		url(../assets/fonts/Rajdhani-Bold.woff2) format('woff2'),
+		url(../assets/fonts/Rajdhani-Bold.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-0912;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+:root {
+	--color-page-bg: #011111;
+	--color-progress-indicator: #61c5cf;
+	--color-progress-bg: #04677b;
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
+
+	--dark-1: #028cab;
+	--dark-2: hsl(192, 74%, 69%);
+	--light-1: rgb(224, 241, 237);
+	--light-2: rgb(194, 238, 255);
+	--light-title-1: rgb(239, 257, 244);
+	--card-spacing: 5px;
+	--bxsh-spread: 0.5px;
+	--light-glow:
+		inset 0px 0px 50px 0px rgb(186, 228, 232),
+		0px 0px 0.5px 0.25px rgb(167, 216, 220),
+		0px 0px 2px var(--bxsh-spread) rgb(107, 163, 194),
+		1px 0px 10px 0.75px rgb(42, 128, 149);
+	--title-text-glow: 0px 0px 2px #07758a;
+	--box-shadow-adjustment: var(--bxsh-spread);
+	--small-icon-size: 30px;
+	--clear-night-scale-adjustment: 75%;
+}
+
+/* ***********RESET STYLE DECLARATIONS*********** */
+body {
+	background: linear-gradient(180deg, hsl(196, 100%, 9%) 10%, #011515 100%)
+		fixed;
+	position: relative;
+	overflow: hidden;
+}
+
+button {
+	cursor: pointer;
+	border-radius: 0px;
+	border: none;
+	background-color: transparent;
+	font-family: 'Rajdhani Medium';
+	line-height: 1;
+	font-size: 1rem;
+}
+
+img {
+	width: 100%;
+	height: auto;
+	display: block;
+	color: transparent;
+	filter: drop-shadow(0px 0px 0.5px rgb(255, 255, 255))
+		drop-shadow(0px 0px 1px rgb(0, 187, 216));
+}
+
+img[alt*='clear night'] {
+	width: var(--clear-night-scale-adjustment);
+}
+
+span {
+	line-height: 1;
+	font-size: 1.25rem;
+	font-family: 'Rajdhani';
+	display: inline-block;
+}
+
+span:not(.component-title, .current-time) {
+	color: var(--light-2);
+}
+
+/* ***********UTILITY STYLE DECLARATIONS*********** */
+.component-header {
+	background-color: var(--light-title-1);
+	box-shadow: var(--light-glow);
+	padding: 5px 10px;
+	text-wrap: nowrap;
+	text-shadow: var(--title-text-glow);
+	color: rgba(3, 54, 62, 0.8);
+	margin: 0px calc(var(--box-shadow-adjustment) / 2);
+	font-family: 'Rajdhani';
+}
+
+.card {
+	color: var(--light-1);
+	background-color: var(--dark-1);
+}
+
+.title {
+	font-family: 'Rajdhani Medium';
+}
+
+/* ***********CONTENT WRAPPER STYLE DECLARATIONS*********** */
+.page-wrapper {
+	display: grid;
+	height: 100dvh;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+	scrollbar-color: var(--light-1) var(--dark-1);
+}
+
+.content-wrapper {
+	display: grid;
+	grid-auto-columns: 1fr min-content;
+	max-width: 112.5rem;
+	margin: 0 auto;
+	gap: 30px;
+	padding: 30px;
+	grid-template-areas:
+		'top-level-decor top-level-decor'
+		'header header'
+		'current-forecast circular-readings'
+		'hourly-forecast hourly-forecast'
+		'ten-day-forecast ten-day-forecast'
+		'bottom-level-decor bottom-level-decor';
+	--duration: 600ms;
+}
+
+/* ***********TOP LEVEL DECORUM STYLE DECLARATIONS*********** */
+.top-level-decor {
+	grid-area: top-level-decor;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	--fs: 0.6125rem;
+}
+
+.top-level-decor .logo-wrapper img {
+	filter: none;
+}
+
+.top-level-decor > div:last-child {
+	display: grid;
+	grid-auto-rows: min-content;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	column-gap: 2px;
+}
+
+.logo-title {
+	font-family: 'Rajdhani Medium';
+}
+
+.satelite-service span {
+	display: block;
+	font-size: var(--fs);
+	font-family: 'Rajdhani Medium';
+}
+
+span.crossing-highlight {
+	font-family: 'Rajdhani Bold';
+	display: inline;
+}
+
+.barcode-wrapper {
+	height: var(--fs);
+	background: url(../assets/svgs/2dmatrix.svg);
+	background-size: cover;
+	filter: drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.45));
+}
+
+.bottom-level-decor {
+	grid-area: bottom-level-decor;
+	align-self: self-end;
+}
+
+.bottom-level-decor .barcode-wrapper {
+	height: 0.6125rem;
+	background-size: auto;
+	margin-top: 5px;
+}
+
+.weather-station-metadata {
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: space-between;
+}
+
+.weather-station-metadata span {
+	font-size: clamp(0.625rem, 0.1225rem + 2.5126vw, 1.25rem);
+	font-family: 'Rajdhani Medium';
+}
+
+/* ***********HEADER STYLE DECLARATIONS*********** */
+header {
+	display: grid;
+	grid-auto-flow: column;
+	grid-area: header;
+	grid-template-columns: subgrid;
+}
+
+header > div {
+	display: flex;
+}
+
+header img {
+	filter: none;
+	width: 25px;
+	margin-left: auto;
+}
+
+.header-right {
+	justify-content: center;
+	column-gap: 5px;
+}
+
+.search-form {
+	height: auto;
+	align-self: center;
+}
+
+input[type='search'] {
+	border-radius: 0px;
+	border: 1px solid var(--dark-1);
+	background-color: #0d1713;
+	color: var(--light-1);
+	width: 100%;
+	font-size: 1rem;
+	padding: 0.35em 0.5em;
+}
+
+input[type='search']::placeholder {
+	color: hsl(197, 100%, 30%);
+}
+
+.settings-logo-wrapper {
+	position: relative;
+	z-index: 999;
+}
+
+.settings-wrapper {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: max-content;
+	background-color: #04677b;
+}
+
+.unit-conversion-opt {
+	padding: 0.75rem 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 0.5em;
+}
+
+.unit-conversion-btn {
+	width: 3rem;
+	background-color: var(--dark-1);
+	position: relative;
+	--spacing: 3px;
+	outline: 1px solid var(--light-1);
+}
+
+.unit-conversion-btn::after {
+	content: '';
+	position: absolute;
+	background-color: var(--light-1);
+	top: calc(0px + var(--spacing));
+	height: calc(100% - (var(--spacing) * 2));
+	width: calc(50% - var(--spacing));
+}
+
+.unit-conversion-btn[data-unit='fahrenheit']::after {
+	left: calc(0px + var(--spacing));
+	right: auto;
+}
+
+.unit-conversion-btn[data-unit='celsius']::after {
+	right: calc(0px + var(--spacing));
+	left: auto;
+}
+
+:where(input[type='search'], button):focus-visible {
+	outline: 1px solid var(--light-1);
+	border-color: var(--dark-1);
+}
+
+img[alt='settings'] {
+	transition: transform 650ms ease-in-out;
+}
+
+img[alt='settings']:hover {
+	transform: rotate(360deg);
+}
+
+/* ***********MODAL STYLE DECLARATIONS*********** */
+.modal {
+	background-color: hsla(197, 100%, 30%);
+	position: fixed;
+	max-width: 30ch;
+	width: 100%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-transform: uppercase;
+	font-weight: 900;
+	border: none;
+	box-shadow: 0px 0px 50px 10px rgb(77, 131, 153);
+	padding: 2em;
+	text-align: center;
+}
+
+.modal span {
+	line-height: 1.4;
+}
+
+.no-data-location {
+	font-family: 'Rajdhani Bold';
+}
+
+.modal::backdrop {
+	background-color: hsla(197, 100%, 11%, 0.7);
+}
+
+.modal[open] {
+	display: grid;
+	gap: 1em;
+	grid-auto-rows: min-content;
+	align-items: center;
+}
+
+.warning-icon-wrapper {
+	width: 80px;
+	margin: 0 auto;
+}
+
+.close-modal {
+	padding: 0.75em 1.5em;
+	background-color: var(--light-2);
+	color: rgba(3, 54, 62, 0.8);
+	font-size: 1.25em;
+	font-family: 'Rajdhani Medium';
+	line-height: 1;
+	height: min-content;
+}
+
+/* ***********ANIMATION STYLE DECLARATIONS*********** */
+.loader-wrapper {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	--duration: 400ms;
+	z-index: 999;
+}
+
+.loader-wrapper > div {
+	--loader-height: 50vh;
+	height: var(--loader-height);
+	width: 5vw;
+	opacity: 0;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) scaleY(0.075);
+	background-color: var(--light-1);
+}
+
+.loader-top {
+	transform-origin: bottom;
+	bottom: 50%;
+}
+
+.loader-bottom {
+	transform-origin: top;
+	top: 50%;
+}
+
+:is(.loader-top, .loader-bottom).animate-reveal {
+	animation: var(--duration) linear forwards reveal;
+	opacity: 1;
+}
+
+.loader-top.animate-retract {
+	transform-origin: top;
+}
+
+.loader-bottom.animate-retract {
+	transform-origin: bottom;
+}
+
+:is(.loader-top, .loader-bottom).animate-retract {
+	animation: var(--duration) linear forwards retract;
+}
+
+.animate-blink {
+	animation: 200ms ease-in-out infinite forwards blink;
+}
+
+.animate-fade-in {
+	animation: var(--duration) linear forwards explode;
+}
+
+.content-wrapper.animate-revealing {
+	animation: var(--duration) ease-in-out forwards revealing;
+}
+
+.content-wrapper.animate-constrain {
+	height: 100svh;
+	overflow: hidden;
+	opacity: 0;
+}
+
+/* ***********KEYFRAME DECLARATIONS*********** */
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes reveal {
+	0% {
+		transform: translateX(-50%) scale(1, 0.075);
+	}
+	50% {
+		transform: translateX(-50%) scale(20, 0.075);
+	}
+	100% {
+		transform: translateX(-50%) scale(20, 1);
+	}
+}
+
+@keyframes retract {
+	0% {
+		transform: translateX(-50%) scale(20, 1);
+	}
+	100% {
+		transform: translateX(-50%) scale(20, 0);
+	}
+}
+
+@keyframes revealing {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* ***********MEDIA QUERY DECLARATIONS*********** */
+@media only screen and (min-width: 30.875rem) {
+	.content-wrapper {
+		grid-template-areas:
+			'top-level-decor top-level-decor'
+			'header header'
+			'current-forecast current-forecast'
+			'hourly-forecast circular-readings '
+			'hourly-forecast circular-readings '
+			'hourly-forecast circular-readings '
+			'ten-day-forecast ten-day-forecast'
+			'bottom-level-decor bottom-level-decor';
+	}
+
+	.temp-display .weather-condition-blocks {
+		grid-auto-flow: column;
+	}
+
+	.current-forecast-temps.card
+		div:has(.temperature):not(.tempurature-wrapper) {
+		font-size: clamp(0.85rem, 0.1509rem + 2.2642vw, 1rem);
+	}
+
+	.tempurature-wrapper .current-forecast-temp {
+		font-size: clamp(2.5rem, -0.6667rem + 10.2564vw, 3.5rem);
+	}
+
+	.header-right {
+		justify-content: flex-end;
+		column-gap: 5px;
+	}
+}
+
+@media only screen and (min-width: 55rem) {
+	.content-wrapper {
+		grid-template-areas:
+			'top-level-decor top-level-decor'
+			'header header'
+			'current-forecast ten-day-forecast'
+			'circular-readings hourly-forecast'
+			'bottom-level-decor bottom-level-decor';
+
+		grid-template-columns: auto 1fr;
+		grid-template-rows: repeat(4, min-content) 1fr;
+		gap: 50px 5px;
+	}
+}
+
+
+/*# sourceMappingURL=main.css.map*/

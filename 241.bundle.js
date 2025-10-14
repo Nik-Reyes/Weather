@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbasic_webpack_template=self.webpackChunkbasic_webpack_template||[]).push([[241],{241:(s,e,a)=>{s.exports=a.p+"assets/svgs/fog.svg"}}]);

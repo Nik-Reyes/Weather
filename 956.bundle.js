@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbasic_webpack_template=self.webpackChunkbasic_webpack_template||[]).push([[956],{956:(s,e,t)=>{s.exports=t.p+"assets/svgs/thunder-showers-night.svg"}}]);
